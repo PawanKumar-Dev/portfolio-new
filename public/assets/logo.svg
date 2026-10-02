@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <defs>
+    <linearGradient id="pArchDark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3d3d42"/>
+      <stop offset=".45" stop-color="#232326"/>
+      <stop offset="1" stop-color="#0b0b0d"/>
+    </linearGradient>
+    <linearGradient id="pBolt" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff5a5a"/>
+      <stop offset=".55" stop-color="#e23237"/>
+      <stop offset="1" stop-color="#a5121a"/>
+    </linearGradient>
+    <linearGradient id="pBoltDark" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e23237"/>
+      <stop offset="1" stop-color="#8f0e14"/>
+    </linearGradient>
+  </defs>
+  <!-- dark P arch — for light backgrounds -->
+  <path fill="url(#pArchDark)" d="M38 22 L178 22 C236 22 272 56 265 118 C259 176 220 212 152 212 L118 212 L138 152 L168 152 C192 152 208 140 211 118 C214 96 201 82 175 82 L72 82 Z"/>
+  <path fill="#ffffff" opacity=".08" d="M60 34 L178 34 C222 34 250 58 246 108 L244 118 L70 118 L60 34 Z"/>
+  <!-- bright red bolt stem -->
+  <path fill="url(#pBolt)" d="M96 96 L192 96 L148 252 L192 252 L148 282 L96 282 L44 282 L84 156 Z"/>
+  <!-- bolt left facet highlight -->
+  <path fill="#ffffff" opacity=".22" d="M96 96 L132 96 L92 252 L44 252 L84 156 L96 96 Z"/>
+  <!-- bolt lower shadow facet -->
+  <path fill="url(#pBoltDark)" d="M112 252 L192 252 L148 282 L62 378 L92 252 Z"/>
+</svg>
