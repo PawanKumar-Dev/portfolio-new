@@ -46,8 +46,8 @@ export default function Reveal({
     return () => observer.disconnect();
   }, [delay]);
 
-  // Render the semantic element itself so grid selectors
-  // (.work-ledger > .ledger-slot, .journal-list article) keep working.
+  // Render the semantic element itself so grid/flex child selectors
+  // (.work-row > .work-slab, .journal-list article) keep working.
   if (as === "a") {
     return (
       <a ref={ref as React.Ref<HTMLAnchorElement>} data-reveal className={className} href={href}>
