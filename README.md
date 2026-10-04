@@ -12,13 +12,13 @@ A single-page portfolio for **Pawan**, a full-stack developer building durable d
 
 ## Highlights
 
-- **Component-split App Router app** — server components for static sections, `'use client'` only where interactivity needs it (work carousel, nav, toggle, videos, form, reveals)
-- **Expanding-slab selected-work accordion** (`Work.tsx`) — six bottom-aligned photo slabs (Lumen / Field / Relay / Atlas / Bloom / Northwind) with staggered shut heights and pill-stadium closed shape; hover / focus / click opens one slab to fill the row while the rest shrink to peeking pills. The open slab shows a shared white badge (bottom-centred when shut, bottom-left when open) plus bold title / lighter category with a ~0.2s delayed caption fade over a ~0.62s ease-out resize. First click/tap opens a closed slab, second click follows the link; keyboard focus opens each slab. `<=900px` the row becomes a horizontal scroll-snapping strip of equal tiles (`public/work/` photos)
+- **Component-split App Router app** — server components for static sections, `'use client'` only where interactivity needs it (work gallery, nav, toggle, videos, form, reveals)
+- **Top-performing work gallery** (`Work.tsx`) — reference-matched trio of tall rounded cards (Lumen / Field / Relay + Atlas / Bloom / Northwind data) under a `Featured` eyebrow and `Top-performing / work gallery` title; gradient scrim + stat (eye/spark/bookmark icons) + title + blurb overlay, glass arrows + pill dots. **Desktop (>900px) is a static 3-col grid** — no nested scroller, no snap, no scroll handler, so vertical page scroll passes straight through; `<=900px` it becomes a swipe strip with arrows/dots. Work images carry explicit `width/height` + `async` decode (`eager` first three, `lazy` rest)
 - **Animated day/night switch** (`ThemeToggle.tsx`) — follows the system preference until the visitor chooses, persists to `localStorage` (`pawan-portfolio-theme`), replays knob pop + burst ring on every flip, dispatches `pawan-theme-change`; pre-paint inline script in `layout.tsx` sets `data-theme` before hydration (no theme flash)
 - **Theme-aware P-bolt logo** (`SiteHeader.tsx`) — inline SVG wordmark with both arch variants, swapped via the same `[data-theme="dark"]` CSS as the static site
 - **SVG navigation dock** (`NavDock.tsx`) — five 15px / 1.8px `currentColor` icons, hover preview + `--indicator-x` indicator sync, `IntersectionObserver` active-section tracking
-- **Theme-aware hero video** (`HeroVideo.tsx`) — light + lazy dark layers crossfade via `.is-active`; only the visible layer plays; watches both the `pawan-theme-change` event and a `data-theme` `MutationObserver`
-- **Reveal-on-scroll** (`Reveal.tsx`) — polymorphic wrapper (`as="div"`, `as="li"` for work slabs, `as="article"` for journal) that renders the semantic element itself so `.work-row > .work-slab` and `.journal-list` selectors keep working
+- **Theme-aware hero video** (`HeroVideo.tsx`) — light + dark layers crossfade via `.is-active`; only the visible layer plays; watches both the `pawan-theme-change` event and a `data-theme` `MutationObserver`. Both layers **pause when the hero scrolls off-screen** (`IntersectionObserver` on `.hero-visual`) and when the tab hides (`visibilitychange`), so video decode never competes with gallery scroll compositing
+- **Reveal-on-scroll** (`Reveal.tsx`) — polymorphic wrapper that renders the semantic element itself (`as="div"`, `as="li"`, `as="article"`); one-shot `IntersectionObserver` adds `.is-visible`. **Work gallery cards are NOT wrapped in `Reveal`** — plain `<li>` elements, so no transform animations compete with scrolling
 - **Validated contact form** (`ContactForm.tsx`) — same rules as static `script.js`, per-field `aria-invalid` / `aria-describedby`, `mailto:` fallback preserved
 - **Hero dark-mode text — LOCKED 2026-10-02 (user-approved, do not retune without asking):** `.hero-copy #a9a8bc`, `h1 #b3b1c6 @400`, `h1 em #8a97dd @400`, `.hero-intro #a3a2b5 @400`, eyebrow/foot `#d6d7e6`; no backdrop panel, light `.55/.28/.08` scrim. Lives in `app/globals.css` (ported verbatim from static `styles.css`).
 
@@ -57,7 +57,7 @@ portfolio-new/
 │   │                     # (+ exported getTheme()/applyTheme() helpers)
 │   ├── Hero.tsx          # Server: hero copy + actions + foot; embeds <HeroVideo/>
 │   ├── HeroVideo.tsx     # Client: light/dark <video> crossfade + play-only-visible + gesture retry
-│   ├── Work.tsx          # Client: 01 Selected work — drifting card scene, expand state on hover/focus/tap
+│   ├── Work.tsx          # Client: 01 Selected work — top-performing gallery (desktop grid, mobile swipe strip)
 │   ├── Skills.tsx        # Server: 02 Capabilities (5 rows)
 │   ├── Journal.tsx       # Server: 03 Notes (3 entries via Reveal as="article")
 │   ├── Contact.tsx       # Server: 04 Contact section shell; embeds <ContactForm/>
@@ -79,7 +79,7 @@ portfolio-new/
 | # | Section | Component(s) | Notes |
 |---|---------|--------------|-------|
 | — | Hero | `Hero.tsx` + `HeroVideo.tsx` | Copy, CTAs, dual light/dark video, foot |
-| 01 | Selected work | `Work.tsx` | Drifting six-card room scene (dotted wall + desk/chair/plant band); hover/focus/tap expands a card into a labelled panorama with a CTA |
+| 01 | Selected work | `Work.tsx` | Static 3-card gallery grid on desktop (6-card swipe strip ≤900px) with stat/title/blurb overlays |
 | 02 | Capabilities | `Skills.tsx` | Statement + 5 capability rows |
 | 03 | Notes from the work | `Journal.tsx` | 3 journal entries |
 | 04 | Contact | `Contact.tsx` + `ContactForm.tsx` | Copy + validated form + `mailto:` fallback |
@@ -87,7 +87,7 @@ portfolio-new/
 ## Component model
 
 - **Server by default** (`SiteHeader`, `Hero`, `Skills`, `Journal`, `Contact`, `SiteFooter`) — static markup, zero JS shipped.
-- **`'use client'` islands** — `Work` (open-drawer state), `NavDock` (hover/active tracking), `ThemeToggle` (`aria-pressed`, persist, animation replay), `HeroVideo` (crossfade sync), `ContactForm` (validation state), `Reveal` (`IntersectionObserver` + `prefers-reduced-motion`).
+- **`'use client'` islands** — `Work` (mobile carousel paging state only), `NavDock` (hover/active tracking), `ThemeToggle` (`aria-pressed`, persist, animation replay), `HeroVideo` (crossfade sync + off-screen pause), `ContactForm` (validation state), `Reveal` (`IntersectionObserver` + `prefers-reduced-motion`).
 - **Theme flow** — `layout.tsx` pre-paint script reads `localStorage 'pawan-portfolio-theme'` → `documentElement[data-theme]`; `ThemeToggle` writes it back and dispatches `pawan-theme-change`; `HeroVideo` listens to the event *and* a `data-theme` `MutationObserver` as a belt-and-braces fallback.
 
 ## Notes
@@ -96,14 +96,16 @@ portfolio-new/
 - **Hero dark-mode text — LOCKED 2026-10-02 (user-approved, do not retune without asking):** `.hero-copy #a9a8bc`, `h1 #b3b1c6 @400`, `h1 em #8a97dd @400`, `.hero-intro #a3a2b5 @400`, eyebrow/foot `#d6d7e6`; no backdrop panel (text-shadow only), light `.55/.28/.08` scrim. Lives in `app/globals.css` — keep in sync with the static `styles.css` + `tests/dark-contrast.test.js` values if either side changes.
 - **Assets**: anything under `public/` is served from `/` — videos/posters live at `/assets/*` (e.g. `/assets/hero-portfolio-dark.mp4`), matching the static site's `assets/*` paths. Root copies (`/favicon.ico`, `/logo.svg`, `/favicon.png`, `/apple-touch-icon.png`) satisfy the Metadata icons; the full set also sits under `/assets/`.
 - **Favicon**: `app/favicon.ico` is the canonical icon — Next.js serves the App Router file convention ahead of `public/favicon.ico`, so keep the two byte-identical (both are the brand P-bolt; the create-next-app default must never be restored).
-- **Selected work**: `Work.tsx` holds the open-slab index (`useState`, default 0 = Lumen), the six slab projects (title/kind/photo/badge icon + tint), and hover / focus / tap-to-open handlers. All styling lives in the `SELECTED WORK — expanding-slab accordion` block at the end of `app/globals.css`: bottom-aligned pills with staggered narrow heights, the open slab filling the row and extending ~4% of the deck past the band top and bottom, a shared white badge (bottom-centred when shut, bottom-left when open) plus bold title / lighter category beside it, ~0.62s ease-out sizing with a ~0.2s delayed caption fade. `<=900px` the row becomes a horizontal scroll-snapping strip of equal tiles (`public/work/` photos).
+- **Selected work**: `Work.tsx` renders the gallery (3 visible cards on desktop grid, all 6 swipeable on mobile). Carousel state (`isNarrow` via `matchMedia("(max-width: 900px)")`, rAF-throttled `onScroll`, cached card step) only activates on mobile. All styling lives in the `SELECTED WORK — gallery` block in `app/globals.css`: tall (400–540px) rounded cards, absolute-fill media + gradient scrim + bottom overlay, single cheap `box-shadow`, no `backdrop-filter`, no `content-visibility` experiments. Desktop intentionally has no nested scroller — a nested `overflow-x:auto` + `scroll-snap` strip inside the vertical page causes scroll-chaining stalls ("hangs") on desktop Chrome/Windows.
+- **Scroll-jank guardrails (do not regress)**: keep hero videos paused off-screen (`HeroVideo.tsx`); keep work cards outside `Reveal`; never put `getComputedStyle`/`offsetWidth` inside a scroll handler — cache on resize; never add a desktop nested scroller or `scroll-snap-type: mandatory` back to `.work-viewport`.
 - **Fonts**: loaded via the Google Fonts `@import` at the top of `app/globals.css` (Manrope + DM Mono), same as the static site — no `next/font` migration yet.
-- **Reveal**: renders the semantic element itself (`as="div"`, `as="li"` for work slabs, `as="article"` for journal) so `.work-row` / `.journal-list` selectors keep working. Work slabs are always visible (`opacity:1`) — reveal only fades them, never hides accordion layout.
+- **Reveal**: renders the semantic element itself (`as="div"`, `as="li"`, `as="article"`) so grid/flex child selectors keep working. Work gallery cards intentionally skip `Reveal` (plain `<li>`) to keep large image layers off the compositor during scroll.
 - **Contact form** — front-end validation only; success flow is local (`mailto:hello@pawan.dev` fallback preserved).
+- **Local logs**: `dev.log` (dev-server output) is git-ignored — never commit it.
 
 ## Accessibility
 
-Same posture as the static site: semantic landmarks with labelled regions, `aria-pressed` on the theme toggle, `:focus-visible` outlines, form errors via `role="alert"` / `aria-live="polite"`, and full `prefers-reduced-motion` support (reveals, hero videos, and moon/star idle animations all stand down). The selected-work accordion also opens a slab on keyboard focus, so every case study is reachable without a pointer.
+Same posture as the static site: semantic landmarks with labelled regions, `aria-pressed` on the theme toggle, `:focus-visible` outlines, form errors via `role="alert"` / `aria-live="polite"`, and full `prefers-reduced-motion` support (reveals, hero videos, and moon/star idle animations all stand down). The work gallery viewport is a labelled region with keyboard focus only on mobile (where the swipe strip exists); desktop cards are plain links, reachable by Tab without a pointer.
 
 ## Author
 

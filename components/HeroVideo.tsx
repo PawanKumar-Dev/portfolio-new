@@ -34,6 +34,37 @@ export default function HeroVideo() {
     };
     const cur = document.documentElement.getAttribute("data-theme") === "dark";
     sync(cur);
+    // Pause hero videos when the hero is off-screen: decoding 2 full-screen
+    // videos while the user scrolls the gallery below saturates CPU/GPU and
+    // makes scrolling past #work feel stuck. Resume when scrolled back up.
+    let heroVisible = true;
+    const applyVisibility = () => {
+      const v = heroVisible ? null : [light, dark];
+      v?.forEach((el) => el?.pause());
+      if (heroVisible) sync(document.documentElement.getAttribute("data-theme") === "dark");
+    };
+    let heroObs: IntersectionObserver | null = null;
+    const hero = light?.closest(".hero-visual") ?? light?.parentElement;
+    if (hero && "IntersectionObserver" in window) {
+      heroObs = new IntersectionObserver(
+        (entries) => {
+          heroVisible = entries[0]?.isIntersecting ?? true;
+          applyVisibility();
+        },
+        { threshold: 0 }
+      );
+      heroObs.observe(hero);
+    }
+    // Pause when the tab is hidden (video keeps decoding otherwise).
+    const onVis = () => {
+      if (document.hidden) {
+        light?.pause();
+        dark?.pause();
+      } else if (heroVisible) {
+        sync(document.documentElement.getAttribute("data-theme") === "dark");
+      }
+    };
+    document.addEventListener("visibilitychange", onVis);
     const onTheme = (e: Event) => {
       const d = (e as CustomEvent).detail as { dark: boolean } | undefined;
       sync(d ? !!d.dark : document.documentElement.getAttribute("data-theme") === "dark");
@@ -41,7 +72,7 @@ export default function HeroVideo() {
     window.addEventListener("pawan-theme-change", onTheme);
     const obs = new MutationObserver(() => sync(document.documentElement.getAttribute("data-theme") === "dark"));
     obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-    return () => { window.removeEventListener("pawan-theme-change", onTheme); obs.disconnect(); };
+    return () => { window.removeEventListener("pawan-theme-change", onTheme); document.removeEventListener("visibilitychange", onVis); heroObs?.disconnect(); obs.disconnect(); };
   }, []);
   return (
     <>

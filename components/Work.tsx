@@ -1,241 +1,155 @@
 "use client";
 
-import { useRef, useState } from "react";
-import Reveal from "./Reveal";
-
-type IconName = "ledger" | "quill" | "bolt" | "bag" | "leaf" | "compass";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type Project = {
   index: string;
   title: string;
   kind: string;
+  stat: string;
+  statIcon: "views" | "inquiries" | "saves";
+  blurb: string;
   img: string;
   alt: string;
-  icon: IconName;
-  tint: string;
 };
 
 const projects: Project[] = [
-  {
-    index: "01",
-    title: "Lumen Finance",
-    kind: "Product platform",
-    img: "/work/lumen.jpg",
-    alt: "Rippled blue glass facade catching soft daylight",
-    icon: "ledger",
-    tint: "#5682f6",
-  },
-  {
-    index: "02",
-    title: "Field Notes",
-    kind: "Editorial tooling",
-    img: "/work/field.jpg",
-    alt: "Aerial view of pale sand dunes with a winding ridge",
-    icon: "quill",
-    tint: "#d65bcf",
-  },
-  {
-    index: "03",
-    title: "Relay / OSS",
-    kind: "Developer tooling",
-    img: "/work/relay.jpg",
-    alt: "Jagged mountain peaks rising through low cloud",
-    icon: "bolt",
-    tint: "#65d5f5",
-  },
-  {
-    index: "04",
-    title: "Atlas Commerce",
-    kind: "Commerce platform",
-    img: "/work/atlas.jpg",
-    alt: "Minimal still life of pale sculptural objects on a plinth",
-    icon: "bag",
-    tint: "#f0533f",
-  },
-  {
-    index: "05",
-    title: "Bloom Health",
-    kind: "Care product",
-    img: "/work/bloom.jpg",
-    alt: "Soft leaf shadows falling across a warm neutral wall",
-    icon: "leaf",
-    tint: "#7ccf3c",
-  },
-  {
-    index: "06",
-    title: "Northwind",
-    kind: "Brand site",
-    img: "/work/north.jpg",
-    alt: "Abstract concrete architecture under an overcast sky",
-    icon: "compass",
-    tint: "#aab7ff",
-  },
+  { index: "01", title: "Lumen Finance", kind: "Product platform", stat: "+230% views", statIcon: "views", blurb: "Skyline views and social-first rebrand.", img: "/work/lumen.jpg", alt: "Blue glass facade in daylight" },
+  { index: "02", title: "Field Notes", kind: "Editorial tooling", stat: "3x more inquiries", statIcon: "inquiries", blurb: "Warm visuals and clarity for listings.", img: "/work/field.jpg", alt: "Pale sand dunes from above" },
+  { index: "03", title: "Relay / OSS", kind: "Developer tooling", stat: "120K views, 6K saves", statIcon: "saves", blurb: "Cinematic tour + Instagram rollout.", img: "/work/relay.jpg", alt: "Mountain peaks through cloud" },
+  { index: "04", title: "Atlas Commerce", kind: "Commerce platform", stat: "+180% checkouts", statIcon: "views", blurb: "Storefront speed, editorial polish.", img: "/work/atlas.jpg", alt: "Pale sculptural still life" },
+  { index: "05", title: "Bloom Health", kind: "Care product", stat: "4.9 patient rating", statIcon: "inquiries", blurb: "Calm flows for bookings and care.", img: "/work/bloom.jpg", alt: "Leaf shadows on warm wall" },
+  { index: "06", title: "Northwind", kind: "Brand site", stat: "90K views, 4K saves", statIcon: "saves", blurb: "Brand story told in one scroll.", img: "/work/north.jpg", alt: "Concrete architecture" },
 ];
 
-const ICON_PATHS: Record<IconName, string[]> = {
-  ledger: [
-    "M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6",
-    "M12 2.5v3",
-    "M12 18.5v3",
-    "M2.5 12h3",
-    "M18.5 12h3",
-  ],
-  quill: [
-    "M4.5 19.5 5.6 15.9 15.4 6.1a2.3 2.3 0 0 0-3.2-3.2L2.4 12.7l1.1 4.8a1 1 0 0 0 1 1z",
-    "M13.4 7.6l3 3",
-  ],
-  bolt: ["M13 2.5 5.3 13.2h5l-1 8.3 7.4-10.7h-5z"],
-  bag: [
-    "M5.8 8h12.4l.9 12.5H4.9z",
-    "M8.8 10.2V6.8a3.2 3.2 0 0 1 6.4 0v3.4",
-  ],
-  leaf: [
-    "M5.5 19.5C5.5 12 12 5.5 20 5.5c0 8-6.5 14.5-14.5 14.5z",
-    "M5.5 19.5c2.5-5.5 6-9 10.5-11",
-  ],
-  compass: [
-    "M12 3.2a8.8 8.8 0 1 0 0 17.6 8.8 8.8 0 0 0 0-17.6z",
-    "M15.6 8.4l-1.9 5-5 1.9 1.9-5z",
-  ],
-};
-
-function SlabIcon({ name, tint }: { name: IconName; tint: string }) {
+function StatIcon({ name }: { name: Project["statIcon"] }) {
+  if (name === "views") return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" /><circle cx="12" cy="12" r="3" /></svg>
+  );
+  if (name === "inquiries") return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3.5 14.5 9l6 .6-4.5 4 1.3 5.9L12 16.2 6.7 19.5 8 13.6 3.5 9.6l6-.6z" /></svg>
+  );
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke={tint}
-      strokeWidth="1.7"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      {ICON_PATHS[name].map((d) => (
-        <path key={d} d={d} />
-      ))}
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 3.5h12V21l-6-4.2L6 21z" /></svg>
   );
 }
 
 export default function Work() {
-  const deckRef = useRef<HTMLDivElement | null>(null);
-  const [open, setOpen] = useState(0);
-  const touchOpen = useRef(false);
-  const hoverTimer = useRef<number | null>(null);
-  const lastPointer = useRef({ x: 0, y: 0 });
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const stepRef = useRef(0);
+  const rafRef = useRef(0);
+  const [page, setPage] = useState(0);
+  const [pageCount, setPageCount] = useState(4);
+  const [isNarrow, setIsNarrow] = useState(false);
 
-  /* desktop: hovering a slab opens it (the reference opens on click with the
-     same ~0.6s ease-out, preserved through .work-slab transitions) */
-  const queueOpen = (ni: number) => {
-    if (ni === open) return;
-    if (hoverTimer.current !== null) window.clearTimeout(hoverTimer.current);
-    hoverTimer.current = window.setTimeout(() => setOpen(ni), 70);
+  const measure = useCallback(() => {
+    const vp = viewportRef.current;
+    if (!vp) return;
+    // Desktop = static grid, no nested scroller: skip measuring entirely so
+    // vertical page scroll has zero carousel cost.
+    const narrow = window.matchMedia("(max-width: 900px)").matches;
+    setIsNarrow(narrow);
+    if (!narrow) return;
+    const card = vp.querySelector<HTMLElement>("[data-card]");
+    if (!card) return;
+    const gap = parseFloat(getComputedStyle(vp).columnGap || "20") || 20;
+    const step = card.offsetWidth + gap;
+    if (!step) return;
+    stepRef.current = step;
+    const pages = Math.max(1, Math.round((vp.scrollWidth - vp.clientWidth) / step) + 1);
+    setPageCount(pages);
+    setPage((p) => Math.min(Math.max(0, Math.round(vp.scrollLeft / step)), pages - 1));
+  }, []);
+
+  const goTo = useCallback((n: number) => {
+    const vp = viewportRef.current;
+    const step = stepRef.current;
+    if (!vp || !step) return;
+    const next = Math.min(Math.max(0, n), pageCount - 1);
+    vp.scrollTo({ left: next * step, behavior: "smooth" });
+    setPage(next);
+  }, [pageCount]);
+
+  // rAF-throttled: setState at most once per frame, no layout reads inside.
+  const onScroll = () => {
+    // Desktop: no nested scroller exists, ignore entirely.
+    if (!isNarrow) return;
+    const vp = viewportRef.current;
+    const step = stepRef.current;
+    if (!vp || !step || rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = 0;
+      const v = viewportRef.current;
+      if (!v) return;
+      const p = Math.round(v.scrollLeft / step);
+      setPage((prev) => {
+        const next = Math.min(Math.max(0, p), pageCount - 1);
+        return next === prev ? prev : next;
+      });
+    });
   };
 
-  const onSlabEnter = (ev: React.PointerEvent<HTMLAnchorElement>) => {
-    if (ev.pointerType === "touch") return;
-    const ddx = Math.abs(ev.clientX - lastPointer.current.x);
-    const ddy = Math.abs(ev.clientY - lastPointer.current.y);
-    lastPointer.current = { x: ev.clientX, y: ev.clientY };
-    if (ddx + ddy < 3) return;
-    queueOpen(Number(ev.currentTarget.dataset.i));
-  };
-
-  const onSlabLeave = () => {
-    if (hoverTimer.current !== null) {
-      window.clearTimeout(hoverTimer.current);
-      hoverTimer.current = null;
-    }
-  };
-
-  /* click/tap always opens the slab first; a second click on the open
-     slab follows the link (touch: first tap opens, second tap goes) */
-  const onSlabClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const i = Number(e.currentTarget.dataset.i);
-    if (i !== open) {
-      e.preventDefault();
-      touchOpen.current = true;
-      setOpen(i);
-    } else if (touchOpen.current) {
-      touchOpen.current = false;
-    }
-    /* open slab + real click (keyboard/mouse): follow the link */
-  };
-
-  /* keyboard: focusing a slab opens it; tabbing off the deck resets it */
-  const onDeckFocus = (e: React.FocusEvent<HTMLDivElement>) => {
-    const link = (e.target as HTMLElement).closest<HTMLAnchorElement>(
-      ".work-slab-link"
-    );
-    if (link?.dataset.i) {
-      touchOpen.current = false;
-      setOpen(Number(link.dataset.i));
-    }
-  };
-  const onDeckBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-    if (deckRef.current?.contains(e.relatedTarget as Node | null)) return;
-    touchOpen.current = false;
-  };
+  useEffect(() => {
+    measure();
+    window.addEventListener("resize", measure);
+    const t = window.setTimeout(measure, 400);
+    // Re-measure once images settle (card width depends on loaded layout).
+    window.addEventListener("load", measure);
+    return () => {
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("load", measure);
+      window.clearTimeout(t);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [measure]);
 
   return (
     <section className="work section-wrap" id="work" aria-labelledby="work-title">
-      <div className="section-heading">
-        <p className="section-number">01 / 04</p>
-        <h2 id="work-title">Selected work</h2>
-        <p className="section-lede">
-          A considered mix of product strategy, interface craft, and resilient
-          engineering.
-          <span className="work-hint">Hover a project to open it</span>
-        </p>
+      <div className="work-gallery-head">
+        <p className="work-eyebrow">Featured</p>
+        <h2 id="work-title" className="work-gallery-title">
+          Top-performing
+          <span className="work-gallery-title-accent">work gallery</span>
+        </h2>
       </div>
 
-      <div
-        className="work-deck"
-        ref={deckRef}
-        onFocus={onDeckFocus}
-        onBlur={onDeckBlur}
-      >
-        <ul className="work-row" aria-label="Selected projects">
-          {projects.map((p, i) => (
-            <Reveal
-              as="li"
-              className={`work-slab${i === open ? " is-active" : ""}`}
-              delay={i * 70}
-              key={p.index}
-            >
-              <a
-                className="work-slab-link"
-                href="#contact"
-                data-i={i}
-                aria-label={`${p.title} — ${p.kind}`}
-                onPointerEnter={onSlabEnter}
-                onPointerLeave={onSlabLeave}
-                onClick={onSlabClick}
-              >
-                <span className="work-slab-media">
-                  <img
-                    src={p.img}
-                    alt={p.alt}
-                    width={867}
-                    height={1300}
-                    loading={i < 4 ? "eager" : "lazy"}
-                    decoding="async"
-                  />
-                </span>
-                <span className="work-slab-scrim" aria-hidden="true" />
-                <span className="work-slab-foot">
-                  <span className="work-slab-badge">
-                    <SlabIcon name={p.icon} tint={p.tint} />
+      <div className="work-gallery">
+        <div className="work-viewport" ref={viewportRef} onScroll={isNarrow ? onScroll : undefined} role={isNarrow ? "region" : undefined} aria-label={isNarrow ? "Selected projects carousel" : undefined} tabIndex={isNarrow ? 0 : undefined}>
+          <ul className="work-track" aria-label="Selected projects">
+            {projects.slice(0, isNarrow ? projects.length : 3).map((p, i) => (
+              <li className="work-card" key={p.index}>
+                <a href="#contact" className="work-card-link" data-card aria-label={`${p.title} — ${p.kind}`}>
+                  <span className="work-card-media" aria-hidden="true">
+                    <img src={p.img} alt="" width={867} height={1300} loading={i < 3 ? "eager" : "lazy"} decoding="async" />
                   </span>
-                  <span className="work-slab-copy">
-                    <span className="work-slab-title">{p.title}</span>
-                    <span className="work-slab-sub">{p.kind}</span>
+                  <span className="work-card-scrim" aria-hidden="true" />
+                  <span className="work-card-overlay">
+                    <span className="work-card-stat"><StatIcon name={p.statIcon} />{p.stat}</span>
+                    <span className="work-card-title">{p.title}</span>
+                    <span className="work-card-blurb">{p.blurb}</span>
                   </span>
-                </span>
-              </a>
-            </Reveal>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {isNarrow && (
+        <>
+        <button type="button" className="work-arrow work-arrow-prev" onClick={() => goTo(page - 1)} disabled={page === 0} aria-label="Previous projects">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" /></svg>
+        </button>
+        <button type="button" className="work-arrow work-arrow-next" onClick={() => goTo(page + 1)} disabled={page >= pageCount - 1} aria-label="Next projects">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" /></svg>
+        </button>
+
+        <div className="work-dots" role="tablist" aria-label="Project pages">
+          {Array.from({ length: pageCount }).map((_, i) => (
+            <button key={i} type="button" role="tab" aria-selected={i === page} aria-label={`Go to page ${i + 1}`} className={`work-dot${i === page ? " is-active" : ""}`} onClick={() => goTo(i)} />
           ))}
-        </ul>
+        </div>
+        </>
+        )}
       </div>
     </section>
   );
