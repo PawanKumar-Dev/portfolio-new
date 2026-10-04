@@ -121,13 +121,31 @@ export default function Work() {
   const deckRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(0);
   const touchOpen = useRef(false);
+  const hoverTimer = useRef<number | null>(null);
+  const lastPointer = useRef({ x: 0, y: 0 });
 
   /* desktop: hovering a slab opens it (the reference opens on click with the
      same ~0.6s ease-out, preserved through .work-slab transitions) */
-  const onSlabEnter = (e: React.PointerEvent<HTMLAnchorElement>) => {
-    if (e.pointerType === "touch") return;
-    const i = Number(e.currentTarget.dataset.i);
-    if (i !== open) setOpen(i);
+  const queueOpen = (ni: number) => {
+    if (ni === open) return;
+    if (hoverTimer.current !== null) window.clearTimeout(hoverTimer.current);
+    hoverTimer.current = window.setTimeout(() => setOpen(ni), 70);
+  };
+
+  const onSlabEnter = (ev: React.PointerEvent<HTMLAnchorElement>) => {
+    if (ev.pointerType === "touch") return;
+    const ddx = Math.abs(ev.clientX - lastPointer.current.x);
+    const ddy = Math.abs(ev.clientY - lastPointer.current.y);
+    lastPointer.current = { x: ev.clientX, y: ev.clientY };
+    if (ddx + ddy < 3) return;
+    queueOpen(Number(ev.currentTarget.dataset.i));
+  };
+
+  const onSlabLeave = () => {
+    if (hoverTimer.current !== null) {
+      window.clearTimeout(hoverTimer.current);
+      hoverTimer.current = null;
+    }
   };
 
   /* click/tap always opens the slab first; a second click on the open
@@ -191,6 +209,7 @@ export default function Work() {
                 data-i={i}
                 aria-label={`${p.title} — ${p.kind}`}
                 onPointerEnter={onSlabEnter}
+                onPointerLeave={onSlabLeave}
                 onClick={onSlabClick}
               >
                 <span className="work-slab-media">
