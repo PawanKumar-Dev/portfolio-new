@@ -17,7 +17,7 @@ export default function Reveal({
   as?: RevealTag;
   href?: string;
 }) {
-  const ref = useRef<HTMLDivElement | HTMLAnchorElement | HTMLElement | null>(null);
+  const ref = useRef<HTMLDivElement | HTMLAnchorElement | HTMLLIElement | null>(null);
 
   useEffect(() => {
     const el = ref.current as HTMLElement | null;
@@ -60,6 +60,13 @@ export default function Reveal({
       <article ref={ref as React.Ref<HTMLElement>} data-reveal className={className}>
         {children}
       </article>
+    );
+  }
+  if (as === "li") {
+    return (
+      <li ref={ref as React.Ref<HTMLLIElement>} data-reveal className={className}>
+        {children}
+      </li>
     );
   }
   return (

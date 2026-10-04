@@ -126,19 +126,22 @@ export default function Work() {
      same ~0.6s ease-out, preserved through .work-slab transitions) */
   const onSlabEnter = (e: React.PointerEvent<HTMLAnchorElement>) => {
     if (e.pointerType === "touch") return;
-    setOpen(Number(e.currentTarget.dataset.i));
+    const i = Number(e.currentTarget.dataset.i);
+    if (i !== open) setOpen(i);
   };
 
-  /* touch: first tap opens the slab, second tap follows the link */
+  /* click/tap always opens the slab first; a second click on the open
+     slab follows the link (touch: first tap opens, second tap goes) */
   const onSlabClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (touchOpen.current) {
+    const i = Number(e.currentTarget.dataset.i);
+    if (i !== open) {
+      e.preventDefault();
+      touchOpen.current = true;
+      setOpen(i);
+    } else if (touchOpen.current) {
       touchOpen.current = false;
-      return;
     }
-    if (!window.matchMedia("(hover: none)").matches) return;
-    e.preventDefault();
-    touchOpen.current = true;
-    setOpen(Number(e.currentTarget.dataset.i));
+    /* open slab + real click (keyboard/mouse): follow the link */
   };
 
   /* keyboard: focusing a slab opens it; tabbing off the deck resets it */
