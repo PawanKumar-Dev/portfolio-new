@@ -19,6 +19,8 @@ A single-page portfolio for **Pawan**, a full-stack developer building durable d
 - **SVG navigation dock** (`NavDock.tsx`) — five 15px / 1.8px `currentColor` icons, hover preview + `--indicator-x` indicator sync, `IntersectionObserver` active-section tracking
 - **Theme-aware hero video** (`HeroVideo.tsx`) — light + dark layers crossfade via `.is-active`; only the visible layer plays; watches both the `pawan-theme-change` event and a `data-theme` `MutationObserver`. Both layers **pause when the hero scrolls off-screen** (`IntersectionObserver` on `.hero-visual`) and when the tab hides (`visibilitychange`), so video decode never competes with gallery scroll compositing
 - **Reveal-on-scroll** (`Reveal.tsx`) — polymorphic wrapper that renders the semantic element itself (`as="div"`, `as="li"`, `as="article"`); one-shot `IntersectionObserver` adds `.is-visible`. **Work gallery cards are NOT wrapped in `Reveal`** — plain `<li>` elements, so no transform animations compete with scrolling
+- **Split contact layout** (`Contact.tsx`) — section is a single vertical stack (header block → body) instead of a 2-column grid. `.contact-body` is a two-card grid: a `.contact-panel` availability card (lime status dot, three direct channels — email / GitHub / `tel:` — with label-value-note rows, "replies within one working day" foot) beside the form "ticket"
+- **Segmented project-type chips** (`ContactForm.tsx`) — the old `<select>` is replaced by a `<fieldset>` + `<legend>` of native radio chips (`.contact-type-row`, pill radius, white fill when selected), so arrow-key selection and form semantics work. Fields are explicitly `.contact-field-half` / `.contact-field-full`; submit button + live status message share a `.contact-actions` row
 - **Validated contact form** (`ContactForm.tsx`) — same rules as static `script.js`, per-field `aria-invalid` / `aria-describedby`, `mailto:` fallback preserved
 - **Hero dark-mode text — LOCKED 2026-10-02 (user-approved, do not retune without asking):** `.hero-copy #a9a8bc`, `h1 #b3b1c6 @400`, `h1 em #8a97dd @400`, `.hero-intro #a3a2b5 @400`, eyebrow/foot `#d6d7e6`; no backdrop panel, light `.55/.28/.08` scrim. Lives in `app/globals.css` (ported verbatim from static `styles.css`).
 
@@ -60,8 +62,8 @@ portfolio-new/
 │   ├── Work.tsx          # Client: 01 Selected work — top-performing gallery (desktop grid, mobile swipe strip)
 │   ├── Skills.tsx        # Server: 02 Capabilities (5 rows)
 │   ├── Journal.tsx       # Server: 03 Notes (3 entries via Reveal as="article")
-│   ├── Contact.tsx       # Server: 04 Contact section shell; embeds <ContactForm/>
-│   ├── ContactForm.tsx   # Client: validation mirroring static script.js
+│   ├── Contact.tsx       # Server: 04 Contact — header block + [status/channel panel | form]
+│   ├── ContactForm.tsx   # Client: validation mirroring static script.js + project-type radio chips
 │   ├── SiteFooter.tsx    # Server: dynamic-year footer
 │   └── Reveal.tsx        # Client: polymorphic reveal wrapper (as="div"|"article"|"a", optional delay)
 ├── public/
@@ -82,7 +84,7 @@ portfolio-new/
 | 01 | Selected work | `Work.tsx` | Static 3-card gallery grid on desktop (6-card swipe strip ≤900px) with stat/title/blurb overlays |
 | 02 | Capabilities | `Skills.tsx` | Statement + 5 capability rows |
 | 03 | Notes from the work | `Journal.tsx` | 3 journal entries |
-| 04 | Contact | `Contact.tsx` + `ContactForm.tsx` | Copy + validated form + `mailto:` fallback |
+| 04 | Contact | `Contact.tsx` + `ContactForm.tsx` | Split layout: availability/channel card + form ticket with project-type chips, `mailto:` fallback |
 
 ## Component model
 
@@ -100,7 +102,9 @@ portfolio-new/
 - **Scroll-jank guardrails (do not regress)**: keep hero videos paused off-screen (`HeroVideo.tsx`); keep work cards outside `Reveal`; never put `getComputedStyle`/`offsetWidth` inside a scroll handler — cache on resize; never add a desktop nested scroller or `scroll-snap-type: mandatory` back to `.work-viewport`.
 - **Fonts**: loaded via the Google Fonts `@import` at the top of `app/globals.css` (Manrope + DM Mono), same as the static site — no `next/font` migration yet.
 - **Reveal**: renders the semantic element itself (`as="div"`, `as="li"`, `as="article"`) so grid/flex child selectors keep working. Work gallery cards intentionally skip `Reveal` (plain `<li>`) to keep large image layers off the compositor during scroll.
-- **Contact form** — front-end validation only; success flow is local (`mailto:hello@pawan.dev` fallback preserved).
+- **Contact form** — front-end validation only; success flow is local (`mailto:hello@pawan.dev` fallback preserved). Project type is a radio-chip `<fieldset>`, **not** a `<select>`; the `mailto:` action still posts `name` / `email` / `project-type` / `message`, so the chip values must stay short/slug-like.
+- **Contact section always dark** — `.contact{color-scheme:dark}` forces dark controls in both themes; it is not theme-switchable, so all new contact CSS uses explicit white-alpha values rather than palette vars for surfaces/borders.
+- **Never append CSS with PowerShell `Add-Content` / shell heredocs** — it corrupts UTF-8 (em dashes became `U+FFFD`, which is how a whole-page styling failure was introduced). Use the editor tool. If it happens: repair the bytes, verify brace balance (`{` count == `}` count), then `rm -rf .next` and restart the dev server — a corrupted chunk makes the dev server serve stale CSS for the *entire* page.
 - **Local logs**: `dev.log` (dev-server output) is git-ignored — never commit it.
 
 ## Accessibility

@@ -43,3 +43,6 @@ next-env.d.ts
 
 # local reference / scratch dumps (Edge profiles, GIF frames, screenshots)
 .ref/
+
+# build logs
+build.log
