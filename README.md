@@ -61,11 +61,11 @@ portfolio-new/
 │   ├── HeroVideo.tsx     # Client: light/dark <video> crossfade + play-only-visible + gesture retry
 │   ├── Work.tsx          # Client: 01 Selected work — top-performing gallery (desktop grid, mobile swipe strip)
 │   ├── Skills.tsx        # Server: 02 Capabilities (5 rows)
-│   ├── Journal.tsx       # Server: 03 Blog (3 entries via Reveal as="article")
-│   ├── Contact.tsx       # Server: 04 Contact — header block + [status/channel panel | form]
+│   ├── Journal.tsx       # Server: 03 Blog — 6 bento cards (Reveal as="li" with GPU-accelerated stagger, glare, and zoom)
+│   ├── Contact.tsx       # Server: 04 Contact — asymmetric notched container + floating info cards + form card
 │   ├── ContactForm.tsx   # Client: validation mirroring static script.js + project-type radio chips
-│   ├── SiteFooter.tsx    # Server: dynamic-year footer
-│   └── Reveal.tsx        # Client: polymorphic reveal wrapper (as="div"|"article"|"a", optional delay)
+│   ├── SiteFooter.tsx    # Server: unified bottom pill bar with brand mark, copyright, nav links, and socials
+│   └── Reveal.tsx        # Client: polymorphic reveal wrapper (as="div"|"article"|"li"|"a", optional delay)
 ├── public/
 │   ├── favicon.ico / logo.svg / favicon.png / apple-touch-icon.png  # Metadata icons
 │   ├── work/             # Selected-work card photos (lumen/field/relay/atlas/bloom/north) + room.jpg band
@@ -83,8 +83,8 @@ portfolio-new/
 | — | Hero | `Hero.tsx` + `HeroVideo.tsx` | Copy, CTAs, dual light/dark video, foot |
 | 01 | Selected work | `Work.tsx` | Static 3-card gallery grid on desktop (6-card swipe strip ≤900px) with stat/title/blurb overlays |
 | 02 | Capabilities | `Skills.tsx` | Statement + 5 capability rows |
-| 03 | From the blog | `Journal.tsx` | 3 posts |
-| 04 | Contact | `Contact.tsx` + `ContactForm.tsx` | Split layout: availability/channel card + form ticket with project-type chips, `mailto:` fallback |
+| 03 | From the blog | `Journal.tsx` | 6-card editorial bento grid with GPU-accelerated entrance stagger, glare sweep, glass tags, and spring pill CTA |
+| 04 | Contact & Footer | `Contact.tsx` + `ContactForm.tsx` + `SiteFooter.tsx` | Asymmetric curved slab with top-right cut-out notch, 3 floating info cards, interactive enquiry form, and unified bottom bar |
 
 ## Component model
 
@@ -100,10 +100,11 @@ portfolio-new/
 - **Favicon**: `app/favicon.ico` is the canonical icon — Next.js serves the App Router file convention ahead of `public/favicon.ico`, so keep the two byte-identical (both are the brand P-bolt; the create-next-app default must never be restored).
 - **Selected work**: `Work.tsx` renders the gallery (3 visible cards on desktop grid, all 6 swipeable on mobile). Carousel state (`isNarrow` via `matchMedia("(max-width: 900px)")`, rAF-throttled `onScroll`, cached card step) only activates on mobile. All styling lives in the `SELECTED WORK — gallery` block in `app/globals.css`: tall (400–540px) rounded cards, absolute-fill media + gradient scrim + bottom overlay, single cheap `box-shadow`, no `backdrop-filter`, no `content-visibility` experiments. Desktop intentionally has no nested scroller — a nested `overflow-x:auto` + `scroll-snap` strip inside the vertical page causes scroll-chaining stalls ("hangs") on desktop Chrome/Windows.
 - **Scroll-jank guardrails (do not regress)**: keep hero videos paused off-screen (`HeroVideo.tsx`); keep work cards outside `Reveal`; never put `getComputedStyle`/`offsetWidth` inside a scroll handler — cache on resize; never add a desktop nested scroller or `scroll-snap-type: mandatory` back to `.work-viewport`.
+- **Blog Section Animations**: `Journal.tsx` uses GPU-accelerated composited transforms (`translateZ(0)`, `will-change: transform, box-shadow`). Hover micro-interactions include a 6px card lift, ambient tinted glow, 1.08x background image zoom, glassmorphic frosted badge, diagonal glare light-sweep, and an energetic spring arrow translation on the CTA pill. Reduced-motion preferences are strictly respected.
+- **Contact & Footer Integration**: `Contact.tsx` implements an asymmetric curved slab in the site's native blue palette (`--blue`, `--blue-dark`, `--ink`), featuring a top-right radial/linear mask notch cut-out, floating white info cards, an interactive ticket form, and a single consolidated footer bar in `SiteFooter.tsx`.
 - **Fonts**: loaded via the Google Fonts `@import` at the top of `app/globals.css` (Manrope + DM Mono), same as the static site — no `next/font` migration yet.
 - **Reveal**: renders the semantic element itself (`as="div"`, `as="li"`, `as="article"`) so grid/flex child selectors keep working. Work gallery cards intentionally skip `Reveal` (plain `<li>`) to keep large image layers off the compositor during scroll.
 - **Contact form** — front-end validation only; success flow is local (`mailto:hello@pawan.dev` fallback preserved). Project type is a radio-chip `<fieldset>`, **not** a `<select>`; the `mailto:` action still posts `name` / `email` / `project-type` / `message`, so the chip values must stay short/slug-like.
-- **Contact section always dark** — `.contact{color-scheme:dark}` forces dark controls in both themes; it is not theme-switchable, so all new contact CSS uses explicit white-alpha values rather than palette vars for surfaces/borders.
 - **Never append CSS with PowerShell `Add-Content` / shell heredocs** — it corrupts UTF-8 (em dashes became `U+FFFD`, which is how a whole-page styling failure was introduced). Use the editor tool. If it happens: repair the bytes, verify brace balance (`{` count == `}` count), then `rm -rf .next` and restart the dev server — a corrupted chunk makes the dev server serve stale CSS for the *entire* page.
 - **Local logs**: `dev.log` (dev-server output) is git-ignored — never commit it.
 
