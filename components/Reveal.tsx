@@ -10,12 +10,14 @@ export default function Reveal({
   delay,
   as = "div",
   href,
+  style,
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
   as?: RevealTag;
   href?: string;
+  style?: React.CSSProperties;
 }) {
   const ref = useRef<HTMLDivElement | HTMLAnchorElement | HTMLLIElement | null>(null);
 
@@ -50,27 +52,27 @@ export default function Reveal({
   // (.work-row > .work-slab, .journal-list article) keep working.
   if (as === "a") {
     return (
-      <a ref={ref as React.Ref<HTMLAnchorElement>} data-reveal className={className} href={href}>
+      <a ref={ref as React.Ref<HTMLAnchorElement>} data-reveal className={className} href={href} style={style}>
         {children}
       </a>
     );
   }
   if (as === "article") {
     return (
-      <article ref={ref as React.Ref<HTMLElement>} data-reveal className={className}>
+      <article ref={ref as React.Ref<HTMLElement>} data-reveal className={className} style={style}>
         {children}
       </article>
     );
   }
   if (as === "li") {
     return (
-      <li ref={ref as React.Ref<HTMLLIElement>} data-reveal className={className}>
+      <li ref={ref as React.Ref<HTMLLIElement>} data-reveal className={className} style={style}>
         {children}
       </li>
     );
   }
   return (
-    <div ref={ref as React.Ref<HTMLDivElement>} data-reveal className={className}>
+    <div ref={ref as React.Ref<HTMLDivElement>} data-reveal className={className} style={style}>
       {children}
     </div>
   );
