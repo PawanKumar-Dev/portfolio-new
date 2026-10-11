@@ -25,7 +25,7 @@
   .site-footer { padding-bottom: 105px; }
 }
 
-/* Desktop header: zero-height strip — the glass dock, wordmark and tools all
+/* Desktop header: zero-height strip â€” the glass dock, wordmark and tools all
    float directly over the hero visual, so the hero starts at the very top.
    All three share one top line (22px) and are vertically centered to the
    tallest item (the 70px logo), so logo | dock | toggle sit on a single axis. */
@@ -40,11 +40,11 @@
   .site-footer { padding-bottom: 112px; }
 }
 
-/* ── Navigation: frosted-glass dock ────────────────────────────────────────
-   One design for every breakpoint — a translucent, blurred pill that floats
+/* â”€â”€ Navigation: frosted-glass dock â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   One design for every breakpoint â€” a translucent, blurred pill that floats
    over the page (fixed to the top on desktop, bottom on mobile). The active
    link wears a solid pill; hover/focus gets a soft glass tint and the label
-   goes bold. No sliding indicators, no notches — the glass does the talking. */
+   goes bold. No sliding indicators, no notches â€” the glass does the talking. */
 .nav-dock {
   --glass-bg: rgba(255, 255, 255, .62);
   --glass-border: rgba(255, 255, 255, .8);
@@ -171,7 +171,7 @@
   .nav-dock .nav-icon svg { width: 17px; height: 17px; }
 }
 
-/* ── Theme toggle: day/night switch ────────────────────────────────────────
+/* â”€â”€ Theme toggle: day/night switch â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Golden track = day (knob parked right, sun showing, "DAY" on the left);
    charcoal track = night (knob parked left, crescent showing, "NIGHT" on the
    right). The knob springs across the track, the glyphs twist-swap, the labels
@@ -237,12 +237,12 @@
 [data-theme="dark"] .header-tools .theme-toggle .toggle-glyph-sun { opacity: 0; transform: rotate(120deg) scale(.3); }
 [data-theme="dark"] .header-tools .theme-toggle .toggle-glyph-moon { opacity: 1; transform: rotate(0) scale(1); }
 
-/* ── Dark-mode contrast fixes (audit 2026-10-02) ────────────────────────────
+/* â”€â”€ Dark-mode contrast fixes (audit 2026-10-02) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Hard-coded light-mode colours that fail on dark surfaces. Each rule is
-   covered by tests/dark-contrast.test.js — keep them in sync. */
+   covered by tests/dark-contrast.test.js â€” keep them in sync. */
 [data-theme="dark"] .hero .button{color:#0d0e19;background:#f4f3ff} /* near-black text on light pill: readable over dark video */
 [data-theme="dark"] .hero .text-link{color:#f4f3ff} /* inherits light text explicitly in case body colour changes */
-[data-theme="dark"] .art-field{background:linear-gradient(135deg,#4a2f5e,#26264a);color:#fbfaff} /* pastel pink → deep plum: light label text stays readable */
+[data-theme="dark"] .art-field{background:linear-gradient(135deg,#4a2f5e,#26264a);color:#fbfaff} /* pastel pink â†’ deep plum: light label text stays readable */
 [data-theme="dark"] .art-mesh{background:#23263f;border:1px solid rgba(244,243,255,.14)} /* near-black card would vanish on dark page */
 [data-theme="dark"] .header-tools .theme-toggle .toggle-glyph-moon svg path{fill:#f4f3ff} /* moon glyph was #2b2b3c on #1e1e2e knob: ~invisible */
 [data-theme="dark"] .header-tools .theme-toggle .toggle-label-night{color:#c4c3d4} /* NIGHT label brightened for small-size legibility */
@@ -253,12 +253,12 @@
    in both modes. */
 .contact{color-scheme:dark}
 
-/* The sun turns slowly on its own — pure delight, the knob spin is separate. */
+/* The sun turns slowly on its own â€” pure delight, the knob spin is separate. */
 .header-tools .theme-toggle .toggle-glyph-sun svg {
   animation: sun-spin 18s linear infinite;
 }
 
-/* The moon sways gently at rest while a tiny star beside it twinkles —
+/* The moon sways gently at rest while a tiny star beside it twinkles â€”
    the night-mode answer to the sun's idle spin. */
 [data-theme="dark"] .header-tools .theme-toggle .toggle-glyph-moon svg {
   animation: moon-sway 4s ease-in-out infinite;
@@ -352,7 +352,7 @@
   50%      { transform: scale(1.15); opacity: 1; }
 }
 
-/* ── Hero media: true edge-to-edge video ──────────────────────────────────
+/* â”€â”€ Hero media: true edge-to-edge video â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    .hero-visual is a <figure>, and the UA default `figure { margin: 1em 40px }`
    survives its `position:absolute; inset:0` positioning: the media box sits
    40px in from each side and 16px from top/bottom, so a page-coloured frame
@@ -363,12 +363,12 @@
 /* First-screen fill: `.hero` reserves `min(850px, 100svh - 82px)` for the old
    in-flow 82px header, but the header is now a collapsed floating dock (0px
    tall), so up to 82px of the next section peeked in below the video at the
-   fold — the video appeared to "stop short" at the bottom on any screen.
+   fold â€” the video appeared to "stop short" at the bottom on any screen.
    932px = the original 850px hero + 82px header, so the first screen fills
    edge-to-edge exactly as originally designed. */
 .hero { min-height: min(932px, 100svh); }
 
-/* ── Hero theme videos: light / dark crossfade ──────────────────────────────
+/* â”€â”€ Hero theme videos: light / dark crossfade â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Two stacked <video> layers swap visibility with the theme. Opacity (not
    display) keeps the switch smooth, and the hidden layer is paused by JS so
    only one video decodes at a time. */
@@ -386,7 +386,7 @@
 
 
 /* ============================================================================
-   SELECTED WORK — expanding-slab accordion
+   SELECTED WORK â€” expanding-slab accordion
    Rebuilt from the reference clip: six photo slabs on a light canvas. All but
    one collapse to narrow pills (bottom-aligned, staggered heights); the open
    slab grows to fill the row and extends a touch above and below the band
@@ -687,7 +687,7 @@
 .work-gallery-title { margin: 0; font-size: clamp(2rem, 4.4vw, 3.4rem); line-height: 1.02; letter-spacing: -.045em; font-weight: 800; color: var(--text); }
 .work-gallery-title-accent { display: block; font-style: italic; font-weight: 700; letter-spacing: -.03em; }
 .work-gallery { position: relative; max-width: 1020px; margin: 48px auto 0; }
-/* Desktop: plain 3-col grid — NO nested scroller, so vertical page scroll
+/* Desktop: plain 3-col grid â€” NO nested scroller, so vertical page scroll
    passes straight through. The reference shows 3 static cards; only the
    mobile strip needs horizontal scrolling. */
 .work-viewport { overflow: visible; }
@@ -726,57 +726,627 @@
 
 
 /* ============================================================
-   CONTACT 04 - split layout: header + [status card | form ticket]
+   CONTACT - Asymmetric Slab with Inspired Geometry
+   Rooted in project theme palette: --blue (#5682f6), --blue-dark (#315ed8),
+   --ink (#24233a), --soft (#f7f5ff), and --periwinkle accents.
    ============================================================ */
-.contact { padding-bottom: 170px; }
-.contact-inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(38px, 5vw, 72px); max-width: 1180px; margin: 0 auto; }
-/* Header: number chip inline, huge headline, lede to one narrow measure */
-.contact .eyebrow { margin-bottom: 22px; }
-.contact h2 { font-size: clamp(2.6rem, 6.2vw, 5.6rem); max-width: 16ch; }
-.contact h2 em { display: block; }
-.contact-copy { max-width: 46ch; margin: 26px 0 0; color: #c4c3cf; font-size: 1.02rem; line-height: 1.55; }
-/* Body: two cards side by side */
-.contact-body { display: grid; grid-template-columns: minmax(240px, 0.85fr) minmax(0, 1.4fr); gap: clamp(18px, 2vw, 26px); align-items: start; }
-/* ---- status / direct channel card ---- */
-.contact-panel { padding: 26px 26px 20px; border: 1px solid rgba(255,255,255,.14); border-radius: 22px; background: rgba(255,255,255,.045); }
-.contact-status { display: flex; align-items: center; gap: 10px; margin: 0 0 22px; font: 500 10px 'DM Mono', monospace; letter-spacing: .09em; text-transform: uppercase; color: #d9d8e4; }
-.contact-status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 4px rgba(181,239,62,.16); flex: none; }
-.contact-channels { list-style: none; margin: 0; padding: 0; }
-.contact-channels li + li { border-top: 1px solid rgba(255,255,255,.1); }
-.contact-channel { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 14px 2px; border-radius: 10px; transition: transform .2s ease; }
-.contact-channel:hover { transform: translateX(3px); }
-.contact-channel-label { grid-column: 1; font: 500 10px 'DM Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--periwinkle); }
-.contact-channel-value { grid-column: 1; font-size: .95rem; word-break: break-word; }
-.contact-channel-note { grid-column: 2; grid-row: 1 / span 2; align-self: center; font: 400 10px 'DM Mono', monospace; color: rgba(255,255,255,.5); text-align: right; }
-.contact-foot { margin: 18px 0 0; font: 400 10px 'DM Mono', monospace; letter-spacing: .05em; color: rgba(255,255,255,.45); }
-/* ---- form ticket ---- */
-.contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 16px; margin: 0; padding: 26px; border: 1px solid rgba(255,255,255,.14); border-radius: 22px; background: rgba(255,255,255,.045); }
-.contact-field { display: flex; flex-direction: column; gap: 7px; }
-.contact-field-half { grid-column: span 1; }
-.contact-field-full { grid-column: 1 / -1; }
-.contact-form label, .contact-types legend { display: block; margin: 0; padding: 0; color: #d9d8e4; font: 500 10px 'DM Mono', monospace; letter-spacing: .08em; text-transform: uppercase; }
-.contact-form input[type='text'], .contact-form input[type='email'], .contact-form textarea { width: 100%; padding: 13px 14px; border: 1px solid rgba(255,255,255,.22); border-radius: 12px; color: var(--white); background: rgba(255,255,255,.08); font: .9rem Manrope, sans-serif; transition: border-color .2s ease, background .2s ease; }
-.contact-form textarea { min-height: 130px; resize: vertical; }
-.contact-form input:focus, .contact-form textarea:focus { border-color: var(--periwinkle); background: rgba(255,255,255,.12); }
-.contact-form input[aria-invalid='true'], .contact-form textarea[aria-invalid='true'] { border-color: #ff9d9d; }
-/* segmented project-type chips (replaces the old <select>) */
-.contact-types { margin: 0; padding: 0; border: 0; }
-.contact-types legend { margin-bottom: 7px; }
-.contact-type-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.contact-type { position: relative; margin: 0 !important; cursor: pointer; }
-.contact-type input { position: absolute; opacity: 0; width: 0; height: 0; }
-.contact-type span { display: inline-block; padding: 9px 14px; border: 1px solid rgba(255,255,255,.22); border-radius: 999px; color: #d9d8e4; font: 500 10px 'DM Mono', monospace; letter-spacing: .06em; text-transform: uppercase; transition: background .2s ease, border-color .2s ease, color .2s ease; }
-.contact-type:hover span { border-color: rgba(255,255,255,.45); color: var(--white); }
-.contact-type input:focus-visible + span { outline: 3px solid var(--blue); outline-offset: 3px; }
-.contact-type input:checked + span { border-color: transparent; background: var(--white); color: var(--ink); }
-/* actions row */
-.contact-actions { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 4px; }
-.contact-actions .form-message { margin: 0; font-size: .85rem; color: #d9d8e4; }
-.contact-actions .button { border: 0; border-radius: 999px; cursor: pointer; }
-.contact-form.success { border-color: rgba(181,239,62,.5); }
-@media (max-width: 900px) {
-  .contact-body { grid-template-columns: 1fr; }
-  .contact-form { grid-template-columns: 1fr; }
-  .contact-field-half, .contact-field-full { grid-column: auto; }
+.contact {
+  padding-top: clamp(80px, 10vw, 140px);
+  padding-bottom: clamp(60px, 8vw, 110px);
+  background: var(--soft);
 }
+
+.contact-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-slab {
+  --slab-pad: clamp(28px, 4.2vw, 54px);
+  --notch-r: 28px;
+  --notch-fillet: 20px;
+  position: relative;
+  width: 100%;
+  padding: var(--slab-pad);
+  border-radius: clamp(28px, 3.8vw, 44px);
+  background: var(--blue);
+  background-image: linear-gradient(140deg, #5c87f8 0%, #2f5ad5 100%);
+  color: #ffffff;
+  display: grid;
+  gap: clamp(20px, 2.8vw, 32px);
+  box-shadow: 0 24px 50px -12px rgba(49, 94, 216, 0.28);
+}
+
+/* Header row: title + subtext left; the callout notch cut-out top-right */
+.contact-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.contact-head-text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact h2 {
+  margin: 0;
+  font-size: clamp(2.6rem, 5.8vw, 4.8rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.contact-copy {
+  max-width: 44ch;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Stepped Notch Box on Top Right: seamlessly cut to the canvas background */
+.contact-callout {
+  min-width: 0;
+  align-self: start;
+  margin: calc(-1 * var(--slab-pad)) calc(-1 * var(--slab-pad)) 0 calc(-1 * var(--notch-r));
+  padding: 0 clamp(18px, 2.4vw, 30px) clamp(24px, 3vw, 36px) calc(var(--notch-r) + clamp(24px, 3vw, 38px));
+  background: var(--soft);
+  border-bottom-left-radius: var(--notch-r);
+  -webkit-mask-image:
+    radial-gradient(circle var(--notch-fillet) at var(--notch-r) 100%, transparent var(--notch-fillet), #000 var(--notch-fillet)),
+    linear-gradient(90deg, transparent var(--notch-r), #000 var(--notch-r)),
+    radial-gradient(circle var(--notch-r) at 0 var(--notch-r), transparent var(--notch-r), #000 var(--notch-r)),
+    linear-gradient(180deg, #000 var(--notch-r), transparent var(--notch-r));
+  -webkit-mask-composite: source-in, source-over, source-in;
+  mask-image:
+    radial-gradient(circle var(--notch-fillet) at var(--notch-r) 100%, transparent var(--notch-fillet), #000 var(--notch-fillet)),
+    linear-gradient(90deg, transparent var(--notch-r), #000 var(--notch-r)),
+    radial-gradient(circle var(--notch-r) at 0 var(--notch-r), transparent var(--notch-r), #000 var(--notch-r)),
+    linear-gradient(180deg, #000 var(--notch-r), transparent var(--notch-r));
+  mask-composite: intersect, add, intersect;
+}
+
+.contact-callout-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: clamp(20px, 2.5vw, 28px) clamp(22px, 2.6vw, 32px);
+  border-radius: clamp(18px, 2vw, 24px);
+  background: #ffffff;
+  color: var(--blue-dark);
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(36, 35, 58, 0.05);
+}
+
+.contact-callout-card p {
+  margin: 0;
+  font-size: clamp(0.78rem, 1vw, 0.92rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.contact-status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 0 4px rgba(181, 239, 62, 0.3);
+  flex-shrink: 0;
+}
+
+/* Row of Floating Inset Cards */
+.contact-cards {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 0.85fr;
+  gap: clamp(14px, 1.8vw, 22px);
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(22px, 2.6vw, 32px);
+  border-radius: clamp(20px, 2.2vw, 26px);
+  background: #ffffff;
+  color: var(--ink);
+  min-height: 175px;
+  box-shadow: 0 10px 24px rgba(36, 35, 58, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(36, 35, 58, 0.12);
+}
+
+.contact-card-label {
+  margin: 0 0 10px;
+  font: 700 11px/1.2 'DM Mono', monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.contact-card-value {
+  margin: 0;
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.contact-card-note {
+  margin: 10px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.contact-card-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.contact-card-link {
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  font-weight: 800;
+  color: var(--ink);
+  transition: color 0.2s ease, transform 0.2s ease;
+  word-break: break-word;
+}
+
+.contact-card-link:hover {
+  color: var(--blue-dark);
+}
+
+/* Social icon buttons in third card */
+.contact-socials-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.contact-social {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--blue);
+  color: #ffffff;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 14px rgba(86, 130, 246, 0.3);
+}
+
+.contact-social:hover {
+  background: var(--blue-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(49, 94, 216, 0.38);
+}
+
+.contact-social svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+/* Enquiry Form Card */
+.contact-form-card {
+  padding: clamp(24px, 3.2vw, 38px);
+  border-radius: clamp(20px, 2.2vw, 26px);
+  background: #ffffff;
+  color-scheme: light;
+  box-shadow: 0 10px 24px rgba(36, 35, 58, 0.08);
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 16px;
+  margin: 0;
+}
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.contact-field-half {
+  grid-column: span 1;
+}
+
+.contact-field-full {
+  grid-column: 1 / -1;
+}
+
+.contact-form label,
+.contact-types legend {
+  display: block;
+  margin: 0;
+  padding: 0;
+  color: var(--muted);
+  font: 600 11px/1 'DM Mono', monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact-form input[type='text'],
+.contact-form input[type='email'],
+.contact-form textarea {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid rgba(36, 35, 58, 0.14);
+  border-radius: 12px;
+  color: var(--ink);
+  background: #faf9fd;
+  font: 500 0.92rem/1.5 'Manrope', sans-serif;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.contact-form textarea {
+  min-height: 125px;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--blue);
+  background: #ffffff;
+  box-shadow: 0 0 0 3.5px rgba(86, 130, 246, 0.16);
+  outline: none;
+}
+
+.contact-form input[aria-invalid='true'],
+.contact-form textarea[aria-invalid='true'] {
+  border-color: #d64545;
+  box-shadow: 0 0 0 3px rgba(214, 69, 69, 0.12);
+}
+
+/* Category pills */
+.contact-types {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.contact-types legend {
+  margin-bottom: 8px;
+}
+
+.contact-type-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.contact-type {
+  position: relative;
+  margin: 0 !important;
+  cursor: pointer;
+}
+
+.contact-type input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.contact-type span {
+  display: inline-block;
+  padding: 8px 15px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font: 600 11px/1.2 'DM Mono', monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.contact-type:hover span {
+  border-color: var(--blue);
+  color: var(--blue-dark);
+}
+
+.contact-type input:focus-visible + span {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.contact-type input:checked + span {
+  border-color: transparent;
+  background: var(--blue);
+  color: #ffffff;
+}
+
+/* Actions */
+.contact-actions {
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.contact-actions .form-message {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+
+.contact-actions .button {
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  background: var(--ink);
+  color: #ffffff;
+  padding: 14px 26px;
+  font: 600 12px/1 'DM Mono', monospace;
+  letter-spacing: 0.08em;
+  box-shadow: 0 4px 14px rgba(36, 35, 58, 0.22);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-actions .button:hover {
+  background: var(--blue-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(49, 94, 216, 0.32);
+}
+
+.contact-actions .button:disabled {
+  opacity: 0.6;
+  cursor: default;
+  background: #9fa1b5;
+  box-shadow: none;
+}
+
+/* Bottom Unified Footer Bar */
+.site-footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 0 clamp(40px, 6vw, 80px);
+  display: block;
+}
+
+.contact-footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px clamp(20px, 3.2vw, 36px);
+  border-radius: clamp(18px, 2vw, 24px);
+  background: #ffffff;
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 18px rgba(36, 35, 58, 0.04);
+}
+
+.contact-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.contact-brand-icon {
+  display: flex;
+  align-items: center;
+}
+
+.contact-brand-name {
+  font-weight: 800;
+  color: var(--blue-dark);
+  letter-spacing: -0.02em;
+  font-size: 1.05rem;
+  text-transform: lowercase;
+}
+
+.contact-brand-divider {
+  color: var(--line);
+}
+
+.contact-brand-copy {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.04em;
+}
+
+.contact-footer-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 28px);
+}
+
+.contact-footer-nav a {
+  font: 600 12px/1 'DM Mono', monospace;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.contact-footer-nav a:hover {
+  color: var(--blue-dark);
+}
+
+.contact-footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.contact-footer-socials a {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: rgba(86, 130, 246, 0.1);
+  color: var(--blue-dark);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.contact-footer-socials a:hover {
+  background: var(--blue);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Dark mode theme adjustments */
+[data-theme="dark"] .contact-slab {
+  background: #2b3b75;
+  background-image: linear-gradient(140deg, #374c96 0%, #1c2752 100%);
+  box-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .contact-callout {
+  background: var(--soft);
+}
+
+[data-theme="dark"] .contact-callout-card,
+[data-theme="dark"] .contact-card,
+[data-theme="dark"] .contact-form-card,
+[data-theme="dark"] .contact-footer-bar {
+  background: #18192a;
+  color: #f4f3ff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] .contact-card-label {
+  color: var(--blue);
+}
+
+[data-theme="dark"] .contact-card-value,
+[data-theme="dark"] .contact-card-link {
+  color: #f4f3ff;
+}
+
+[data-theme="dark"] .contact-card-link:hover {
+  color: var(--blue);
+}
+
+[data-theme="dark"] .contact-card-note {
+  color: var(--muted);
+}
+
+[data-theme="dark"] .contact-form input[type='text'],
+[data-theme="dark"] .contact-form input[type='email'],
+[data-theme="dark"] .contact-form textarea {
+  background: #111222;
+  color: #f4f3ff;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .contact-form input:focus,
+[data-theme="dark"] .contact-form textarea:focus {
+  background: #141528;
+  border-color: var(--blue);
+}
+
+[data-theme="dark"] .contact-type span {
+  border-color: rgba(255, 255, 255, 0.16);
+  color: var(--muted);
+}
+
+[data-theme="dark"] .contact-footer-brand .contact-brand-name {
+  color: var(--blue);
+}
+
+[data-theme="dark"] .contact-footer-nav a {
+  color: var(--muted);
+}
+
+[data-theme="dark"] .contact-footer-nav a:hover {
+  color: var(--blue);
+}
+
+[data-theme="dark"] .contact-footer-socials a {
+  background: rgba(125, 156, 255, 0.12);
+  color: var(--blue);
+}
+
+[data-theme="dark"] .contact-footer-socials a:hover {
+  background: var(--blue);
+  color: #0d0e19;
+}
+
+/* Responsive breakdowns (matching mobile preview from inspiration) */
+@media (max-width: 900px) {
+  .contact-head {
+    grid-template-columns: 1fr;
+  }
+  .contact-callout {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    -webkit-mask: none;
+    mask: none;
+  }
+  .contact-cards {
+    grid-template-columns: 1fr;
+  }
+  .contact-form {
+    grid-template-columns: 1fr;
+  }
+  .contact-field-half,
+  .contact-field-full {
+    grid-column: auto;
+  }
+  .contact-footer-bar {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+  .contact-footer-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 620px) {
+  .contact-slab {
+    border-radius: 28px;
+    padding: 24px 20px;
+    gap: 20px;
+  }
+  .contact-card {
+    min-height: auto;
+    padding: 20px;
+    border-radius: 20px;
+  }
+  .contact-form-card {
+    padding: 20px;
+    border-radius: 20px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 
