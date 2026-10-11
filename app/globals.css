@@ -1272,21 +1272,16 @@
   color: var(--blue-dark);
 }
 
-.contact-footer-socials {
+.contact-footer-copy {
   display: flex;
   align-items: center;
-  gap: 14px;
+  font: 500 11px/1 'DM Mono', monospace;
+  letter-spacing: 0.06em;
+  color: var(--muted);
 }
 
-.contact-footer-socials a {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-  background: rgba(86, 130, 246, 0.1);
-  color: var(--blue-dark);
-  transition: background 0.2s ease, transform 0.2s ease;
+[data-theme="dark"] .contact-footer-copy {
+  color: #a5a7bf;
 }
 
 .contact-footer-socials a:hover {
