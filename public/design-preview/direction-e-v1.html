@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Blog section preview - Direction E: The Switchboard</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--ink:#24233a;--text:#24233a;--muted:#6f7085;--soft:#f7f5ff;--white:#fffdfd;--cloud:#f2efff;--lilac:#d9d4ff;--periwinkle:#aab7ff;--blue:#5682f6;--blue-dark:#315ed8;--pink:#edb9f6;--line:rgba(36,35,58,.14);--max:1440px}
+[data-theme="dark"]{--ink:#0d0e19;--text:#f4f3ff;--muted:#a5a7bf;--soft:#111322;--white:#fbfaff;--cloud:#1a1b2d;--lilac:#2c2d50;--periwinkle:#b9c3ff;--blue:#7d9cff;--blue-dark:#9babff;--line:rgba(244,243,255,.16)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--text);background:var(--soft);font:16px/1.5 Manrope,Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:5px}
+h1,h2,h3,p{margin-top:0}
+.pv-context{height:64px;background:var(--cloud)}
+.section-wrap{max-width:var(--max);margin:auto;padding:150px 52px;border-top:1px solid var(--line)}
+.section-heading{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:30px;margin-bottom:66px}
+.section-heading h2{margin:0;font-size:clamp(2.7rem,5.4vw,5.7rem);line-height:.92;letter-spacing:-.09em}
+.section-number,.sw-kind,.sw-date,.sw-vkind,.sw-read{font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase}
+.section-number{color:var(--blue-dark)}
+.section-lede{max-width:260px;color:var(--muted);font-size:.88rem}
+/* Direction E - The Switchboard */
+.switchboard{display:grid;grid-template-columns:1.02fr 1fr;gap:64px;align-items:start}
+.sw-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.sw-list li{border-bottom:1px solid var(--line)}
+.sw-item{display:grid;grid-template-columns:44px minmax(0,1fr) 30px;grid-template-areas:"num title arr" "num meta arr";gap:9px 22px;align-items:start;width:100%;background:none;border:0;padding:25px 4px;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.sw-num{grid-area:num;font:500 .95rem/1.3 'DM Mono',monospace;color:var(--muted);transition:color .35s ease}
+.sw-title{grid-area:title;font-size:clamp(1.3rem,1.85vw,1.7rem);line-height:1.15;letter-spacing:-.03em;font-weight:600;color:var(--muted);transition:color .35s ease}
+.sw-meta{grid-area:meta;display:flex;gap:14px;margin-top:1px}
+.sw-kind{color:var(--muted);transition:color .35s ease}
+.sw-date{color:var(--muted)}
+.sw-inline{display:none}
+.sw-arr{grid-area:arr;justify-self:end;color:var(--blue-dark);font-size:1rem;opacity:0;transform:translate(-6px,6px);transition:opacity .4s ease,transform .45s cubic-bezier(.16,1,.3,1)}
+.sw-item:hover .sw-title{color:var(--text)}
+.sw-item.is-active .sw-title{color:var(--text)}
+.sw-item.is-active .sw-num{color:var(--blue)}
+.sw-item.is-active .sw-kind{color:var(--blue-dark)}
+.sw-item.is-active .sw-arr{opacity:1;transform:none}
+.sw-panel{position:relative;min-height:400px}
+.sw-card{position:absolute;inset:0;border:1px solid var(--line);opacity:0;transform:translateY(16px);transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1);pointer-events:none}
+.sw-card.is-active{opacity:1;transform:none;pointer-events:auto}
+.sw-visual{position:relative;height:216px;overflow:hidden}
+.vscrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,14,25,.30),rgba(13,14,25,0) 42%,rgba(13,14,25,.18) 100%);display:none}
+.vis-1 .vscrim,.vis-3 .vscrim{display:block}
+.vis-1{color:var(--white)}
+.vis-1 .vbg{background:linear-gradient(140deg,#5f80f2 0%,#1e3a9a 82%)}
+.vis-2{color:var(--text)}
+.vis-2 .vbg{background:linear-gradient(135deg,var(--pink),var(--lilac))}
+[data-theme="dark"] .vis-2{color:#fbfaff}
+[data-theme="dark"] .vis-2 .vbg{background:linear-gradient(135deg,#4a2f5e,#26264a)}
+.vis-3{color:var(--white)}
+.vis-3 .vbg{background:var(--ink)}
+[data-theme="dark"] .vis-3 .vbg{background:#23263f;box-shadow:inset 0 0 0 1px rgba(244,243,255,.14)}
+.vbg{position:absolute;inset:0}
+.sw-vkind{position:absolute;left:22px;top:20px;opacity:.95}
+.sw-vnum{position:absolute;left:20px;bottom:12px;font-weight:800;font-size:3.4rem;line-height:1;letter-spacing:-.05em;font-family:Manrope,Arial,sans-serif;opacity:.92}
+.sw-cbody{padding:24px 26px 26px}
+.sw-excerpt{margin:0 0 22px;color:var(--muted);font-size:1.02rem;max-width:46ch}
+.sw-read{display:inline-flex;align-items:center;gap:10px;padding-bottom:6px;border-bottom:1px solid var(--line);color:var(--blue-dark);transition:border-color .35s ease,color .35s ease}
+.sw-read .arr{transition:transform .45s cubic-bezier(.16,1,.3,1);font-size:1rem}
+.sw-card:hover .sw-read{border-color:var(--blue);color:var(--blue)}
+.sw-card:hover .sw-read .arr{transform:translate(2px,-2px)}
+.pv-badge{position:fixed;left:18px;bottom:14px;z-index:99;font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);background:var(--soft);border:1px solid var(--line);padding:9px 13px}
+.pv-badge b{color:var(--text);font-weight:500;margin-left:10px}
+.pv-toggle{position:fixed;right:18px;bottom:14px;z-index:99;font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--text);background:var(--soft);border:1px solid var(--text);padding:10px 15px;cursor:pointer}
+.pv-toggle:hover{background:var(--text);color:var(--soft)}
+@media (max-width:960px){
+.switchboard{grid-template-columns:1fr;gap:0}
+.sw-panel{display:none}
+.sw-item{grid-template-areas:"num title arr" "num meta arr" "num inline arr";}
+.sw-inline{display:block;grid-area:inline;color:var(--muted);font-size:.9rem;line-height:1.55;margin-top:8px}
+}
+@media (max-width:560px){
+.section-wrap{padding:90px 24px 96px}
+.section-heading{grid-template-columns:1fr;gap:18px;margin-bottom:44px}
+.section-heading h2{font-size:clamp(2.6rem,11vw,3.3rem)}
+.section-lede{max-width:none}
+.sw-title{font-size:1.3rem}
+}
+@media (prefers-reduced-motion: reduce){
+.sw-num,.sw-title,.sw-kind,.sw-arr,.sw-card,.sw-read,.sw-read .arr{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="pv-context" aria-hidden="true"></div>
+<main>
+<section class="section-wrap" aria-labelledby="blog-title">
+<div class="section-heading">
+<p class="section-number">03 / 04</p>
+<h2 id="blog-title">From the blog</h2>
+<p class="section-lede">Small observations on making digital things clearer, kinder, and more durable.</p>
+</div>
+<div class="switchboard">
+<ul class="sw-list">
+<li><button type="button" class="sw-item is-active" data-post="0" aria-pressed="true">
+<span class="sw-num">01</span>
+<span class="sw-title">The quiet power of a good default</span>
+<span class="sw-meta"><span class="sw-kind">Product thinking</span><span class="sw-date">12.10.24</span></span>
+<span class="sw-inline">How a few thoughtful choices can make a complex product feel immediately useful.</span>
+<span class="sw-arr" aria-hidden="true">&#8599;</span>
+</button></li>
+<li><button type="button" class="sw-item" data-post="1" aria-pressed="false">
+<span class="sw-num">02</span>
+<span class="sw-title">Shipping less, but shipping it well</span>
+<span class="sw-meta"><span class="sw-kind">Shipping well</span><span class="sw-date">03.07.24</span></span>
+<span class="sw-inline">A practical case for smaller releases, tighter feedback loops, and better care.</span>
+<span class="sw-arr" aria-hidden="true">&#8599;</span>
+</button></li>
+<li><button type="button" class="sw-item" data-post="2" aria-pressed="false">
+<span class="sw-num">03</span>
+<span class="sw-title">Notes on designing for the edge</span>
+<span class="sw-meta"><span class="sw-kind">Inclusive design</span><span class="sw-date">19.02.24</span></span>
+<span class="sw-inline">What constraints, overlooked users, and real-world conditions teach us about craft.</span>
+<span class="sw-arr" aria-hidden="true">&#8599;</span>
+</button></li>
+</ul>
+<aside class="sw-panel" aria-label="Post preview">
+<article class="sw-card is-active" data-post="0">
+<div class="sw-visual vis-1"><span class="vbg"></span><span class="vscrim"></span><span class="sw-vkind">Product thinking</span><span class="sw-vnum" aria-hidden="true">01</span></div>
+<div class="sw-cbody">
+<p class="sw-excerpt">How a few thoughtful choices can make a complex product feel immediately useful.</p>
+<span class="sw-read">Read the post <span class="arr" aria-hidden="true">&#8599;</span></span>
+</div>
+</article>
+<article class="sw-card" data-post="1">
+<div class="sw-visual vis-2"><span class="vbg"></span><span class="sw-vkind">Shipping well</span><span class="sw-vnum" aria-hidden="true">02</span></div>
+<div class="sw-cbody">
+<p class="sw-excerpt">A practical case for smaller releases, tighter feedback loops, and better care.</p>
+<span class="sw-read">Read the post <span class="arr" aria-hidden="true">&#8599;</span></span>
+</div>
+</article>
+<article class="sw-card" data-post="2">
+<div class="sw-visual vis-3"><span class="vbg"></span><span class="vscrim"></span><span class="sw-vkind">Inclusive design</span><span class="sw-vnum" aria-hidden="true">03</span></div>
+<div class="sw-cbody">
+<p class="sw-excerpt">What constraints, overlooked users, and real-world conditions teach us about craft.</p>
+<span class="sw-read">Read the post <span class="arr" aria-hidden="true">&#8599;</span></span>
+</div>
+</article>
+</aside>
+</div>
+</section>
+</main>
+<div class="pv-badge"><span>Preview</span><b>Direction E: The Switchboard</b></div>
+<button class="pv-toggle" id="pvToggle" type="button" aria-label="Toggle color theme">Night</button>
+<script>
+(function(){var r=document.documentElement;var b=document.getElementById('pvToggle');var q=new URLSearchParams(location.search).get('theme');if(q==='light'||q==='dark'){r.setAttribute('data-theme',q);}function sync(){b.textContent=r.getAttribute('data-theme')==='dark'?'Night':'Day';}b.addEventListener('click',function(){r.setAttribute('data-theme',r.getAttribute('data-theme')==='dark'?'light':'dark');sync();});sync();
+var items=Array.prototype.slice.call(document.querySelectorAll('.sw-item'));var cards=Array.prototype.slice.call(document.querySelectorAll('.sw-card'));
+function act(i){items.forEach(function(el,j){var on=j===i;el.classList.toggle('is-active',on);el.setAttribute('aria-pressed',on?'true':'false');});cards.forEach(function(el,j){el.classList.toggle('is-active',j===i);});}
+items.forEach(function(el,i){el.addEventListener('mouseenter',function(){act(i);});el.addEventListener('focus',function(){act(i);});el.addEventListener('click',function(){act(i);});});
+})();
+</script>
+</body>
+</html>

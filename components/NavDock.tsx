@@ -11,7 +11,7 @@ const L = [
   ["#top", "Home"],
   ["#work", "Work"],
   ["#skills", "Skills"],
-  ["#journal", "Notes"],
+  ["#blog", "Blog"],
   ["#contact", "Contact"],
 ];
 export default function NavDock() {
@@ -58,7 +58,7 @@ export default function NavDock() {
     hi();
     const setA = (h: string) => { items.forEach((l) => l.classList.toggle("active", l.getAttribute("href") === h)); hi(); };
     let so: IntersectionObserver | null = null;
-    const secs = ["top", "work", "skills", "journal", "contact"].map((id) => document.getElementById(id)).filter((e): e is HTMLElement => !!e);
+    const secs = ["top", "work", "skills", "blog", "contact"].map((id) => document.getElementById(id)).filter((e): e is HTMLElement => !!e);
     if (secs.length && "IntersectionObserver" in window) {
       so = new IntersectionObserver((es) => { const v = es.filter((e) => e.isIntersecting)[0]; if (v && v.target.id) setA("#" + v.target.id); }, { rootMargin: "-20% 0px -79% 0px", threshold: 0 });
       secs.forEach((s) => so!.observe(s));

@@ -6,8 +6,8 @@ const NOTES = [
 ];
 export default function Journal() {
   return (
-    <section className="journal section-wrap" id="journal" aria-labelledby="journal-title">
-      <div className="section-heading"><p className="section-number">03 / 04</p><h2 id="journal-title">Notes from the work</h2><p className="section-lede">Small observations on making digital things clearer, kinder, and more durable.</p></div>
+    <section className="journal section-wrap" id="blog" aria-labelledby="blog-title">
+      <div className="section-heading"><p className="section-number">03 / 04</p><h2 id="blog-title">From the blog</h2><p className="section-lede">Small observations on making digital things clearer, kinder, and more durable.</p></div>
       <div className="journal-list">
         {NOTES.map((n) => (
           <Reveal as="article" key={n.t}>

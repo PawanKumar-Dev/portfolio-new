@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Blog section preview - Direction C: The Feature</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--ink:#24233a;--text:#24233a;--muted:#6f7085;--soft:#f7f5ff;--white:#fffdfd;--cloud:#f2efff;--lilac:#d9d4ff;--periwinkle:#aab7ff;--blue:#5682f6;--blue-dark:#315ed8;--line:rgba(36,35,58,.14);--max:1440px}
+[data-theme="dark"]{--ink:#0d0e19;--text:#f4f3ff;--muted:#a5a7bf;--soft:#111322;--white:#fbfaff;--cloud:#1a1b2d;--lilac:#2c2d50;--periwinkle:#b9c3ff;--blue:#7d9cff;--blue-dark:#9babff;--line:rgba(244,243,255,.16)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--text);background:var(--soft);font:16px/1.5 Manrope,Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:5px}
+h1,h2,h3,p{margin-top:0}
+.pv-context{height:64px;background:var(--cloud)}
+.section-wrap{max-width:var(--max);margin:auto;padding:150px 52px;border-top:1px solid var(--line)}
+.section-heading{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:30px;margin-bottom:66px}
+.section-heading h2{margin:0;font-size:clamp(2.7rem,5.4vw,5.7rem);line-height:.92;letter-spacing:-.09em}
+.section-number,.feature-flag,.feature-kind,.feature-date,.item-kind,.item-date,.feature-link{font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase}
+.section-number{color:var(--blue-dark)}
+.section-lede{max-width:260px;color:var(--muted);font-size:.88rem}
+/* Direction C - The Feature */
+.blog-spread{border-top:1px solid var(--line)}
+.spread-feature{border-bottom:1px solid var(--line)}
+.spread-feature>a{display:grid;grid-template-columns:190px minmax(0,1fr) 230px;gap:38px;padding:46px 4px 54px;align-items:start}
+.feature-flag{display:inline-flex;align-items:center;gap:10px;margin:0 0 20px;color:var(--blue-dark)}
+.feature-flag::before{content:'';width:20px;height:1px;background:currentColor}
+.feature-kind{color:var(--blue-dark);margin:0 0 8px}
+.feature-date{color:var(--muted);margin:0}
+.feature-body h3{margin:0 0 20px;font-size:clamp(2.2rem,4vw,3.5rem);line-height:1.02;letter-spacing:-.06em;font-weight:700;position:relative;display:inline-block;padding-bottom:12px}
+.feature-body h3::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.feature-excerpt{margin:0 0 28px;color:var(--muted);font-size:1.02rem;max-width:56ch}
+.feature-link{display:inline-flex;align-items:center;gap:10px;padding-bottom:6px;border-bottom:1px solid var(--line);color:var(--blue-dark);transition:border-color .35s ease,color .35s ease}
+.feature-link .arr{transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.feature-ghost{justify-self:end;align-self:center;font-weight:800;font-size:clamp(5rem,7vw,7.5rem);line-height:1;letter-spacing:-.07em;font-family:Manrope,Arial,sans-serif;color:transparent;-webkit-text-stroke:1px var(--line);transition:-webkit-text-stroke-color .6s ease,transform .6s cubic-bezier(.16,1,.3,1);user-select:none}
+.spread-feature>a:hover .feature-body h3::after{transform:scaleX(1)}
+.spread-feature>a:hover .feature-link{border-color:var(--blue);color:var(--blue)}
+.spread-feature>a:hover .feature-link .arr{transform:translate(2px,-2px)}
+.spread-feature>a:hover .feature-ghost{-webkit-text-stroke-color:var(--blue);transform:translateY(-6px)}
+.spread-grid{display:grid;grid-template-columns:1fr 1fr}
+.spread-item{padding:38px 44px 50px 4px}
+.spread-item+.spread-item{border-left:1px solid var(--line);padding-left:44px;padding-right:4px}
+.spread-item a{display:grid;grid-template-columns:1fr 34px;column-gap:18px;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.spread-item a:hover{transform:translateY(-3px)}
+.item-meta{grid-column:1/-1;display:flex;gap:16px;margin:0 0 14px}
+.item-kind{color:var(--blue-dark)}
+.item-date{color:var(--muted)}
+.spread-item h3{grid-column:1;margin:0;font-size:clamp(1.25rem,1.7vw,1.5rem);line-height:1.15;letter-spacing:-.03em;font-weight:600;position:relative;display:inline-block;padding-bottom:7px}
+.spread-item h3::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.16,1,.3,1)}
+.spread-item .item-excerpt{grid-column:1;margin:10px 0 0;color:var(--muted);font-size:.88rem;max-width:46ch}
+.item-go{grid-column:2;grid-row:2 / span 2;align-self:center;justify-self:end;width:34px;height:34px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--blue-dark);font-size:.85rem;transition:background .35s ease,border-color .35s ease,color .35s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+.spread-item a:hover h3::after{transform:scaleX(1)}
+.spread-item a:hover .item-go{background:var(--blue);border-color:var(--blue);color:var(--white);transform:translate(3px,-3px)}
+@keyframes spreadIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.spread-feature{animation:spreadIn .85s cubic-bezier(.16,1,.3,1) both}
+.spread-item{animation:spreadIn .85s cubic-bezier(.16,1,.3,1) both}
+.spread-item:nth-child(2){animation-delay:.12s}
+.pv-badge{position:fixed;left:18px;bottom:14px;z-index:99;font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);background:var(--soft);border:1px solid var(--line);padding:9px 13px}
+.pv-badge b{color:var(--text);font-weight:500;margin-left:10px}
+.pv-toggle{position:fixed;right:18px;bottom:14px;z-index:99;font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--text);background:var(--soft);border:1px solid var(--text);padding:10px 15px;cursor:pointer}
+.pv-toggle:hover{background:var(--text);color:var(--soft)}
+@media (max-width:1080px){
+.section-wrap{padding:110px 32px}
+.spread-feature>a{grid-template-columns:1fr;gap:18px;padding:38px 2px 44px}
+.feature-ghost{display:none}
+.feature-rail{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px}
+.feature-flag{margin:0}
+}
+@media (max-width:900px){
+.spread-grid{grid-template-columns:1fr}
+.spread-item{padding:32px 2px 40px}
+.spread-item+.spread-item{border-left:0;border-top:1px solid var(--line);padding-left:2px}
+}
+@media (max-width:560px){
+.section-wrap{padding:90px 24px 96px}
+.section-heading{grid-template-columns:1fr;gap:18px;margin-bottom:44px}
+.section-heading h2{font-size:clamp(2.6rem,11vw,3.3rem)}
+.section-lede{max-width:none}
+.feature-body h3{font-size:clamp(1.9rem,9vw,2.6rem)}
+.feature-excerpt{font-size:.94rem}
+}
+@media (prefers-reduced-motion: reduce){
+.spread-feature,.spread-item{animation:none}
+.spread-feature>a .feature-body h3::after,.feature-link,.feature-link .arr,.feature-ghost,.spread-item a,.spread-item h3::after,.item-go{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="pv-context" aria-hidden="true"></div>
+<main>
+<section class="section-wrap" aria-labelledby="blog-title">
+<div class="section-heading">
+<p class="section-number">03 / 04</p>
+<h2 id="blog-title">From the blog</h2>
+<p class="section-lede">Small observations on making digital things clearer, kinder, and more durable.</p>
+</div>
+<div class="blog-spread">
+<article class="spread-feature">
+<a href="#contact">
+<div class="feature-rail">
+<p class="feature-flag">Latest</p>
+<p class="feature-kind">Product thinking</p>
+<p class="feature-date">12.10.24</p>
+</div>
+<div class="feature-body">
+<h3>The quiet power of a good default</h3>
+<p class="feature-excerpt">How a few thoughtful choices can make a complex product feel immediately useful.</p>
+<span class="feature-link">Read the essay <span class="arr" aria-hidden="true">&#8599;</span></span>
+</div>
+<div class="feature-ghost" aria-hidden="true">01</div>
+</a>
+</article>
+<div class="spread-grid">
+<article class="spread-item">
+<a href="#contact">
+<p class="item-meta"><span class="item-kind">Shipping well</span><span class="item-date">03.07.24</span></p>
+<h3>Shipping less, but shipping it well</h3>
+<p class="item-excerpt">A practical case for smaller releases, tighter feedback loops, and better care.</p>
+<span class="item-go" aria-hidden="true">&#8599;</span>
+</a>
+</article>
+<article class="spread-item">
+<a href="#contact">
+<p class="item-meta"><span class="item-kind">Inclusive design</span><span class="item-date">19.02.24</span></p>
+<h3>Notes on designing for the edge</h3>
+<p class="item-excerpt">What constraints, overlooked users, and real-world conditions teach us about craft.</p>
+<span class="item-go" aria-hidden="true">&#8599;</span>
+</a>
+</article>
+</div>
+</div>
+</section>
+</main>
+<div class="pv-badge"><span>Preview</span><b>Direction C: The Feature</b></div>
+<button class="pv-toggle" id="pvToggle" type="button" aria-label="Toggle color theme">Night</button>
+<script>
+(function(){var r=document.documentElement;var b=document.getElementById('pvToggle');var q=new URLSearchParams(location.search).get('theme');if(q==='light'||q==='dark'){r.setAttribute('data-theme',q);}function sync(){b.textContent=r.getAttribute('data-theme')==='dark'?'Night':'Day';}b.addEventListener('click',function(){r.setAttribute('data-theme',r.getAttribute('data-theme')==='dark'?'light':'dark');sync();});sync();})();
+</script>
+</body>
+</html>

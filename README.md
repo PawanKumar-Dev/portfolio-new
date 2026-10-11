@@ -61,7 +61,7 @@ portfolio-new/
 │   ├── HeroVideo.tsx     # Client: light/dark <video> crossfade + play-only-visible + gesture retry
 │   ├── Work.tsx          # Client: 01 Selected work — top-performing gallery (desktop grid, mobile swipe strip)
 │   ├── Skills.tsx        # Server: 02 Capabilities (5 rows)
-│   ├── Journal.tsx       # Server: 03 Notes (3 entries via Reveal as="article")
+│   ├── Journal.tsx       # Server: 03 Blog (3 entries via Reveal as="article")
 │   ├── Contact.tsx       # Server: 04 Contact — header block + [status/channel panel | form]
 │   ├── ContactForm.tsx   # Client: validation mirroring static script.js + project-type radio chips
 │   ├── SiteFooter.tsx    # Server: dynamic-year footer
@@ -83,7 +83,7 @@ portfolio-new/
 | — | Hero | `Hero.tsx` + `HeroVideo.tsx` | Copy, CTAs, dual light/dark video, foot |
 | 01 | Selected work | `Work.tsx` | Static 3-card gallery grid on desktop (6-card swipe strip ≤900px) with stat/title/blurb overlays |
 | 02 | Capabilities | `Skills.tsx` | Statement + 5 capability rows |
-| 03 | Notes from the work | `Journal.tsx` | 3 journal entries |
+| 03 | From the blog | `Journal.tsx` | 3 posts |
 | 04 | Contact | `Contact.tsx` + `ContactForm.tsx` | Split layout: availability/channel card + form ticket with project-type chips, `mailto:` fallback |
 
 ## Component model

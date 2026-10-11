@@ -19,7 +19,7 @@ export default function SiteFooter() {
           <a href="#top">About me</a>
           <a href="#work">Projects</a>
           <a href="#skills">Skills</a>
-          <a href="#journal">Articles</a>
+          <a href="#blog">Articles</a>
           <a href="#contact">Contact</a>
         </nav>
 

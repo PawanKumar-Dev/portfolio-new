@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Blog section preview - Direction D: The Feed</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--ink:#24233a;--text:#24233a;--muted:#6f7085;--soft:#f7f5ff;--white:#fffdfd;--cloud:#f2efff;--lilac:#d9d4ff;--periwinkle:#aab7ff;--blue:#5682f6;--blue-dark:#315ed8;--line:rgba(36,35,58,.14);--max:1440px}
+[data-theme="dark"]{--ink:#0d0e19;--text:#f4f3ff;--muted:#a5a7bf;--soft:#111322;--white:#fbfaff;--cloud:#1a1b2d;--lilac:#2c2d50;--periwinkle:#b9c3ff;--blue:#7d9cff;--blue-dark:#9babff;--line:rgba(244,243,255,.16)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--text);background:var(--soft);font:16px/1.5 Manrope,Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:5px}
+h1,h2,h3,p{margin-top:0}
+.pv-context{height:64px;background:var(--cloud)}
+.section-wrap{max-width:var(--max);margin:auto;padding:150px 52px;border-top:1px solid var(--line)}
+.section-heading{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:30px;margin-bottom:66px}
+.section-heading h2{margin:0;font-size:clamp(2.7rem,5.4vw,5.7rem);line-height:.92;letter-spacing:-.09em}
+.section-number,.feed-kind,.feed-date{font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase}
+.section-number{color:var(--blue-dark)}
+.section-lede{max-width:260px;color:var(--muted);font-size:.88rem}
+/* Direction D - The Feed */
+.blog-feed{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.blog-feed li{border-bottom:1px solid var(--line)}
+.blog-feed li a{display:grid;grid-template-columns:320px minmax(0,1fr) 46px;gap:36px;align-items:center;padding:28px 10px 28px 4px}
+.feed-art{position:relative;display:block;aspect-ratio:4/3;overflow:hidden;background:var(--cloud)}
+.feed-art img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.01);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.blog-feed li a:hover .feed-art img{transform:scale(1.055)}
+.feed-meta{display:flex;gap:18px;margin:0 0 12px}
+.feed-kind{color:var(--blue-dark)}
+.feed-date{color:var(--muted)}
+.feed-body h3{margin:0 0 10px;font-size:clamp(1.4rem,2.1vw,1.9rem);line-height:1.12;letter-spacing:-.035em;font-weight:600;position:relative;display:inline-block;padding-bottom:8px}
+.feed-body h3::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.16,1,.3,1)}
+.feed-body p.feed-excerpt{margin:0;color:var(--muted);font-size:.9rem;max-width:62ch}
+.feed-go{width:46px;height:46px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--blue-dark);font-size:1rem;transition:background .35s ease,border-color .35s ease,color .35s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+.blog-feed li a:hover .feed-body h3::after{transform:scaleX(1)}
+.blog-feed li a:hover .feed-go{border-color:var(--blue);background:var(--blue);color:var(--white);transform:translate(3px,-3px)}
+@keyframes rowIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.blog-feed li{animation:rowIn .8s cubic-bezier(.16,1,.3,1) both}
+.blog-feed li:nth-child(2){animation-delay:.09s}
+.blog-feed li:nth-child(3){animation-delay:.18s}
+.pv-badge{position:fixed;left:18px;bottom:14px;z-index:99;font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);background:var(--soft);border:1px solid var(--line);padding:9px 13px}
+.pv-badge b{color:var(--text);font-weight:500;margin-left:10px}
+.pv-toggle{position:fixed;right:18px;bottom:14px;z-index:99;font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--text);background:var(--soft);border:1px solid var(--text);padding:10px 15px;cursor:pointer}
+.pv-toggle:hover{background:var(--text);color:var(--soft)}
+@media (max-width:900px){
+.section-wrap{padding:110px 32px}
+.blog-feed li a{grid-template-columns:220px minmax(0,1fr) 40px;gap:24px;padding:24px 2px}
+.feed-go{width:40px;height:40px}
+}
+@media (max-width:640px){
+.section-wrap{padding:90px 24px 96px}
+.section-heading{grid-template-columns:1fr;gap:18px;margin-bottom:44px}
+.section-heading h2{font-size:clamp(2.6rem,11vw,3.3rem)}
+.section-lede{max-width:none}
+.blog-feed li a{grid-template-columns:1fr;gap:18px;padding:26px 2px 30px}
+.feed-art{aspect-ratio:16/9}
+.feed-go{display:none}
+.feed-body h3{font-size:1.35rem}
+}
+@media (prefers-reduced-motion: reduce){
+.blog-feed li{animation:none}
+.feed-art img,.feed-go,.feed-body h3::after{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="pv-context" aria-hidden="true"></div>
+<main>
+<section class="section-wrap" aria-labelledby="blog-title">
+<div class="section-heading">
+<p class="section-number">03 / 04</p>
+<h2 id="blog-title">From the blog</h2>
+<p class="section-lede">Small observations on making digital things clearer, kinder, and more durable.</p>
+</div>
+<ul class="blog-feed">
+<li><a href="#contact">
+<span class="feed-art"><img src="img/feed-1.jpg" alt=""></span>
+<div class="feed-body">
+<p class="feed-meta"><span class="feed-kind">Product thinking</span><span class="feed-date">12.10.24</span></p>
+<h3>The quiet power of a good default</h3>
+<p class="feed-excerpt">How a few thoughtful choices can make a complex product feel immediately useful.</p>
+</div>
+<span class="feed-go" aria-hidden="true">&#8599;</span>
+</a></li>
+<li><a href="#contact">
+<span class="feed-art"><img src="img/feed-2.jpg" alt=""></span>
+<div class="feed-body">
+<p class="feed-meta"><span class="feed-kind">Shipping well</span><span class="feed-date">03.07.24</span></p>
+<h3>Shipping less, but shipping it well</h3>
+<p class="feed-excerpt">A practical case for smaller releases, tighter feedback loops, and better care.</p>
+</div>
+<span class="feed-go" aria-hidden="true">&#8599;</span>
+</a></li>
+<li><a href="#contact">
+<span class="feed-art"><img src="img/feed-3.jpg" alt=""></span>
+<div class="feed-body">
+<p class="feed-meta"><span class="feed-kind">Inclusive design</span><span class="feed-date">19.02.24</span></p>
+<h3>Notes on designing for the edge</h3>
+<p class="feed-excerpt">What constraints, overlooked users, and real-world conditions teach us about craft.</p>
+</div>
+<span class="feed-go" aria-hidden="true">&#8599;</span>
+</a></li>
+</ul>
+</section>
+</main>
+<div class="pv-badge"><span>Preview</span><b>Direction D: The Feed</b></div>
+<button class="pv-toggle" id="pvToggle" type="button" aria-label="Toggle color theme">Night</button>
+<script>
+(function(){var r=document.documentElement;var b=document.getElementById('pvToggle');var q=new URLSearchParams(location.search).get('theme');if(q==='light'||q==='dark'){r.setAttribute('data-theme',q);}function sync(){b.textContent=r.getAttribute('data-theme')==='dark'?'Night':'Day';}b.addEventListener('click',function(){r.setAttribute('data-theme',r.getAttribute('data-theme')==='dark'?'light':'dark');sync();});sync();})();
+</script>
+</body>
+</html>

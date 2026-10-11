@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Blog section preview - Direction B: The Covers</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--ink:#24233a;--text:#24233a;--muted:#6f7085;--soft:#f7f5ff;--white:#fffdfd;--cloud:#f2efff;--lilac:#d9d4ff;--periwinkle:#aab7ff;--blue:#5682f6;--blue-dark:#315ed8;--pink:#edb9f6;--line:rgba(36,35,58,.14);--max:1440px}
+[data-theme="dark"]{--ink:#0d0e19;--text:#f4f3ff;--muted:#a5a7bf;--soft:#111322;--white:#fbfaff;--cloud:#1a1b2d;--lilac:#2c2d50;--periwinkle:#b9c3ff;--blue:#7d9cff;--blue-dark:#9babff;--line:rgba(244,243,255,.16)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--text);background:var(--soft);font:16px/1.5 Manrope,Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:5px}
+h1,h2,h3,p{margin-top:0}
+.pv-context{height:64px;background:var(--cloud)}
+.section-wrap{max-width:var(--max);margin:auto;padding:150px 52px;border-top:1px solid var(--line)}
+.section-heading{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:30px;margin-bottom:66px}
+.section-heading h2{margin:0;font-size:clamp(2.7rem,5.4vw,5.7rem);line-height:.92;letter-spacing:-.09em}
+.section-number,.plate-kind,.plate-date{font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase}
+.section-number{color:var(--blue-dark)}
+.section-lede{max-width:260px;color:var(--muted);font-size:.88rem}
+/* Direction B - The Covers */
+.blog-covers{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.cover a{display:block;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.cover:hover a{transform:translateY(-4px)}
+.cover-plate{position:relative;overflow:hidden;display:block;aspect-ratio:16/10}
+.cover-stack{display:grid;grid-template-rows:1fr 1fr;gap:28px;height:100%}
+.cover-mini,.cover-mini a{height:100%}
+.cover-mini a{display:grid;grid-template-columns:224px 1fr;gap:26px;align-items:stretch}
+.cover-mini .cover-plate{aspect-ratio:auto;height:100%}
+.plate-bg{position:absolute;inset:0;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.cover:hover .plate-bg{transform:scale(1.045)}
+.plate-1{color:var(--white)}
+.plate-1 .plate-bg{background:linear-gradient(140deg,#5f80f2 0%,#1e3a9a 82%)}
+.plate-2{color:var(--text)}
+.plate-2 .plate-bg{background:linear-gradient(135deg,var(--pink),var(--lilac))}
+[data-theme="dark"] .plate-2{color:#fbfaff}
+[data-theme="dark"] .plate-2 .plate-bg{background:linear-gradient(135deg,#4a2f5e,#26264a)}
+.plate-3{color:var(--white)}
+.plate-3 .plate-bg{background:var(--ink)}
+[data-theme="dark"] .plate-3 .plate-bg{background:#23263f;box-shadow:inset 0 0 0 1px rgba(244,243,255,.14)}
+.plate-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,14,25,.30),rgba(13,14,25,0) 44%,rgba(13,14,25,.26) 100%)}
+.plate-2 .plate-scrim{display:none}
+.plate-frame{position:absolute;inset:12px;border:1px solid rgba(255,255,255,.20);pointer-events:none}
+.plate-2 .plate-frame{border-color:rgba(36,35,58,.18)}
+.cover-mini .plate-frame{display:none}
+.plate-kind{position:absolute;left:22px;top:20px;opacity:.95}
+.cover-mini .plate-kind{left:18px;top:16px}
+.plate-date{position:absolute;right:22px;top:20px;opacity:.8}
+.cover-mini .plate-date{right:18px;top:16px}
+.plate-num{position:absolute;left:20px;bottom:14px;font-weight:800;font-size:clamp(3rem,4.8vw,4.4rem);line-height:1;letter-spacing:-.05em;font-family:Manrope,Arial,sans-serif;opacity:.92}
+.cover-mini .plate-num{font-size:2.1rem;left:17px;bottom:12px}
+.plate-go{position:absolute;right:20px;bottom:17px;width:38px;height:38px;border:1px solid rgba(255,255,255,.5);border-radius:50%;display:grid;place-items:center;font-size:.95rem;transition:background .35s ease,border-color .35s ease,color .35s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+.plate-2 .plate-go{border-color:rgba(36,35,58,.42)}
+.cover-mini .plate-go{width:32px;height:32px;right:16px;bottom:14px;font-size:.8rem}
+.cover:hover .plate-go{background:var(--blue);border-color:var(--blue);color:var(--white);transform:translate(3px,-3px)}
+.cover-body{padding:22px 2px 0}
+.cover-body h3{margin:0;font-weight:600;letter-spacing:-.035em;position:relative;display:inline-block;padding-bottom:8px}
+.cover-lead .cover-body h3{font-size:clamp(1.45rem,2vw,1.85rem);line-height:1.12}
+.cover-mini .cover-body h3{font-size:1.22rem;line-height:1.2}
+.cover-body h3::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.16,1,.3,1)}
+.cover:hover h3::after{transform:scaleX(1)}
+.cover-body p{margin:10px 0 0;color:var(--muted);font-size:.88rem;max-width:46ch}
+.cover-mini .cover-body{display:flex;flex-direction:column;justify-content:center;padding:0}
+.cover-mini .cover-body p{max-width:42ch}
+@keyframes cardIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.cover{animation:cardIn .85s cubic-bezier(.16,1,.3,1) both}
+.cover:nth-child(2){animation-delay:.1s}
+.cover:nth-child(3){animation-delay:.2s}
+.pv-badge{position:fixed;left:18px;bottom:14px;z-index:99;font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);background:var(--soft);border:1px solid var(--line);padding:9px 13px}
+.pv-badge b{color:var(--text);font-weight:500;margin-left:10px}
+.pv-toggle{position:fixed;right:18px;bottom:14px;z-index:99;font:500 10px 'DM Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--text);background:var(--soft);border:1px solid var(--text);padding:10px 15px;cursor:pointer}
+.pv-toggle:hover{background:var(--text);color:var(--soft)}
+@media (max-width:1080px){
+.blog-covers{grid-template-columns:1fr;gap:34px}
+.cover-stack{grid-template-rows:none;grid-auto-rows:auto;gap:30px}
+.cover-mini a{grid-template-columns:1fr;gap:16px}
+.cover-mini .cover-plate{aspect-ratio:16/9;height:auto}
+.cover-mini .cover-body{padding:0 2px}
+}
+@media (max-width:640px){
+.section-wrap{padding:90px 24px 96px}
+.section-heading{grid-template-columns:1fr;gap:18px;margin-bottom:44px}
+.section-heading h2{font-size:clamp(2.6rem,11vw,3.3rem)}
+.section-lede{max-width:none}
+.plate-kind{left:16px;top:14px}
+.plate-date{right:16px;top:14px}
+.plate-num{left:16px;bottom:12px}
+.plate-go{right:16px;bottom:14px}
+.cover-lead .cover-body h3{font-size:1.35rem}
+}
+@media (prefers-reduced-motion: reduce){
+.cover{animation:none}
+.cover a,.plate-bg,.plate-go,.cover-body h3::after{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="pv-context" aria-hidden="true"></div>
+<main>
+<section class="section-wrap" aria-labelledby="blog-title">
+<div class="section-heading">
+<p class="section-number">03 / 04</p>
+<h2 id="blog-title">From the blog</h2>
+<p class="section-lede">Small observations on making digital things clearer, kinder, and more durable.</p>
+</div>
+<div class="blog-covers">
+<article class="cover cover-lead">
+<a href="#contact">
+<div class="cover-plate plate-1">
+<span class="plate-bg"></span><span class="plate-scrim"></span><span class="plate-frame"></span>
+<span class="plate-kind">Product thinking</span>
+<span class="plate-date">12.10.24</span>
+<span class="plate-num" aria-hidden="true">01</span>
+<span class="plate-go" aria-hidden="true">&#8599;</span>
+</div>
+<div class="cover-body">
+<h3>The quiet power of a good default</h3>
+<p>How a few thoughtful choices can make a complex product feel immediately useful.</p>
+</div>
+</a>
+</article>
+<div class="cover-stack">
+<article class="cover cover-mini">
+<a href="#contact">
+<div class="cover-plate plate-2">
+<span class="plate-bg"></span><span class="plate-scrim"></span>
+<span class="plate-kind">Shipping well</span>
+<span class="plate-date">03.07.24</span>
+<span class="plate-num" aria-hidden="true">02</span>
+<span class="plate-go" aria-hidden="true">&#8599;</span>
+</div>
+<div class="cover-body">
+<h3>Shipping less, but shipping it well</h3>
+<p>A practical case for smaller releases, tighter feedback loops, and better care.</p>
+</div>
+</a>
+</article>
+<article class="cover cover-mini">
+<a href="#contact">
+<div class="cover-plate plate-3">
+<span class="plate-bg"></span><span class="plate-scrim"></span>
+<span class="plate-kind">Inclusive design</span>
+<span class="plate-date">19.02.24</span>
+<span class="plate-num" aria-hidden="true">03</span>
+<span class="plate-go" aria-hidden="true">&#8599;</span>
+</div>
+<div class="cover-body">
+<h3>Notes on designing for the edge</h3>
+<p>What constraints, overlooked users, and real-world conditions teach us about craft.</p>
+</div>
+</a>
+</article>
+</div>
+</div>
+</section>
+</main>
+<div class="pv-badge"><span>Preview</span><b>Direction B: The Covers</b></div>
+<button class="pv-toggle" id="pvToggle" type="button" aria-label="Toggle color theme">Night</button>
+<script>
+(function(){var r=document.documentElement;var b=document.getElementById('pvToggle');var q=new URLSearchParams(location.search).get('theme');if(q==='light'||q==='dark'){r.setAttribute('data-theme',q);}function sync(){b.textContent=r.getAttribute('data-theme')==='dark'?'Night':'Day';}b.addEventListener('click',function(){r.setAttribute('data-theme',r.getAttribute('data-theme')==='dark'?'light':'dark');sync();});sync();})();
+</script>
+</body>
+</html>
