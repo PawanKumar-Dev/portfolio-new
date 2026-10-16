@@ -758,57 +758,6 @@
   z-index: 2;
 }
 
-/* Header: Digital Concepts Logo */
-.cheatsheet-brand-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-.cheatsheet-brand-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.brand-rings {
-  display: grid;
-  grid-template-columns: repeat(2, 10px);
-  grid-template-rows: repeat(2, 10px);
-  gap: 3px;
-}
-
-.ring-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 2px solid #58b947;
-}
-
-.ring-dot.dot-2 {
-  border-color: #78c668;
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-}
-
-.brand-title {
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #1e293b;
-}
-
-.brand-subtitle {
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: #1e293b;
-}
-
 /* Main headline: Ultimate UI/UX Portfolio Cheatsheet for Designers */
 .cheatsheet-headline-wrap {
   text-align: center;

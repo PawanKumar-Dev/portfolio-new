@@ -500,22 +500,6 @@ export default function Skills() {
   return (
     <section className="skills cheatsheet-section" id="skills" aria-labelledby="skills-cheatsheet-title">
       <div className="cheatsheet-container">
-        {/* Section Top Header matching image */}
-        <div className="cheatsheet-brand-row">
-          <div className="cheatsheet-brand-logo">
-            <div className="brand-rings" aria-hidden="true">
-              <span className="ring-dot dot-1" />
-              <span className="ring-dot dot-2" />
-              <span className="ring-dot dot-3" />
-              <span className="ring-dot dot-4" />
-            </div>
-            <div className="brand-text">
-              <span className="brand-title">DIGITAL</span>
-              <span className="brand-subtitle">CONCEPTS</span>
-            </div>
-          </div>
-        </div>
-
         <div className="cheatsheet-headline-wrap">
           <h2 id="skills-cheatsheet-title" className="cheatsheet-main-title">
             Ultimate UI/UX Portfolio<br />
