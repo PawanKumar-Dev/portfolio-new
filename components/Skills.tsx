@@ -502,9 +502,9 @@ export default function Skills() {
       <div className="cheatsheet-container">
         <div className="cheatsheet-headline-wrap">
           <h2 id="skills-cheatsheet-title" className="cheatsheet-main-title">
-            Ultimate UI/UX Portfolio<br />
-            <span className="highlight-cheatsheet">Cheatsheet</span> for{" "}
-            <span className="highlight-designers">Designers</span>
+            Core Stack &amp; Execution<br />
+            <span className="highlight-cheatsheet">Skills</span> for{" "}
+            <span className="highlight-designers">Modern Products</span>
           </h2>
         </div>
 
