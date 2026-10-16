@@ -886,27 +886,30 @@
   transform: translateY(var(--card-dy, 0px)) rotate(var(--card-rot, 0deg)) translateZ(0) !important;
 }
 
-/* Floating animation container - gentle breathing oscillation */
+/* Floating animation container - natural pendulum sway & gentle breathing */
 .cheatsheet-card-float {
   width: 100%;
   display: flex;
   flex-direction: column;
-  transform-origin: 50% 12px;
+  transform-origin: 50% 8px; /* pivots naturally right from the pushpin needle */
 }
 
 .cheatsheet-card-wrapper[data-reveal].is-visible .cheatsheet-card-float {
-  animation: cardRestingFloat var(--float-dur, 5s) ease-in-out var(--float-delay, 0s) infinite alternate;
+  animation: cardRestingFloat var(--float-dur, 5.2s) ease-in-out var(--float-delay, 0s) infinite alternate;
 }
 
 @keyframes cardRestingFloat {
   0% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px) rotate(-0.75deg);
   }
-  50% {
-    transform: translateY(-3px) rotate(0.3deg);
+  35% {
+    transform: translateY(-5px) rotate(0.45deg);
+  }
+  70% {
+    transform: translateY(-2px) rotate(1.1deg);
   }
   100% {
-    transform: translateY(-1px) rotate(-0.25deg);
+    transform: translateY(-6px) rotate(-0.35deg);
   }
 }
 
@@ -921,7 +924,7 @@
   border-width: 1px;
   border-style: solid;
   box-shadow:
-    0 14px 28px -10px rgba(100, 116, 139, 0.13),
+    0 16px 32px -10px rgba(100, 116, 139, 0.14),
     0 4px 10px -3px rgba(100, 116, 139, 0.05);
   transition:
     box-shadow 0.25s ease,
@@ -932,17 +935,40 @@
   will-change: transform, box-shadow;
 }
 
+/* Smooth resting shadow breathing in tandem with floating sway */
+.cheatsheet-card-wrapper[data-reveal].is-visible .cheatsheet-card {
+  animation: cardShadowBreathe var(--float-dur, 5.2s) ease-in-out var(--float-delay, 0s) infinite alternate;
+}
+
+@keyframes cardShadowBreathe {
+  0% {
+    box-shadow:
+      0 14px 28px -10px rgba(100, 116, 139, 0.13),
+      0 4px 10px -3px rgba(100, 116, 139, 0.05);
+  }
+  100% {
+    box-shadow:
+      0 24px 44px -12px rgba(100, 116, 139, 0.19),
+      0 8px 16px -4px rgba(100, 116, 139, 0.08);
+  }
+}
+
 .cheatsheet-card.is-tilted {
+  animation-play-state: paused;
   transition:
     box-shadow 0.2s ease,
     transform 0.06s ease-out;
   box-shadow:
-    0 30px 60px -12px rgba(71, 85, 105, 0.26),
-    0 12px 24px -5px rgba(71, 85, 105, 0.1);
+    0 32px 64px -14px rgba(71, 85, 105, 0.28),
+    0 14px 28px -6px rgba(71, 85, 105, 0.12);
 }
 
 .cheatsheet-card-wrapper:hover {
   z-index: 20;
+}
+
+.cheatsheet-card-wrapper:hover .cheatsheet-card-float {
+  animation-play-state: paused;
 }
 
 /* Background curved dashed track animated marching dashes */
@@ -1146,10 +1172,20 @@
   height: 100%;
   overflow: visible;
   transition: filter 0.3s ease;
+  animation: pinAuraBreathe 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes pinAuraBreathe {
+  0% {
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.16));
+  }
+  100% {
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.24));
+  }
 }
 
 .cheatsheet-card-wrapper:hover .pushpin-svg {
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.22));
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.26));
 }
 
 .card-badge-wrap {
