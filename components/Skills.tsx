@@ -418,7 +418,11 @@ function PushPin({ color }: { color: CardColor }) {
   );
 }
 
-function MemoCard({ card, delay }: { card: SkillCard; delay: number }) {
+function MemoCard({ card, delay, index }: { card: SkillCard; delay: number; index: number }) {
+  // Stagger idle floating speeds and offsets so the pinned cards breathe organically
+  const floatDur = 4.2 + (index % 3) * 0.9;
+  const floatDelay = (index * 0.6) % 3.6;
+
   return (
     <Reveal
       as="div"
@@ -428,6 +432,8 @@ function MemoCard({ card, delay }: { card: SkillCard; delay: number }) {
         {
           "--card-rot": `${card.rot}deg`,
           "--card-dy": `${card.dy || 0}px`,
+          "--float-dur": `${floatDur}s`,
+          "--float-delay": `${floatDelay}s`,
         } as React.CSSProperties
       }
     >
@@ -493,21 +499,21 @@ export default function Skills() {
           {/* Row 1: Cards 01, 02, 03 */}
           <div className="cheatsheet-row row-3-cards row-top">
             {SKILLS_ROW_1.map((c, i) => (
-              <MemoCard key={c.num} card={c} delay={i * 70} />
+              <MemoCard key={c.num} card={c} delay={i * 70} index={i} />
             ))}
           </div>
 
           {/* Row 2: Cards 04, 05, 06 */}
           <div className="cheatsheet-row row-3-cards row-middle">
             {SKILLS_ROW_2.map((c, i) => (
-              <MemoCard key={c.num} card={c} delay={200 + i * 70} />
+              <MemoCard key={c.num} card={c} delay={200 + i * 70} index={3 + i} />
             ))}
           </div>
 
           {/* Row 3: Cards 07, 08 (Centered 2 cards) */}
           <div className="cheatsheet-row row-2-cards row-bottom">
             {SKILLS_ROW_3.map((c, i) => (
-              <MemoCard key={c.num} card={c} delay={400 + i * 70} />
+              <MemoCard key={c.num} card={c} delay={400 + i * 70} index={6 + i} />
             ))}
           </div>
         </div>
