@@ -872,45 +872,26 @@
   justify-content: center;
 }
 
-/* Memo Card Outer Wrapper (handles positioning, reveal, and rotation) */
+/* Memo Card Outer Wrapper (maintains natural pinned rotation & offsets) */
 .cheatsheet-card-wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
   transform: translateY(var(--card-dy, 0px)) rotate(var(--card-rot, 0deg)) translateZ(0) !important;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
 }
 
 .cheatsheet-card-wrapper[data-reveal].is-visible {
   transform: translateY(var(--card-dy, 0px)) rotate(var(--card-rot, 0deg)) translateZ(0) !important;
 }
 
-/* Floating animation container - gentle breathing oscillation */
+/* Floating animation container */
 .cheatsheet-card-float {
   width: 100%;
   display: flex;
   flex-direction: column;
-  transform-origin: 50% 12px;
 }
 
-.cheatsheet-card-wrapper[data-reveal].is-visible .cheatsheet-card-float {
-  animation: cardRestingFloat var(--float-dur, 5s) ease-in-out var(--float-delay, 0s) infinite alternate;
-}
-
-@keyframes cardRestingFloat {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-4px) rotate(0.4deg);
-  }
-  100% {
-    transform: translateY(-1.5px) rotate(-0.35deg);
-  }
-}
-
-/* Memo Card Surface (Card styling, shadows, and silk-smooth lift physics) */
+/* Memo Card Surface (Firmly pinned to the board) */
 .cheatsheet-card {
   position: relative;
   border-radius: 20px;
@@ -920,34 +901,24 @@
   flex-direction: column;
   border: 1px solid rgba(226, 232, 240, 0.85);
   box-shadow:
-    0 12px 28px -8px rgba(100, 116, 139, 0.12),
+    0 16px 32px -10px rgba(100, 116, 139, 0.14),
     0 4px 10px -3px rgba(100, 116, 139, 0.05);
   transition:
-    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.4s ease;
-  will-change: transform, box-shadow;
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
   cursor: default;
-  transform-origin: 50% 14px;
 }
 
-/* Silk-smooth hover: un-tilts wrapper, elevates card, deepens drop shadow */
+/* On card hover: card stays strictly fixed in place, subtle clean border polish */
 .cheatsheet-card-wrapper:hover {
-  transform: translateY(calc(var(--card-dy, 0px) - 6px)) rotate(0deg) translateZ(0) !important;
-  z-index: 25;
-}
-
-.cheatsheet-card-wrapper:hover .cheatsheet-card-float {
-  animation-play-state: paused;
+  z-index: 20;
 }
 
 .cheatsheet-card-wrapper:hover .cheatsheet-card {
-  transform: translateY(-6px) scale(1.025);
   box-shadow:
-    0 28px 52px -12px rgba(51, 65, 85, 0.22),
-    0 10px 20px -5px rgba(51, 65, 85, 0.1),
-    0 0 0 1px rgba(255, 255, 255, 0.95);
-  border-color: rgba(203, 213, 225, 0.95);
+    0 20px 38px -10px rgba(100, 116, 139, 0.2),
+    0 6px 14px -3px rgba(100, 116, 139, 0.08);
+  border-color: rgba(148, 163, 184, 0.45);
 }
 
 /* Background curved dashed track animated marching dashes */
@@ -1150,11 +1121,12 @@
   width: 100%;
   height: 100%;
   overflow: visible;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
 }
 
 .cheatsheet-card:hover .pushpin-svg {
-  transform: translateY(-4px) scale(1.12);
+  transform: translateY(-2px) scale(1.05);
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.16));
 }
 
 .card-badge-wrap {
@@ -1163,11 +1135,12 @@
   justify-content: center;
   min-width: 44px;
   min-height: 44px;
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
 }
 
 .cheatsheet-card:hover .card-badge-wrap {
-  transform: translateY(-2px) scale(1.06);
+  transform: translateY(-3px) scale(1.08);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.14));
 }
 
 /* Footer strip */
