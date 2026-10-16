@@ -434,15 +434,11 @@ function MemoCard({ card, delay, index }: { card: SkillCard; delay: number; inde
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    // Smooth tilt angles (-10deg to +10deg)
-    const tiltX = -((y - centerY) / centerY) * 10;
-    const tiltY = ((x - centerX) / centerX) * 10;
+    // Deeper 3D tilt angles (-18deg to +18deg)
+    const tiltX = -((y - centerY) / centerY) * 18;
+    const tiltY = ((x - centerX) / centerX) * 18;
 
-    // Glare position percentage
-    const glareX = (x / rect.width) * 100;
-    const glareY = (y / rect.height) * 100;
-
-    setTilt({ x: tiltX, y: tiltY, glareX, glareY, active: true });
+    setTilt({ x: tiltX, y: tiltY, glareX: 50, glareY: 50, active: true });
   }, []);
 
   const handleMouseLeave = useCallback(() => {
@@ -457,7 +453,7 @@ function MemoCard({ card, delay, index }: { card: SkillCard; delay: number; inde
     <Reveal
       as="div"
       delay={delay}
-      className={`cheatsheet-card-wrapper card-color-${card.color}`}
+      className="cheatsheet-card-wrapper"
       style={
         {
           "--card-rot": `${card.rot}deg`,
@@ -472,21 +468,15 @@ function MemoCard({ card, delay, index }: { card: SkillCard; delay: number; inde
           ref={cardRef}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className={`cheatsheet-card ${tilt.active ? "is-tilted" : ""}`}
+          className={`cheatsheet-card card-color-${card.color} ${tilt.active ? "is-tilted" : ""}`}
           style={
             {
               transform: tilt.active
-                ? `perspective(800px) rotateX(${tilt.x.toFixed(2)}deg) rotateY(${tilt.y.toFixed(2)}deg) translateZ(12px)`
+                ? `perspective(900px) rotateX(${tilt.x.toFixed(2)}deg) rotateY(${tilt.y.toFixed(2)}deg) translateZ(16px)`
                 : undefined,
-              "--glare-x": `${tilt.glareX.toFixed(1)}%`,
-              "--glare-y": `${tilt.glareY.toFixed(1)}%`,
-              "--glare-opacity": tilt.active ? 1 : 0,
             } as React.CSSProperties
           }
         >
-          {/* Dynamic glass/paper glare highlight overlay */}
-          <div className="card-glare-overlay" aria-hidden="true" />
-
           <PushPin color={card.color} />
 
           <div className="cheatsheet-card-inner">

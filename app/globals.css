@@ -918,46 +918,27 @@
   min-height: 220px;
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(226, 232, 240, 0.85);
+  border-width: 1px;
+  border-style: solid;
   box-shadow:
     0 14px 28px -10px rgba(100, 116, 139, 0.13),
     0 4px 10px -3px rgba(100, 116, 139, 0.05);
   transition:
     box-shadow 0.25s ease,
     border-color 0.25s ease,
-    transform 0.15s ease-out;
+    transform 0.12s ease-out;
   cursor: default;
   transform-style: preserve-3d;
-  overflow: hidden;
   will-change: transform, box-shadow;
 }
 
 .cheatsheet-card.is-tilted {
   transition:
-    box-shadow 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.08s ease-out;
+    box-shadow 0.2s ease,
+    transform 0.06s ease-out;
   box-shadow:
-    0 24px 48px -12px rgba(71, 85, 105, 0.22),
-    0 8px 16px -4px rgba(71, 85, 105, 0.08);
-}
-
-/* Dynamic Glare Overlay - soft light sheen following the mouse */
-.card-glare-overlay {
-  position: absolute;
-  inset: 0;
-  border-radius: 19px;
-  pointer-events: none;
-  background: radial-gradient(
-    circle 240px at var(--glare-x, 50%) var(--glare-y, 50%),
-    rgba(255, 255, 255, 0.45) 0%,
-    rgba(255, 255, 255, 0.12) 35%,
-    transparent 75%
-  );
-  opacity: var(--glare-opacity, 0);
-  transition: opacity 0.25s ease;
-  z-index: 5;
-  mix-blend-mode: soft-light;
+    0 30px 60px -12px rgba(71, 85, 105, 0.26),
+    0 12px 24px -5px rgba(71, 85, 105, 0.1);
 }
 
 .cheatsheet-card-wrapper:hover {
