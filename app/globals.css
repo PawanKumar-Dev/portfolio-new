@@ -885,13 +885,17 @@
   box-shadow:
     0 18px 36px -10px rgba(100, 116, 139, 0.16),
     0 6px 14px -4px rgba(100, 116, 139, 0.08);
-  transform: rotate(var(--card-rot, 0deg));
+  transform: translateY(var(--card-dy, 0px)) rotate(var(--card-rot, 0deg)) !important;
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
   cursor: default;
 }
 
+.cheatsheet-card[data-reveal].is-visible {
+  transform: translateY(var(--card-dy, 0px)) rotate(var(--card-rot, 0deg)) !important;
+}
+
 .cheatsheet-card:hover {
-  transform: translateY(-8px) scale(1.025) rotate(0deg) !important;
+  transform: translateY(calc(var(--card-dy, 0px) - 8px)) scale(1.025) rotate(0deg) !important;
   box-shadow:
     0 28px 50px -12px rgba(71, 85, 105, 0.22),
     0 10px 20px -5px rgba(71, 85, 105, 0.12);
@@ -1056,85 +1060,174 @@
 }
 
 /* ============================================================
-   3D Pushpin matching the image pins (spherical bead with metallic shaft & cast shadow)
+   3D Translucent Pushpins (Exact recreation of the reference image)
+   Features:
+   - Round glossy top button/cap
+   - Narrow curved waist/neck
+   - Flared bottom cone/collar with highlight rim
+   - Needle entry point with paper contact cast shadow
    ============================================================ */
 .cheatsheet-pushpin {
   position: absolute;
-  top: -16px;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 48px;
+  pointer-events: none;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Paper contact shadow behind the pin base */
+.pushpin-paper-shadow {
+  position: absolute;
+  bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
   width: 32px;
-  height: 32px;
-  pointer-events: none;
-  z-index: 5;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.15) 50%, transparent 75%);
+  filter: blur(2px);
 }
 
-.pin-sphere {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 30px;
-  height: 30px;
+.pushpin-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.28));
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cheatsheet-card:hover .pushpin-body {
+  transform: translateY(-2px) scale(1.08);
+}
+
+/* Pushpin Cap (Round shiny top button) */
+.pushpin-cap {
+  position: relative;
+  width: 26px;
+  height: 15px;
   border-radius: 50%;
+  z-index: 4;
   box-shadow:
-    inset -3px -5px 8px rgba(0, 0, 0, 0.45),
-    inset 2px 2px 5px rgba(255, 255, 255, 0.65),
-    0 6px 14px rgba(0, 0, 0, 0.28);
+    inset 0 3px 4px rgba(255, 255, 255, 0.75),
+    inset 0 -3px 5px rgba(0, 0, 0, 0.35),
+    0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.pin-highlight {
+.pushpin-cap-shine {
   position: absolute;
-  top: 4px;
-  left: 6px;
-  width: 8px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.95);
-  filter: blur(0.5px);
-}
-
-.pin-rim-glow {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-}
-
-.pin-hole-shadow {
-  position: absolute;
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 2px;
+  left: 5px;
   width: 14px;
-  height: 6px;
+  height: 5px;
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.45) 0%, transparent 70%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.1) 100%);
+  filter: blur(0.3px);
 }
 
-/* Pushpin Colors matching image */
-.pin-color-green .pin-sphere {
-  background: radial-gradient(circle at 35% 30%, #4ade80, #15803d 75%, #052e16 100%);
+/* Pushpin Waist / Neck (Tapering middle stem) */
+.pushpin-waist {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  margin-top: -6px;
+  z-index: 2;
+  border-radius: 2px 2px 4px 4px;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
 }
-.pin-color-coral .pin-sphere {
-  background: radial-gradient(circle at 35% 30%, #fb7185, #e11d48 75%, #4c0519 100%);
+
+/* Flared Bottom Collar (Cone touching the paper) */
+.pushpin-collar {
+  position: relative;
+  width: 32px;
+  height: 14px;
+  border-radius: 50%;
+  margin-top: -7px;
+  z-index: 3;
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.65),
+    inset 0 -3px 4px rgba(0, 0, 0, 0.45);
 }
-.pin-color-cyan .pin-sphere {
-  background: radial-gradient(circle at 35% 30%, #34d399, #059669 75%, #022c22 100%);
+
+.pushpin-collar-rim {
+  position: absolute;
+  inset: 1px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  pointer-events: none;
 }
-.pin-color-teal .pin-sphere {
-  background: radial-gradient(circle at 35% 30%, #38bdf8, #0284c7 75%, #082f49 100%);
+
+/* Tiny needle point entering the paper */
+.pushpin-point {
+  width: 3px;
+  height: 5px;
+  background: linear-gradient(180deg, #94a3b8 0%, #475569 100%);
+  border-radius: 0 0 1px 1px;
+  margin-top: -2px;
+  z-index: 1;
 }
-.pin-color-yellow .pin-sphere {
-  background: radial-gradient(circle at 35% 30%, #facc15, #ca8a04 75%, #422006 100%);
+
+/* Pushpin Translucent Colors matching reference */
+/* 01: Emerald / Grass Green */
+.pin-color-green .pushpin-cap,
+.pin-color-green .pushpin-waist,
+.pin-color-green .pushpin-collar {
+  background: radial-gradient(ellipse at 45% 30%, #4ade80 0%, #22c55e 40%, #15803d 85%, #052e16 100%);
 }
-.pin-color-navy .pin-sphere {
-  background: radial-gradient(circle at 35% 30%, #60a5fa, #1d4ed8 75%, #172554 100%);
+
+/* 02: Vivid Crimson / Hot Pink-Red */
+.pin-color-coral .pushpin-cap,
+.pin-color-coral .pushpin-waist,
+.pin-color-coral .pushpin-collar {
+  background: radial-gradient(ellipse at 45% 30%, #fb7185 0%, #f43f5e 40%, #be123c 85%, #4c0519 100%);
 }
-.pin-color-pink .pin-sphere {
-  background: radial-gradient(circle at 35% 30%, #f472b6, #db2777 75%, #500724 100%);
+
+/* 03: Teal / Bright Cyan */
+.pin-color-cyan .pushpin-cap,
+.pin-color-cyan .pushpin-waist,
+.pin-color-cyan .pushpin-collar {
+  background: radial-gradient(ellipse at 45% 30%, #2dd4bf 0%, #14b8a6 40%, #0f766e 85%, #042f2c 100%);
 }
-.pin-color-lime .pin-sphere {
-  background: radial-gradient(circle at 35% 30%, #a3e635, #65a30d 75%, #1a2e05 100%);
+
+/* 04: Bright Ocean Blue */
+.pin-color-teal .pushpin-cap,
+.pin-color-teal .pushpin-waist,
+.pin-color-teal .pushpin-collar {
+  background: radial-gradient(ellipse at 45% 30%, #38bdf8 0%, #0284c7 40%, #0369a1 85%, #082f49 100%);
+}
+
+/* 05: Golden Olive / Chartreuse */
+.pin-color-yellow .pushpin-cap,
+.pin-color-yellow .pushpin-waist,
+.pin-color-yellow .pushpin-collar {
+  background: radial-gradient(ellipse at 45% 30%, #eab308 0%, #ca8a04 40%, #854d0e 85%, #422006 100%);
+}
+
+/* 06: Royal Blue */
+.pin-color-navy .pushpin-cap,
+.pin-color-navy .pushpin-waist,
+.pin-color-navy .pushpin-collar {
+  background: radial-gradient(ellipse at 45% 30%, #60a5fa 0%, #2563eb 40%, #1d4ed8 85%, #0f172a 100%);
+}
+
+/* 07: Magenta / Purple */
+.pin-color-pink .pushpin-cap,
+.pin-color-pink .pushpin-waist,
+.pin-color-pink .pushpin-collar {
+  background: radial-gradient(ellipse at 45% 30%, #e879f9 0%, #c026d3 40%, #86198f 85%, #3b0764 100%);
+}
+
+/* 08: Bright Apple Green */
+.pin-color-lime .pushpin-cap,
+.pin-color-lime .pushpin-waist,
+.pin-color-lime .pushpin-collar {
+  background: radial-gradient(ellipse at 45% 30%, #a3e635 0%, #65a30d 40%, #4d7c0f 85%, #1a2e05 100%);
 }
 
 /* Footer strip */

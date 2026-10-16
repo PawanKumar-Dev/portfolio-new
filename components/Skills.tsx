@@ -8,7 +8,8 @@ type SkillCard = {
   desc: string;
   color: CardColor;
   badge: "figma" | "unblast" | "google-ai" | "chatgpt" | "behance" | "pexels" | "notion" | "linkedin";
-  rot: number; // slight rotation degrees
+  rot: number; // degrees
+  dy?: number; // vertical stagger offset
 };
 
 const SKILLS_ROW_1: SkillCard[] = [
@@ -18,7 +19,8 @@ const SKILLS_ROW_1: SkillCard[] = [
     desc: "Design projects and assets for a standout UX/UI portfolio.",
     color: "green",
     badge: "figma",
-    rot: -4.5,
+    rot: -5.5,
+    dy: 6,
   },
   {
     num: "02",
@@ -26,7 +28,8 @@ const SKILLS_ROW_1: SkillCard[] = [
     desc: "Supports with Free PSD Mockups, top Graphics, and Fonts to boost creativity.",
     color: "coral",
     badge: "unblast",
-    rot: 0.5,
+    rot: -0.8,
+    dy: -4,
   },
   {
     num: "03",
@@ -34,7 +37,8 @@ const SKILLS_ROW_1: SkillCard[] = [
     desc: "Boosts research and streamlines UX design with AI tools.",
     color: "cyan",
     badge: "google-ai",
-    rot: 4.8,
+    rot: 6.2,
+    dy: 10,
   },
 ];
 
@@ -45,7 +49,8 @@ const SKILLS_ROW_2: SkillCard[] = [
     desc: "Assists designers in research, creativity, and accelerating workflows.",
     color: "teal",
     badge: "chatgpt",
-    rot: -3.5,
+    rot: -3.8,
+    dy: -2,
   },
   {
     num: "05",
@@ -53,7 +58,8 @@ const SKILLS_ROW_2: SkillCard[] = [
     desc: "Showcase portfolio and let the audience explore your creative brilliance.",
     color: "yellow",
     badge: "behance",
-    rot: 0,
+    rot: 1.5,
+    dy: -6,
   },
   {
     num: "06",
@@ -61,7 +67,8 @@ const SKILLS_ROW_2: SkillCard[] = [
     desc: "Offers a collection of free, royalty-free, and copyright free stock images.",
     color: "navy",
     badge: "pexels",
-    rot: 4,
+    rot: 4.8,
+    dy: 8,
   },
 ];
 
@@ -72,7 +79,8 @@ const SKILLS_ROW_3: SkillCard[] = [
     desc: "Helps designers organize notes, tasks, and assets for smooth collaboration.",
     color: "pink",
     badge: "notion",
-    rot: -1.5,
+    rot: -2.8,
+    dy: 0,
   },
   {
     num: "08",
@@ -80,7 +88,8 @@ const SKILLS_ROW_3: SkillCard[] = [
     desc: "Showcase your portfolio to highlight your expertise and creativity.",
     color: "lime",
     badge: "linkedin",
-    rot: 1.5,
+    rot: 2.2,
+    dy: 2,
   },
 ];
 
@@ -171,11 +180,24 @@ function ToolBadge({ type }: { type: SkillCard["badge"] }) {
 function PushPin({ color }: { color: CardColor }) {
   return (
     <div className={`cheatsheet-pushpin pin-color-${color}`} aria-hidden="true">
-      <div className="pin-sphere">
-        <div className="pin-highlight" />
-        <div className="pin-rim-glow" />
+      {/* Soft contact shadow on paper below pushpin */}
+      <div className="pushpin-paper-shadow" />
+
+      {/* Pushpin assembly: translucent plastic thumbtack with flared cap and neck */}
+      <div className="pushpin-body">
+        {/* Top round cap */}
+        <div className="pushpin-cap">
+          <div className="pushpin-cap-shine" />
+        </div>
+        {/* Tapering neck / waist */}
+        <div className="pushpin-waist" />
+        {/* Flared bottom collar */}
+        <div className="pushpin-collar">
+          <div className="pushpin-collar-rim" />
+        </div>
+        {/* Tiny metal needle entering paper */}
+        <div className="pushpin-point" />
       </div>
-      <div className="pin-hole-shadow" />
     </div>
   );
 }
@@ -186,7 +208,12 @@ function MemoCard({ card, delay }: { card: SkillCard; delay: number }) {
       as="div"
       delay={delay}
       className={`cheatsheet-card card-color-${card.color}`}
-      style={{ "--card-rot": `${card.rot}deg` } as React.CSSProperties}
+      style={
+        {
+          "--card-rot": `${card.rot}deg`,
+          "--card-dy": `${card.dy || 0}px`,
+        } as React.CSSProperties
+      }
     >
       <PushPin color={card.color} />
 
