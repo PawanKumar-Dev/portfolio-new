@@ -180,104 +180,122 @@ function ToolBadge({ type }: { type: SkillCard["badge"] }) {
 const PIN_PALETTES: Record<
   CardColor,
   {
+    glow: string;
+    shadow: string;
     baseDark: string;
     baseMid: string;
     baseLight: string;
-    glow: string;
     stemDark: string;
     stemLight: string;
-    capDark: string;
-    capLight: string;
+    headDark: string;
+    headMid: string;
+    headLight: string;
     highlight: string;
   }
 > = {
   green: {
-    baseDark: "#04441c",
-    baseMid: "#0e7b39",
-    baseLight: "#2ecc71",
-    glow: "rgba(46, 204, 113, 0.45)",
-    stemDark: "#085725",
-    stemLight: "#27ae60",
-    capDark: "#0b662d",
-    capLight: "#58d68d",
-    highlight: "rgba(255, 255, 255, 0.95)",
+    glow: "rgba(34, 197, 94, 0.55)",
+    shadow: "rgba(5, 46, 22, 0.45)",
+    baseDark: "#052e16",
+    baseMid: "#15803d",
+    baseLight: "#4ade80",
+    stemDark: "#14532d",
+    stemLight: "#22c55e",
+    headDark: "#166534",
+    headMid: "#22c55e",
+    headLight: "#86efac",
+    highlight: "#ffffff",
   },
   coral: {
-    baseDark: "#52081c",
-    baseMid: "#9f1239",
-    baseLight: "#f43f5e",
-    glow: "rgba(244, 63, 94, 0.45)",
+    glow: "rgba(225, 29, 72, 0.55)",
+    shadow: "rgba(76, 5, 25, 0.45)",
+    baseDark: "#4c0519",
+    baseMid: "#be123c",
+    baseLight: "#fb7185",
     stemDark: "#881337",
-    stemLight: "#e11d48",
-    capDark: "#be123c",
-    capLight: "#fb7185",
-    highlight: "rgba(255, 255, 255, 0.95)",
+    stemLight: "#f43f5e",
+    headDark: "#9f1239",
+    headMid: "#e11d48",
+    headLight: "#fda4af",
+    highlight: "#ffffff",
   },
   cyan: {
-    baseDark: "#042f2e",
+    glow: "rgba(13, 148, 136, 0.55)",
+    shadow: "rgba(4, 47, 46, 0.45)",
+    baseDark: "#042f2c",
     baseMid: "#0f766e",
-    baseLight: "#14b8a6",
-    glow: "rgba(20, 184, 166, 0.45)",
+    baseLight: "#2dd4bf",
     stemDark: "#115e59",
-    stemLight: "#0d9488",
-    capDark: "#134e4a",
-    capLight: "#2dd4bf",
-    highlight: "rgba(255, 255, 255, 0.95)",
+    stemLight: "#14b8a6",
+    headDark: "#134e4a",
+    headMid: "#0d9488",
+    headLight: "#5eead4",
+    highlight: "#ffffff",
   },
   teal: {
+    glow: "rgba(2, 132, 199, 0.55)",
+    shadow: "rgba(8, 47, 73, 0.45)",
     baseDark: "#082f49",
     baseMid: "#0369a1",
-    baseLight: "#0284c7",
-    glow: "rgba(2, 132, 199, 0.45)",
+    baseLight: "#38bdf8",
     stemDark: "#075985",
     stemLight: "#0284c7",
-    capDark: "#0c4a6e",
-    capLight: "#38bdf8",
-    highlight: "rgba(255, 255, 255, 0.95)",
+    headDark: "#0c4a6e",
+    headMid: "#0284c7",
+    headLight: "#7dd3fc",
+    highlight: "#ffffff",
   },
   yellow: {
+    glow: "rgba(202, 138, 4, 0.55)",
+    shadow: "rgba(66, 32, 6, 0.45)",
     baseDark: "#422006",
-    baseMid: "#854d0e",
-    baseLight: "#ca8a04",
-    glow: "rgba(202, 138, 4, 0.45)",
+    baseMid: "#a16207",
+    baseLight: "#fde047",
     stemDark: "#713f12",
-    stemLight: "#a16207",
-    capDark: "#78350f",
-    capLight: "#facc15",
-    highlight: "rgba(255, 255, 255, 0.95)",
+    stemLight: "#ca8a04",
+    headDark: "#854d0e",
+    headMid: "#eab308",
+    headLight: "#fef08a",
+    highlight: "#ffffff",
   },
   navy: {
-    baseDark: "#172554",
+    glow: "rgba(37, 99, 235, 0.55)",
+    shadow: "rgba(15, 23, 42, 0.45)",
+    baseDark: "#0f172a",
     baseMid: "#1d4ed8",
-    baseLight: "#2563eb",
-    glow: "rgba(37, 99, 235, 0.45)",
-    stemDark: "#1e40af",
-    stemLight: "#3b82f6",
-    capDark: "#1e3a8a",
-    capLight: "#60a5fa",
-    highlight: "rgba(255, 255, 255, 0.95)",
+    baseLight: "#60a5fa",
+    stemDark: "#1e3a8a",
+    stemLight: "#2563eb",
+    headDark: "#1e40af",
+    headMid: "#3b82f6",
+    headLight: "#93c5fd",
+    highlight: "#ffffff",
   },
   pink: {
-    baseDark: "#4a044e",
-    baseMid: "#86198f",
-    baseLight: "#c026d3",
-    glow: "rgba(192, 38, 211, 0.45)",
+    glow: "rgba(192, 38, 211, 0.55)",
+    shadow: "rgba(59, 7, 100, 0.45)",
+    baseDark: "#3b0764",
+    baseMid: "#a21caf",
+    baseLight: "#f472b6",
     stemDark: "#701a75",
-    stemLight: "#a21caf",
-    capDark: "#581c87",
-    capLight: "#e879f9",
-    highlight: "rgba(255, 255, 255, 0.95)",
+    stemLight: "#c026d3",
+    headDark: "#86198f",
+    headMid: "#d946ef",
+    headLight: "#f0abfc",
+    highlight: "#ffffff",
   },
   lime: {
-    baseDark: "#14532d",
-    baseMid: "#15803d",
-    baseLight: "#22c55e",
-    glow: "rgba(34, 197, 94, 0.45)",
-    stemDark: "#166534",
-    stemLight: "#16a34a",
-    capDark: "#14532d",
-    capLight: "#4ade80",
-    highlight: "rgba(255, 255, 255, 0.95)",
+    glow: "rgba(101, 163, 13, 0.55)",
+    shadow: "rgba(26, 46, 5, 0.45)",
+    baseDark: "#1a2e05",
+    baseMid: "#4d7c0f",
+    baseLight: "#a3e635",
+    stemDark: "#365314",
+    stemLight: "#65a30d",
+    headDark: "#3f6212",
+    headMid: "#84cc16",
+    headLight: "#bef264",
+    highlight: "#ffffff",
   },
 };
 
@@ -288,102 +306,112 @@ function PushPin({ color }: { color: CardColor }) {
   return (
     <div className="cheatsheet-pushpin" aria-hidden="true">
       <svg
-        viewBox="0 0 54 62"
-        width="46"
-        height="54"
+        viewBox="0 0 68 68"
+        width="56"
+        height="56"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="pushpin-svg"
       >
         <defs>
-          {/* Paper cast shadow filter */}
-          <filter id={`${id}-blur`} x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="2.5" />
+          {/* Paper cast shadow blur */}
+          <filter id={`${id}-glowBlur`} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="5.5" />
+          </filter>
+          <filter id={`${id}-shadowBlur`} x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" />
           </filter>
 
-          {/* Gradients for Base Disc, Neck, and Top Dome */}
-          <radialGradient id={`${id}-baseGrad`} cx="38%" cy="35%" r="65%">
+          {/* Base flange radial gradient (steep high-angle bowl) */}
+          <radialGradient id={`${id}-baseFlange`} cx="42%" cy="40%" r="58%">
             <stop offset="0%" stopColor={p.baseLight} />
-            <stop offset="45%" stopColor={p.baseMid} />
-            <stop offset="90%" stopColor={p.baseDark} />
+            <stop offset="60%" stopColor={p.baseMid} />
+            <stop offset="92%" stopColor={p.baseDark} />
+            <stop offset="100%" stopColor={p.baseDark} />
           </radialGradient>
 
-          <linearGradient id={`${id}-neckGrad`} x1="0" y1="0" x2="1" y2="0">
+          {/* Waist cylindrical gradient */}
+          <linearGradient id={`${id}-waistGrad`} x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor={p.stemDark} />
-            <stop offset="25%" stopColor={p.stemLight} />
-            <stop offset="65%" stopColor={p.stemLight} />
+            <stop offset="35%" stopColor={p.stemLight} />
+            <stop offset="70%" stopColor={p.headLight} />
             <stop offset="100%" stopColor={p.stemDark} />
           </linearGradient>
 
-          <radialGradient id={`${id}-capGrad`} cx="35%" cy="30%" r="70%">
-            <stop offset="0%" stopColor={p.capLight} />
-            <stop offset="40%" stopColor={p.stemLight} />
-            <stop offset="85%" stopColor={p.capDark} />
+          {/* Top cap dome (high-angle spherical view from above) */}
+          <radialGradient id={`${id}-topCap`} cx="38%" cy="32%" r="62%">
+            <stop offset="0%" stopColor={p.headLight} />
+            <stop offset="38%" stopColor={p.headMid} />
+            <stop offset="75%" stopColor={p.headDark} />
+            <stop offset="100%" stopColor={p.baseDark} />
           </radialGradient>
         </defs>
 
-        {/* 1. Cast shadow onto the paper */}
-        <ellipse
-          cx="27"
-          cy="48"
-          rx="18"
-          ry="7"
-          fill="rgba(15, 23, 42, 0.45)"
-          filter={`url(#${id}-blur)`}
-        />
-        {/* Soft colored ambient glow on paper */}
-        <ellipse cx="27" cy="46" rx="14" ry="5.5" fill={p.glow} filter={`url(#${id}-blur)`} />
+        {/* 1. Translucent colored ambient glow pool on paper */}
+        <circle cx="34" cy="34" r="26" fill={p.glow} filter={`url(${`#${id}-glowBlur`})`} />
 
-        {/* 2. Wide Flared Base Disc (oval sitting on paper) */}
-        <ellipse cx="27" cy="42" rx="17" ry="6.5" fill={`url(#${id}-baseGrad)`} />
-        {/* Inner rim reflection on base disc */}
+        {/* 2. Direct contact drop shadow beneath pin */}
         <ellipse
-          cx="27"
-          cy="41.5"
-          rx="15"
-          ry="5.2"
+          cx="34"
+          cy="40"
+          rx="18"
+          ry="10"
+          fill={p.shadow}
+          filter={`url(${`#${id}-shadowBlur`})`}
+        />
+
+        {/* 3. Wide Circular Base Flange (The flared skirt pressed flat into paper) */}
+        <circle cx="34" cy="34" r="20" fill={`url(${`#${id}-baseFlange`})`} />
+        {/* Subtle glossy inner rim on base flange */}
+        <circle
+          cx="34"
+          cy="34"
+          r="19"
           stroke="rgba(255, 255, 255, 0.45)"
-          strokeWidth="1"
+          strokeWidth="1.2"
           fill="none"
         />
 
-        {/* 3. Cylindrical Neck / Stem */}
-        {/* Path curving up from base disc to top head */}
+        {/* 4. Conical/Hourglass Waist (Stem connecting base to cap) */}
         <path
-          d="M 21.5 40 Q 22 28, 20.5 22 L 33.5 22 Q 32 28, 32.5 40 Z"
-          fill={`url(#${id}-neckGrad)`}
-        />
-        {/* Specular line down the neck */}
-        <path
-          d="M 26 23 L 26.5 39"
-          stroke="rgba(255, 255, 255, 0.65)"
-          strokeWidth="1.6"
-          strokeLinecap="round"
+          d="M 27 34 Q 30 26, 26 21 L 42 21 Q 38 26, 41 34 Z"
+          fill={`url(${`#${id}-waistGrad`})`}
         />
 
-        {/* 4. Top Mushroom Head / Cap */}
-        {/* Head underside rim */}
-        <ellipse cx="27" cy="22" rx="13" ry="4" fill={p.capDark} />
-        {/* Head dome body */}
-        <ellipse cx="27" cy="18" rx="13.5" ry="9" fill={`url(#${id}-capGrad)`} />
+        {/* 5. Top Circular Cap (Viewed from the top angle) */}
+        {/* Underside bevel edge */}
+        <circle cx="34" cy="22" r="13" fill={p.headDark} opacity="0.8" />
+        {/* Main top cap face */}
+        <circle cx="34" cy="20" r="12.5" fill={`url(${`#${id}-topCap`})`} />
+        {/* Top cap rim line */}
+        <circle
+          cx="34"
+          cy="20"
+          r="12"
+          stroke="rgba(255, 255, 255, 0.35)"
+          strokeWidth="0.8"
+          fill="none"
+        />
 
-        {/* 5. Primary Glossy Specular Highlight on Dome */}
+        {/* 6. Realistic Glossy Specular Highlights (Top Left crescent) */}
         <ellipse
-          cx="23"
-          cy="14"
-          rx="5.5"
-          ry="3.2"
-          transform="rotate(-18 23 14)"
+          cx="30"
+          cy="16"
+          rx="4.5"
+          ry="2.5"
+          transform="rotate(-28 30 16)"
           fill={p.highlight}
         />
-        {/* Secondary soft rim highlight */}
-        <ellipse
-          cx="31"
-          cy="19"
-          rx="3"
-          ry="1.5"
-          transform="rotate(15 31 19)"
-          fill="rgba(255, 255, 255, 0.35)"
+        {/* Secondary soft reflection dot */}
+        <circle cx="28" cy="18" r="1.4" fill="rgba(255, 255, 255, 0.85)" />
+
+        {/* Flange glossy reflection at lower left */}
+        <path
+          d="M 19 36 A 17 17 0 0 0 28 49"
+          stroke="rgba(255, 255, 255, 0.4)"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+          fill="none"
         />
       </svg>
     </div>
