@@ -872,26 +872,45 @@
   justify-content: center;
 }
 
-/* Memo Card Outer Wrapper (maintains natural pinned rotation & offsets) */
+/* Memo Card Outer Wrapper (maintains natural tilted pinned angle) */
 .cheatsheet-card-wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
   transform: translateY(var(--card-dy, 0px)) rotate(var(--card-rot, 0deg)) translateZ(0) !important;
+  transition: transform 0.4s ease;
+  will-change: transform;
 }
 
 .cheatsheet-card-wrapper[data-reveal].is-visible {
   transform: translateY(var(--card-dy, 0px)) rotate(var(--card-rot, 0deg)) translateZ(0) !important;
 }
 
-/* Floating animation container */
+/* Floating animation container - gentle breathing oscillation */
 .cheatsheet-card-float {
   width: 100%;
   display: flex;
   flex-direction: column;
+  transform-origin: 50% 12px;
 }
 
-/* Memo Card Surface (Firmly pinned to the board) */
+.cheatsheet-card-wrapper[data-reveal].is-visible .cheatsheet-card-float {
+  animation: cardRestingFloat var(--float-dur, 5s) ease-in-out var(--float-delay, 0s) infinite alternate;
+}
+
+@keyframes cardRestingFloat {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(0.3deg);
+  }
+  100% {
+    transform: translateY(-1px) rotate(-0.25deg);
+  }
+}
+
+/* Memo Card Surface (Card styling, clean soft shadows, and subtle hover refinement) */
 .cheatsheet-card {
   position: relative;
   border-radius: 20px;
@@ -901,24 +920,26 @@
   flex-direction: column;
   border: 1px solid rgba(226, 232, 240, 0.85);
   box-shadow:
-    0 16px 32px -10px rgba(100, 116, 139, 0.14),
+    0 14px 28px -10px rgba(100, 116, 139, 0.13),
     0 4px 10px -3px rgba(100, 116, 139, 0.05);
   transition:
     box-shadow 0.35s ease,
-    border-color 0.35s ease;
+    border-color 0.35s ease,
+    transform 0.35s ease;
   cursor: default;
 }
 
-/* On card hover: card stays strictly fixed in place, subtle clean border polish */
+/* Subtle & clean hover: keeps card angle completely natural, deepens soft ambient shadow, gentle border crispness */
 .cheatsheet-card-wrapper:hover {
-  z-index: 20;
+  z-index: 15;
 }
 
 .cheatsheet-card-wrapper:hover .cheatsheet-card {
-  box-shadow:
-    0 20px 38px -10px rgba(100, 116, 139, 0.2),
-    0 6px 14px -3px rgba(100, 116, 139, 0.08);
   border-color: rgba(148, 163, 184, 0.45);
+  box-shadow:
+    0 22px 42px -12px rgba(71, 85, 105, 0.18),
+    0 8px 18px -4px rgba(71, 85, 105, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.85);
 }
 
 /* Background curved dashed track animated marching dashes */
@@ -1121,12 +1142,11 @@
   width: 100%;
   height: 100%;
   overflow: visible;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  transition: filter 0.3s ease;
 }
 
-.cheatsheet-card:hover .pushpin-svg {
-  transform: translateY(-2px) scale(1.05);
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.16));
+.cheatsheet-card-wrapper:hover .pushpin-svg {
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.22));
 }
 
 .card-badge-wrap {
@@ -1135,12 +1155,11 @@
   justify-content: center;
   min-width: 44px;
   min-height: 44px;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  transition: transform 0.3s ease;
 }
 
-.cheatsheet-card:hover .card-badge-wrap {
-  transform: translateY(-3px) scale(1.08);
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.14));
+.cheatsheet-card-wrapper:hover .card-badge-wrap {
+  transform: scale(1.04);
 }
 
 /* Footer strip */
