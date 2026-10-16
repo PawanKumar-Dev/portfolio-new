@@ -938,28 +938,26 @@
     border-color 0.25s ease,
     transform 0.08s ease-out;
   box-shadow:
-    0 28px 50px -12px rgba(71, 85, 105, 0.2),
-    0 10px 20px -5px rgba(71, 85, 105, 0.08),
-    0 0 0 1px rgba(255, 255, 255, 0.9);
-  border-color: rgba(148, 163, 184, 0.5);
+    0 24px 48px -12px rgba(71, 85, 105, 0.22),
+    0 8px 16px -4px rgba(71, 85, 105, 0.08);
 }
 
 /* Dynamic Glare Overlay - soft light sheen following the mouse */
 .card-glare-overlay {
   position: absolute;
   inset: 0;
-  border-radius: 20px;
+  border-radius: 19px;
   pointer-events: none;
   background: radial-gradient(
-    circle 260px at var(--glare-x, 50%) var(--glare-y, 50%),
-    rgba(255, 255, 255, 0.65) 0%,
-    rgba(255, 255, 255, 0.2) 40%,
-    transparent 80%
+    circle 240px at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.12) 35%,
+    transparent 75%
   );
   opacity: var(--glare-opacity, 0);
   transition: opacity 0.25s ease;
-  z-index: 8;
-  mix-blend-mode: overlay;
+  z-index: 5;
+  mix-blend-mode: soft-light;
 }
 
 .cheatsheet-card-wrapper:hover {
