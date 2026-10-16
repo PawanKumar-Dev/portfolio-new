@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef, useState, useCallback, type MouseEvent } from "react";
 import Reveal from "./Reveal";
 
 type CardColor = "green" | "coral" | "cyan" | "teal" | "yellow" | "navy" | "pink" | "lime";
@@ -419,7 +422,34 @@ function PushPin({ color }: { color: CardColor }) {
 }
 
 function MemoCard({ card, delay, index }: { card: SkillCard; delay: number; index: number }) {
-  // Stagger idle floating speeds and offsets so the pinned cards breathe organically
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0, glareX: 50, glareY: 50, active: false });
+
+  const handleMouseMove = useCallback((e: MouseEvent<HTMLDivElement>) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    // Smooth tilt angles (-10deg to +10deg)
+    const tiltX = -((y - centerY) / centerY) * 10;
+    const tiltY = ((x - centerX) / centerX) * 10;
+
+    // Glare position percentage
+    const glareX = (x / rect.width) * 100;
+    const glareY = (y / rect.height) * 100;
+
+    setTilt({ x: tiltX, y: tiltY, glareX, glareY, active: true });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setTilt((prev) => ({ ...prev, x: 0, y: 0, active: false }));
+  }, []);
+
+  // Stagger idle floating speeds and offsets
   const floatDur = 4.8 + (index % 3) * 0.8;
   const floatDelay = (index * 0.5) % 3.2;
 
@@ -438,7 +468,25 @@ function MemoCard({ card, delay, index }: { card: SkillCard; delay: number; inde
       }
     >
       <div className="cheatsheet-card-float">
-        <div className="cheatsheet-card">
+        <div
+          ref={cardRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className={`cheatsheet-card ${tilt.active ? "is-tilted" : ""}`}
+          style={
+            {
+              transform: tilt.active
+                ? `perspective(800px) rotateX(${tilt.x.toFixed(2)}deg) rotateY(${tilt.y.toFixed(2)}deg) translateZ(12px)`
+                : undefined,
+              "--glare-x": `${tilt.glareX.toFixed(1)}%`,
+              "--glare-y": `${tilt.glareY.toFixed(1)}%`,
+              "--glare-opacity": tilt.active ? 1 : 0,
+            } as React.CSSProperties
+          }
+        >
+          {/* Dynamic glass/paper glare highlight overlay */}
+          <div className="card-glare-overlay" aria-hidden="true" />
+
           <PushPin color={card.color} />
 
           <div className="cheatsheet-card-inner">

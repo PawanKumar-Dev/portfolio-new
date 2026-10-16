@@ -910,7 +910,7 @@
   }
 }
 
-/* Memo Card Surface (Card styling, clean soft shadows, and subtle hover refinement) */
+/* Memo Card Surface (Card styling, clean soft shadows, and 3D interactive tilt) */
 .cheatsheet-card {
   position: relative;
   border-radius: 20px;
@@ -923,23 +923,47 @@
     0 14px 28px -10px rgba(100, 116, 139, 0.13),
     0 4px 10px -3px rgba(100, 116, 139, 0.05);
   transition:
-    box-shadow 0.35s ease,
-    border-color 0.35s ease,
-    transform 0.35s ease;
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.15s ease-out;
   cursor: default;
+  transform-style: preserve-3d;
+  overflow: hidden;
+  will-change: transform, box-shadow;
 }
 
-/* Subtle & clean hover: keeps card angle completely natural, deepens soft ambient shadow, gentle border crispness */
-.cheatsheet-card-wrapper:hover {
-  z-index: 15;
-}
-
-.cheatsheet-card-wrapper:hover .cheatsheet-card {
-  border-color: rgba(148, 163, 184, 0.45);
+.cheatsheet-card.is-tilted {
+  transition:
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.08s ease-out;
   box-shadow:
-    0 22px 42px -12px rgba(71, 85, 105, 0.18),
-    0 8px 18px -4px rgba(71, 85, 105, 0.08),
-    0 0 0 1px rgba(255, 255, 255, 0.85);
+    0 28px 50px -12px rgba(71, 85, 105, 0.2),
+    0 10px 20px -5px rgba(71, 85, 105, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.9);
+  border-color: rgba(148, 163, 184, 0.5);
+}
+
+/* Dynamic Glare Overlay - soft light sheen following the mouse */
+.card-glare-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  background: radial-gradient(
+    circle 260px at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 255, 255, 0.65) 0%,
+    rgba(255, 255, 255, 0.2) 40%,
+    transparent 80%
+  );
+  opacity: var(--glare-opacity, 0);
+  transition: opacity 0.25s ease;
+  z-index: 8;
+  mix-blend-mode: overlay;
+}
+
+.cheatsheet-card-wrapper:hover {
+  z-index: 20;
 }
 
 /* Background curved dashed track animated marching dashes */
