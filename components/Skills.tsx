@@ -559,33 +559,6 @@ export default function Skills() {
             ))}
           </div>
         </div>
-
-        {/* Footer info strip matching reference image */}
-        <div className="cheatsheet-footer-strip">
-          <a
-            href="https://www.digitalconcepts.in"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer-pill-link"
-          >
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="2" y1="12" x2="22" y2="12" />
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-            </svg>
-            <span>www.digitalconcepts.in</span>
-          </a>
-
-          <a
-            href="tel:+919830140672"
-            className="footer-pill-link"
-          >
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
-              <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.78 14.07c-.24.68-1.39 1.3-1.92 1.38-.49.08-1.12.11-3.62-.92-2.98-1.23-4.9-4.27-5.05-4.47-.15-.2-1.21-1.61-1.21-3.07 0-1.46.77-2.18 1.04-2.48.27-.29.6-.37.8-.37.2 0 .4 0 .58.01.19.01.44-.07.69.52.26.61.88 2.15.96 2.31.08.16.13.35.03.55-.1.2-.15.33-.3.51-.15.18-.32.4-.46.54-.15.15-.31.31-.13.62.18.31.8 1.32 1.72 2.14 1.18 1.05 2.18 1.38 2.49 1.53.31.15.49.13.67-.08.18-.21.77-.9 1.02-1.25.26-.35.51-.29.86-.16.35.13 2.22 1.05 2.6 1.24.38.19.64.29.73.45.09.16.09.93-.15 1.61z" />
-            </svg>
-            <span>91 98301 40672</span>
-          </a>
-        </div>
       </div>
     </section>
   );
