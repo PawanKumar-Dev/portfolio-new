@@ -725,186 +725,246 @@
 @media (prefers-reduced-motion: reduce) { .work-viewport { scroll-behavior: auto; } }
 
 /* ============================================================
-   SKILLS 02 - Cheatsheet Pinned Memo Board
-   Inspired by Digital Concepts "Cheatsheet for Designers"
-   Pinboard memo cards with 3D pushpins, tilted notes, pastel-tinted
-   bases, custom tool badges, and playful hover physics.
+   SKILLS - Ultimate UI/UX Cheatsheet Pinboard
+   Faithful recreation of the inspiration image:
+   - Clean off-white paper canvas with horizontal notebook rule lines
+   - Digital Concepts branding header & curved "Cheatsheet for Designers" title
+   - 3-3-2 staggered memo cards with realistic 3D pushpins
+   - Floating colored badge panels, card tilt angles, and dashed guide loop
    ============================================================ */
-.skills {
+.cheatsheet-section {
   position: relative;
   max-width: none;
-  background: var(--cloud);
-  padding: clamp(72px, 8vw, 120px) clamp(24px, 5vw, 64px);
+  background-color: #f7f9fc;
+  /* Notebook ruled background lines */
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 38px,
+    rgba(226, 232, 240, 0.55) 38px,
+    rgba(226, 232, 240, 0.55) 40px
+  );
+  padding: clamp(60px, 7vw, 100px) clamp(20px, 4vw, 56px) clamp(50px, 6vw, 80px);
   overflow: hidden;
+  color: #1e293b;
 }
 
-.skills-board-container {
-  max-width: var(--max);
+.cheatsheet-container {
+  max-width: 1140px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: clamp(40px, 5vw, 64px);
+  position: relative;
+  z-index: 2;
 }
 
-.skills-cheatsheet-head {
-  max-width: 780px;
-  margin: 0 auto;
-  text-align: center;
+/* Header: Digital Concepts Logo */
+.cheatsheet-brand-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
 }
 
-.skills-cheatsheet-head .section-number {
-  margin-bottom: 12px;
-  display: block;
+.cheatsheet-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.skills-cheatsheet-title {
-  margin: 0 0 16px;
-  font-size: clamp(2.4rem, 5.2vw, 4.4rem);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-  text-wrap: balance;
-  color: var(--ink);
-}
-
-.skills-highlight-green {
-  color: #10b981;
-}
-
-.skills-highlight-purple {
-  color: #8b5cf6;
-}
-
-.skills-cheatsheet-lede {
-  margin: 0 auto;
-  max-width: 54ch;
-  color: var(--muted);
-  font-size: clamp(0.95rem, 1.25vw, 1.1rem);
-  line-height: 1.55;
-  font-weight: 500;
-}
-
-/* 4-column responsive grid of pinned memo cards */
-.skills-pinned-grid {
+.brand-rings {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(20px, 2.8vw, 34px);
-  position: relative;
-  padding: 18px 6px;
+  grid-template-columns: repeat(2, 10px);
+  grid-template-rows: repeat(2, 10px);
+  gap: 3px;
 }
 
-/* The Memo Card (paper sheet) */
-.skill-memo-card {
-  position: relative;
+.ring-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #58b947;
+}
+
+.ring-dot.dot-2 {
+  border-color: #78c668;
+}
+
+.brand-text {
   display: flex;
   flex-direction: column;
-  min-height: 250px;
-  padding: 24px 22px 22px;
-  border-radius: 24px;
+  line-height: 1;
+}
+
+.brand-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #1e293b;
+}
+
+.brand-subtitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #1e293b;
+}
+
+/* Main headline: Ultimate UI/UX Portfolio Cheatsheet for Designers */
+.cheatsheet-headline-wrap {
+  text-align: center;
+  margin: 0 auto clamp(36px, 5vw, 54px);
+  max-width: 860px;
+}
+
+.cheatsheet-main-title {
+  font-size: clamp(2.4rem, 4.8vw, 4.1rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  color: #27272a;
+}
+
+.highlight-cheatsheet {
+  color: #4ade28; /* vibrant lime green */
+}
+
+.highlight-designers {
+  color: #a855f7; /* vibrant purple */
+}
+
+/* Pinboard Area */
+.cheatsheet-board {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(34px, 4.5vw, 52px);
+  padding: 10px 0 30px;
+}
+
+/* The curved dashed track in background */
+.cheatsheet-dashed-svg {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.75;
+}
+
+/* Rows: 3 cards on top, 3 cards middle, 2 cards centered bottom */
+.cheatsheet-row {
+  display: grid;
+  position: relative;
+  z-index: 2;
+  gap: clamp(20px, 3.2vw, 42px);
+  width: 100%;
+}
+
+.row-3-cards {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.row-2-cards {
+  grid-template-columns: repeat(2, minmax(280px, 340px));
+  justify-content: center;
+}
+
+/* Memo Card Styling */
+.cheatsheet-card {
+  position: relative;
   background: #ffffff;
-  border: 1px solid rgba(36, 35, 58, 0.08);
+  border-radius: 20px;
+  padding: 26px 22px 24px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(226, 232, 240, 0.8);
   box-shadow:
-    0 12px 30px -12px rgba(36, 35, 58, 0.16),
-    0 4px 10px -4px rgba(36, 35, 58, 0.08);
-  transform: rotate(var(--card-rot, 0deg)) translateZ(0);
-  transition:
-    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-color 0.3s ease;
-  will-change: transform, box-shadow;
+    0 18px 36px -10px rgba(100, 116, 139, 0.16),
+    0 6px 14px -4px rgba(100, 116, 139, 0.08);
+  transform: rotate(var(--card-rot, 0deg));
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
   cursor: default;
 }
 
-.skill-memo-card:hover {
+.cheatsheet-card:hover {
   transform: translateY(-8px) scale(1.025) rotate(0deg) !important;
   box-shadow:
-    0 24px 45px -14px rgba(36, 35, 58, 0.24),
-    0 8px 18px -6px rgba(36, 35, 58, 0.12);
-  border-color: rgba(36, 35, 58, 0.18);
+    0 28px 50px -12px rgba(71, 85, 105, 0.22),
+    0 10px 20px -5px rgba(71, 85, 105, 0.12);
   z-index: 10;
 }
 
-/* Subtle pastel card background tints (matching the cheat sheet inspiration) */
-.skill-tint-green { background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 55%); border-color: #bbf7d0; }
-.skill-tint-pink { background: linear-gradient(180deg, #fdf2f8 0%, #ffffff 55%); border-color: #fbcfe8; }
-.skill-tint-cyan { background: linear-gradient(180deg, #ecfeff 0%, #ffffff 55%); border-color: #a5f3fc; }
-.skill-tint-yellow { background: linear-gradient(180deg, #fefce8 0%, #ffffff 55%); border-color: #fef08a; }
-.skill-tint-orange { background: linear-gradient(180deg, #fff7ed 0%, #ffffff 55%); border-color: #fed7aa; }
-.skill-tint-purple { background: linear-gradient(180deg, #faf5ff 0%, #ffffff 55%); border-color: #e9d5ff; }
-
-/* 3D Pushpin on top center */
-.skill-pushpin {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  width: 22px;
-  height: 22px;
-  pointer-events: none;
+/* Pastel Tint per Card matching image */
+.card-color-green {
+  background: linear-gradient(180deg, #f0fdf4 0%, #e2fbe8 100%);
+  border-color: #bbf7d0;
+}
+.card-color-coral {
+  background: linear-gradient(180deg, #fff7ed 0%, #ffedd5 100%);
+  border-color: #fed7aa;
+}
+.card-color-cyan {
+  background: linear-gradient(180deg, #f0fdfa 0%, #ecfdf5 100%);
+  border-color: #a7f3d0;
+}
+.card-color-teal {
+  background: linear-gradient(180deg, #f0fdfa 0%, #e6fffa 100%);
+  border-color: #99f6e4;
+}
+.card-color-yellow {
+  background: linear-gradient(180deg, #fefce8 0%, #fef9c3 100%);
+  border-color: #fef08a;
+}
+.card-color-navy {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border-color: #e2e8f0;
+}
+.card-color-pink {
+  background: linear-gradient(180deg, #fdf2f8 0%, #fce7f3 100%);
+  border-color: #fbcfe8;
+}
+.card-color-lime {
+  background: linear-gradient(180deg, #f7fee7 0%, #ecfccb 100%);
+  border-color: #d9f99d;
 }
 
-.pushpin-head {
-  position: relative;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #ffffff 0%, currentColor 45%, #000000 100%);
-  box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.28),
-    inset 0 1px 2px rgba(255, 255, 255, 0.8),
-    inset 0 -2px 3px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+.cheatsheet-card-inner {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
-.pushpin-shadow {
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 14px;
-  height: 6px;
-  background: rgba(0, 0, 0, 0.22);
-  border-radius: 50%;
-  filter: blur(2px);
-}
-
-.skill-memo-card:hover .pushpin-head {
-  transform: translateY(-2px) scale(1.08);
-}
-
-/* Pin color varieties */
-.skill-pin-green .pushpin-head { color: #10b981; }
-.skill-pin-pink .pushpin-head { color: #ec4899; }
-.skill-pin-blue .pushpin-head { color: #0284c7; }
-.skill-pin-lime .pushpin-head { color: #84cc16; }
-
-/* Top header row: Number pill + Tool logo */
-.skill-card-header {
+/* Top Row of Card */
+.card-top-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
-.skill-num-pill {
-  font: 800 1.25rem/1 'Manrope', sans-serif;
+.card-num {
+  font-size: 1.95rem;
+  font-weight: 800;
+  line-height: 1;
   letter-spacing: -0.04em;
-  padding: 4px 10px;
-  border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.skill-num-green { color: #10b981; }
-.skill-num-pink { color: #ec4899; }
-.skill-num-cyan { color: #06b6d4; }
-.skill-num-yellow { color: #eab308; }
-.skill-num-orange { color: #f97316; }
-.skill-num-purple { color: #8b5cf6; }
+/* Number accent color matching card identity */
+.card-color-green .card-num { color: #15803d; }
+.card-color-coral .card-num { color: #ea580c; }
+.card-color-cyan .card-num { color: #059669; }
+.card-color-teal .card-num { color: #0284c7; }
+.card-color-yellow .card-num { color: #d97706; }
+.card-color-navy .card-num { color: #2563eb; }
+.card-color-pink .card-num { color: #db2777; }
+.card-color-lime .card-num { color: #4d7c0f; }
 
-/* Tool logo box styles */
-.skill-badge-wrapper {
+/* Badge wrapper and shapes */
+.card-badge-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -912,119 +972,218 @@
   min-height: 44px;
 }
 
-.skill-logo-box {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  font-weight: 800;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+.sheet-badge-square {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
-.skill-logo-dark {
-  background: #000000;
+.sheet-badge-black {
+  background: #111111;
   color: #ffffff;
 }
 
-.skill-logo-blue {
-  background: #f7df1e;
-  color: #000000;
+.sheet-badge-un {
+  font-family: inherit;
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: #ffffff;
 }
 
-.skill-logo-in {
+.sheet-badge-openai {
+  background: #10a37f;
+  border-radius: 12px;
+}
+
+.sheet-badge-blue {
+  background: #0057ff;
+  color: #ffffff;
+}
+
+.sheet-badge-linkedin {
   background: #0a66c2;
   color: #ffffff;
+  border-radius: 8px;
 }
 
-.skill-logo-bordered {
-  background: #ffffff;
-  color: #000000;
-  border: 2px solid #000000;
-}
-
-.skill-logo-ai {
-  background: #10a37f;
-  color: #ffffff;
-}
-
-.skill-logo-text {
-  font: 800 1.25rem/1 'Manrope', sans-serif;
-}
-
-/* Card body typography */
-.skill-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1;
-}
-
-.skill-title {
-  margin: 0;
-  font-size: 1.2rem;
+.sheet-badge-text {
+  font-size: 1.55rem;
   font-weight: 800;
-  line-height: 1.2;
-  color: var(--ink);
+  line-height: 1;
+}
+
+.sheet-badge-pexels {
+  display: flex;
+  align-items: center;
+}
+
+.pexels-text {
+  font-family: "Georgia", serif, sans-serif;
+  font-size: 1.7rem;
+  font-weight: 800;
+  font-style: italic;
+  color: #111111;
   letter-spacing: -0.02em;
 }
 
-.skill-desc {
+.sheet-badge-notion-cube {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card typography */
+.card-title {
+  margin: 0 0 8px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #18181b;
+  letter-spacing: -0.02em;
+}
+
+.card-desc {
   margin: 0;
   font-size: 0.88rem;
   line-height: 1.5;
-  color: #4b4c63;
+  color: #3f3f46;
   font-weight: 500;
 }
 
-/* Dark mode theme adaptations */
-[data-theme="dark"] .skills {
-  background: #141525;
+/* ============================================================
+   3D Pushpin matching the image pins (spherical bead with metallic shaft & cast shadow)
+   ============================================================ */
+.cheatsheet-pushpin {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  z-index: 5;
 }
 
-[data-theme="dark"] .skills-cheatsheet-title {
-  color: #f4f3ff;
+.pin-sphere {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  box-shadow:
+    inset -3px -5px 8px rgba(0, 0, 0, 0.45),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.65),
+    0 6px 14px rgba(0, 0, 0, 0.28);
 }
 
-[data-theme="dark"] .skill-memo-card {
-  background: #1e2035;
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.45);
+.pin-highlight {
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  width: 8px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  filter: blur(0.5px);
 }
 
-[data-theme="dark"] .skill-tint-green { background: linear-gradient(180deg, #132a24 0%, #1e2035 60%); border-color: rgba(16, 185, 129, 0.35); }
-[data-theme="dark"] .skill-tint-pink { background: linear-gradient(180deg, #2b172a 0%, #1e2035 60%); border-color: rgba(236, 72, 153, 0.35); }
-[data-theme="dark"] .skill-tint-cyan { background: linear-gradient(180deg, #102934 0%, #1e2035 60%); border-color: rgba(6, 182, 212, 0.35); }
-[data-theme="dark"] .skill-tint-yellow { background: linear-gradient(180deg, #2c2918 0%, #1e2035 60%); border-color: rgba(234, 179, 8, 0.35); }
-[data-theme="dark"] .skill-tint-orange { background: linear-gradient(180deg, #2f1d17 0%, #1e2035 60%); border-color: rgba(249, 115, 22, 0.35); }
-[data-theme="dark"] .skill-tint-purple { background: linear-gradient(180deg, #241933 0%, #1e2035 60%); border-color: rgba(139, 92, 246, 0.35); }
-
-[data-theme="dark"] .skill-title {
-  color: #f4f3ff;
+.pin-rim-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
-[data-theme="dark"] .skill-desc {
-  color: #a5a7bf;
+.pin-hole-shadow {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.45) 0%, transparent 70%);
 }
 
-[data-theme="dark"] .skill-num-pill {
-  background: #151627;
+/* Pushpin Colors matching image */
+.pin-color-green .pin-sphere {
+  background: radial-gradient(circle at 35% 30%, #4ade80, #15803d 75%, #052e16 100%);
+}
+.pin-color-coral .pin-sphere {
+  background: radial-gradient(circle at 35% 30%, #fb7185, #e11d48 75%, #4c0519 100%);
+}
+.pin-color-cyan .pin-sphere {
+  background: radial-gradient(circle at 35% 30%, #34d399, #059669 75%, #022c22 100%);
+}
+.pin-color-teal .pin-sphere {
+  background: radial-gradient(circle at 35% 30%, #38bdf8, #0284c7 75%, #082f49 100%);
+}
+.pin-color-yellow .pin-sphere {
+  background: radial-gradient(circle at 35% 30%, #facc15, #ca8a04 75%, #422006 100%);
+}
+.pin-color-navy .pin-sphere {
+  background: radial-gradient(circle at 35% 30%, #60a5fa, #1d4ed8 75%, #172554 100%);
+}
+.pin-color-pink .pin-sphere {
+  background: radial-gradient(circle at 35% 30%, #f472b6, #db2777 75%, #500724 100%);
+}
+.pin-color-lime .pin-sphere {
+  background: radial-gradient(circle at 35% 30%, #a3e635, #65a30d 75%, #1a2e05 100%);
 }
 
-/* Responsive adjustments */
-@media (max-width: 1080px) {
-  .skills-pinned-grid {
+/* Footer strip */
+.cheatsheet-footer-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin-top: clamp(24px, 4vw, 44px);
+  padding-top: 20px;
+  border-top: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.footer-pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #334155;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-pill-link:hover {
+  color: #0284c7;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .row-3-cards,
+  .row-2-cards {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .cheatsheet-dashed-svg {
+    display: none;
   }
 }
 
 @media (max-width: 600px) {
-  .skills-pinned-grid {
+  .row-3-cards,
+  .row-2-cards {
     grid-template-columns: 1fr;
-    gap: 24px;
   }
-  .skill-memo-card {
-    min-height: auto;
+  .cheatsheet-footer-strip {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .cheatsheet-card {
     transform: none !important;
   }
 }

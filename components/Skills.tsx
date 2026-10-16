@@ -1,94 +1,93 @@
 import Reveal from "./Reveal";
 
+type CardColor = "green" | "coral" | "cyan" | "teal" | "yellow" | "navy" | "pink" | "lime";
+
 type SkillCard = {
   num: string;
   name: string;
   desc: string;
-  pin: "green" | "pink" | "blue" | "lime";
-  bgTint: "green" | "pink" | "yellow" | "cyan" | "orange" | "blue" | "purple";
-  badge: "figma" | "next" | "react" | "ai" | "node" | "tailwind" | "notion" | "linkedin";
-  angle?: number;
+  color: CardColor;
+  badge: "figma" | "unblast" | "google-ai" | "chatgpt" | "behance" | "pexels" | "notion" | "linkedin";
+  rot: number; // slight rotation degrees
 };
 
-const SKILLS: SkillCard[] = [
+const SKILLS_ROW_1: SkillCard[] = [
   {
     num: "01",
-    name: "Figma & UI/UX",
-    desc: "Design scalable design systems, interactive prototypes, and modern polished user interfaces.",
-    pin: "green",
-    bgTint: "green",
+    name: "Figma",
+    desc: "Design projects and assets for a standout UX/UI portfolio.",
+    color: "green",
     badge: "figma",
-    angle: -1.8,
+    rot: -4.5,
   },
   {
     num: "02",
-    name: "Next.js & React 19",
-    desc: "Build ultra-fast, server-rendered web applications with Turbopack and modern app architecture.",
-    pin: "pink",
-    bgTint: "pink",
-    badge: "next",
-    angle: 1.2,
+    name: "Unblast",
+    desc: "Supports with Free PSD Mockups, top Graphics, and Fonts to boost creativity.",
+    color: "coral",
+    badge: "unblast",
+    rot: 0.5,
   },
   {
     num: "03",
-    name: "TypeScript & Core",
-    desc: "Type-safe robust frontends and backend APIs with clean, reliable architecture.",
-    pin: "green",
-    bgTint: "cyan",
-    badge: "react",
-    angle: 2.1,
-  },
-  {
-    num: "04",
-    name: "AI & Modern Tools",
-    desc: "Integrate LLMs, AI workflows, and automate engineering tasks with precision.",
-    pin: "blue",
-    bgTint: "cyan",
-    badge: "ai",
-    angle: -1.5,
-  },
-  {
-    num: "05",
-    name: "Node & Databases",
-    desc: "Architect performant APIs, PostgreSQL queries, and resilient cloud backend services.",
-    pin: "lime",
-    bgTint: "yellow",
-    badge: "node",
-    angle: 0.8,
-  },
-  {
-    num: "06",
-    name: "Tailwind & Motion",
-    desc: "Craft bespoke responsive styling, micro-animations, and 60fps buttery-smooth interactions.",
-    pin: "blue",
-    bgTint: "orange",
-    badge: "tailwind",
-    angle: -2.0,
-  },
-  {
-    num: "07",
-    name: "System Architecture",
-    desc: "End-to-end documentation, roadmaps, task pipelines, and high-velocity shipping workflows.",
-    pin: "pink",
-    bgTint: "purple",
-    badge: "notion",
-    angle: 1.6,
-  },
-  {
-    num: "08",
-    name: "Direction & Delivery",
-    desc: "Collaborate directly with founders and teams to take ideas from zero to production launch.",
-    pin: "green",
-    bgTint: "green",
-    badge: "linkedin",
-    angle: -0.9,
+    name: "Google AI Studio",
+    desc: "Boosts research and streamlines UX design with AI tools.",
+    color: "cyan",
+    badge: "google-ai",
+    rot: 4.8,
   },
 ];
 
-function SkillBadge({ type }: { type: SkillCard["badge"] }) {
+const SKILLS_ROW_2: SkillCard[] = [
+  {
+    num: "04",
+    name: "Gemini & ChatGPT",
+    desc: "Assists designers in research, creativity, and accelerating workflows.",
+    color: "teal",
+    badge: "chatgpt",
+    rot: -3.5,
+  },
+  {
+    num: "05",
+    name: "Behance",
+    desc: "Showcase portfolio and let the audience explore your creative brilliance.",
+    color: "yellow",
+    badge: "behance",
+    rot: 0,
+  },
+  {
+    num: "06",
+    name: "Pexels",
+    desc: "Offers a collection of free, royalty-free, and copyright free stock images.",
+    color: "navy",
+    badge: "pexels",
+    rot: 4,
+  },
+];
+
+const SKILLS_ROW_3: SkillCard[] = [
+  {
+    num: "07",
+    name: "Notion",
+    desc: "Helps designers organize notes, tasks, and assets for smooth collaboration.",
+    color: "pink",
+    badge: "notion",
+    rot: -1.5,
+  },
+  {
+    num: "08",
+    name: "Linkedin",
+    desc: "Showcase your portfolio to highlight your expertise and creativity.",
+    color: "lime",
+    badge: "linkedin",
+    rot: 1.5,
+  },
+];
+
+function ToolBadge({ type }: { type: SkillCard["badge"] }) {
   if (type === "figma") {
     return (
-      <svg viewBox="0 0 38 57" width="24" height="34" aria-hidden="true">
+      <svg viewBox="0 0 38 57" width="26" height="38" aria-hidden="true">
         <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE" />
         <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z" fill="#0ACF83" />
         <path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z" fill="#FF7262" />
@@ -97,109 +96,206 @@ function SkillBadge({ type }: { type: SkillCard["badge"] }) {
       </svg>
     );
   }
-  if (type === "next") {
+  if (type === "unblast") {
     return (
-      <div className="skill-logo-box skill-logo-dark">
-        <span className="skill-logo-text">N</span>
+      <div className="sheet-badge-square sheet-badge-black">
+        <span className="sheet-badge-un">un</span>
       </div>
     );
   }
-  if (type === "react") {
+  if (type === "google-ai") {
     return (
-      <svg viewBox="-11.5 -10.23174 23 20.46348" width="32" height="30" fill="none" stroke="#00D8FE" strokeWidth="1" aria-hidden="true">
-        <circle cx="0" cy="0" r="2.05" fill="#00D8FE" />
-        <ellipse rx="11" ry="4.2" />
-        <ellipse rx="11" ry="4.2" transform="rotate(60)" />
-        <ellipse rx="11" ry="4.2" transform="rotate(120)" />
+      <svg viewBox="0 0 44 44" width="36" height="36" aria-hidden="true" fill="none">
+        {/* Playful butterfly / Google AI Studio sparkle logo */}
+        <path
+          d="M22 22C22 13 14 6 7 11C0 16 7 24 22 22Z"
+          fill="#3B82F6"
+        />
+        <path
+          d="M22 22C22 13 30 6 37 11C44 16 37 24 22 22Z"
+          fill="#1D4ED8"
+        />
+        <path
+          d="M22 22C22 31 15 38 8 33C1 28 8 20 22 22Z"
+          fill="#60A5FA"
+        />
+        <path
+          d="M22 22C22 31 29 38 36 33C43 28 36 20 22 22Z"
+          fill="#2563EB"
+        />
       </svg>
     );
   }
-  if (type === "ai") {
+  if (type === "chatgpt") {
     return (
-      <div className="skill-logo-box skill-logo-ai">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+      <div className="sheet-badge-square sheet-badge-openai">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M12 2a4 4 0 0 1 4 4v1.5a4 4 0 0 1 2.5 1.5 4 4 0 0 1-.5 5.5l-1 .7v1.8a4 4 0 0 1-2 3.5 4 4 0 0 1-5 0l-1.5-1a4 4 0 0 1-3.5-.5 4 4 0 0 1-.5-5.5l1-.7V11a4 4 0 0 1 2-3.5A4 4 0 0 1 12 2z" />
+          <path d="M12 8a4 4 0 0 0-4 4m4-4a4 4 0 0 1 4 4m-4-4v8m-4-4a4 4 0 0 0 4 4m-4-4l7 4m-7-4l7-4" />
         </svg>
       </div>
     );
   }
-  if (type === "node") {
+  if (type === "behance") {
     return (
-      <div className="skill-logo-box skill-logo-blue">
-        <span className="skill-logo-text">JS</span>
+      <div className="sheet-badge-square sheet-badge-blue">
+        <span className="sheet-badge-text">Bē</span>
       </div>
     );
   }
-  if (type === "tailwind") {
+  if (type === "pexels") {
     return (
-      <svg viewBox="0 0 24 24" width="28" height="28" fill="#38BDF8" aria-hidden="true">
-        <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.336 6.182 14.975 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C7.666 17.818 9.027 19.2 12.001 19.2c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.336 13.382 8.975 12 6.001 12z" />
-      </svg>
+      <div className="sheet-badge-pexels">
+        <span className="pexels-text">pexels</span>
+      </div>
     );
   }
   if (type === "notion") {
     return (
-      <div className="skill-logo-box skill-logo-bordered">
-        <span className="skill-logo-text">N</span>
+      <div className="sheet-badge-notion-cube">
+        <svg viewBox="0 0 36 36" width="34" height="34" fill="none" aria-hidden="true">
+          <path d="M6 10L18 4L30 10V26L18 32L6 26V10Z" fill="#FFFFFF" stroke="#111111" strokeWidth="2.4" strokeLinejoin="round" />
+          <path d="M18 4V32M6 10L18 16L30 10" stroke="#111111" strokeWidth="2.4" strokeLinejoin="round" />
+          <path d="M13 13.5V23L16 23.5V16.5L20 24L23 23.5V14L20 13.5V20.5L16 13L13 13.5Z" fill="#111111" />
+        </svg>
       </div>
     );
   }
   return (
-    <div className="skill-logo-box skill-logo-in">
-      <span className="skill-logo-text">in</span>
+    <div className="sheet-badge-square sheet-badge-linkedin">
+      <span className="sheet-badge-text">in</span>
     </div>
+  );
+}
+
+function PushPin({ color }: { color: CardColor }) {
+  return (
+    <div className={`cheatsheet-pushpin pin-color-${color}`} aria-hidden="true">
+      <div className="pin-sphere">
+        <div className="pin-highlight" />
+        <div className="pin-rim-glow" />
+      </div>
+      <div className="pin-hole-shadow" />
+    </div>
+  );
+}
+
+function MemoCard({ card, delay }: { card: SkillCard; delay: number }) {
+  return (
+    <Reveal
+      as="div"
+      delay={delay}
+      className={`cheatsheet-card card-color-${card.color}`}
+      style={{ "--card-rot": `${card.rot}deg` } as React.CSSProperties}
+    >
+      <PushPin color={card.color} />
+
+      <div className="cheatsheet-card-inner">
+        <div className="card-top-row">
+          <span className="card-num">{card.num}</span>
+          <div className="card-badge-wrap">
+            <ToolBadge type={card.badge} />
+          </div>
+        </div>
+
+        <h3 className="card-title">{card.name}</h3>
+        <p className="card-desc">{card.desc}</p>
+      </div>
+    </Reveal>
   );
 }
 
 export default function Skills() {
   return (
-    <section className="skills section-wrap" id="skills" aria-labelledby="skills-title">
-      <div className="skills-board-container">
-        {/* Board Header styled after Cheatsheet title */}
-        <div className="skills-cheatsheet-head">
-          <p className="section-number">02 / 04</p>
-          <h2 id="skills-title" className="skills-cheatsheet-title">
-            Engineering &amp; Design <span className="skills-highlight-green">Toolbox</span> for <span className="skills-highlight-purple">Production</span>
-          </h2>
-          <p className="skills-cheatsheet-lede">
-            Core stack and execution toolkit — fine-tuned for speed, visual clarity, and durable products.
-          </p>
+    <section className="skills cheatsheet-section" id="skills" aria-labelledby="skills-cheatsheet-title">
+      <div className="cheatsheet-container">
+        {/* Section Top Header matching image */}
+        <div className="cheatsheet-brand-row">
+          <div className="cheatsheet-brand-logo">
+            <div className="brand-rings" aria-hidden="true">
+              <span className="ring-dot dot-1" />
+              <span className="ring-dot dot-2" />
+              <span className="ring-dot dot-3" />
+              <span className="ring-dot dot-4" />
+            </div>
+            <div className="brand-text">
+              <span className="brand-title">DIGITAL</span>
+              <span className="brand-subtitle">CONCEPTS</span>
+            </div>
+          </div>
         </div>
 
-        {/* Pinned Memo Cards Grid */}
-        <div className="skills-pinned-grid">
-          {SKILLS.map((s, i) => (
-            <Reveal
-              as="div"
-              key={s.num}
-              delay={i * 60}
-              className={`skill-memo-card skill-tint-${s.bgTint}`}
-              style={{ "--card-rot": `${s.angle || 0}deg` } as React.CSSProperties}
-            >
-              {/* Pushpin at top center */}
-              <div className={`skill-pushpin skill-pin-${s.pin}`} aria-hidden="true">
-                <div className="pushpin-head" />
-                <div className="pushpin-shadow" />
-              </div>
+        <div className="cheatsheet-headline-wrap">
+          <h2 id="skills-cheatsheet-title" className="cheatsheet-main-title">
+            Ultimate UI/UX Portfolio<br />
+            <span className="highlight-cheatsheet">Cheatsheet</span> for{" "}
+            <span className="highlight-designers">Designers</span>
+          </h2>
+        </div>
 
-              {/* Top row: Number and Tool Logo badge */}
-              <div className="skill-card-header">
-                <span className={`skill-num-pill skill-num-${s.bgTint}`}>{s.num}</span>
-                <div className="skill-badge-wrapper">
-                  <SkillBadge type={s.badge} />
-                </div>
-              </div>
+        {/* Pinboard Area with connecting dashed loop & curved 3-3-2 memo rows */}
+        <div className="cheatsheet-board">
+          {/* Background curved dashed track connecting the pins */}
+          <svg className="cheatsheet-dashed-svg" viewBox="0 0 1100 860" preserveAspectRatio="none" aria-hidden="true">
+            <path
+              d="M 50 360 C 20 180, 160 120, 260 145 C 420 175, 680 175, 840 145 C 960 120, 1080 200, 1060 380 C 1040 560, 940 700, 780 730 C 620 760, 480 760, 320 730 C 140 700, 60 520, 50 360 Z"
+              fill="none"
+              stroke="#cbd5e1"
+              strokeWidth="2.5"
+              strokeDasharray="9 9"
+              strokeLinecap="round"
+            />
+          </svg>
 
-              {/* Title & Description */}
-              <div className="skill-card-body">
-                <h3 className="skill-title">{s.name}</h3>
-                <p className="skill-desc">{s.desc}</p>
-              </div>
-            </Reveal>
-          ))}
+          {/* Row 1: Cards 01, 02, 03 */}
+          <div className="cheatsheet-row row-3-cards row-top">
+            {SKILLS_ROW_1.map((c, i) => (
+              <MemoCard key={c.num} card={c} delay={i * 70} />
+            ))}
+          </div>
+
+          {/* Row 2: Cards 04, 05, 06 */}
+          <div className="cheatsheet-row row-3-cards row-middle">
+            {SKILLS_ROW_2.map((c, i) => (
+              <MemoCard key={c.num} card={c} delay={200 + i * 70} />
+            ))}
+          </div>
+
+          {/* Row 3: Cards 07, 08 (Centered 2 cards) */}
+          <div className="cheatsheet-row row-2-cards row-bottom">
+            {SKILLS_ROW_3.map((c, i) => (
+              <MemoCard key={c.num} card={c} delay={400 + i * 70} />
+            ))}
+          </div>
+        </div>
+
+        {/* Footer info strip matching reference image */}
+        <div className="cheatsheet-footer-strip">
+          <a
+            href="https://www.digitalconcepts.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-pill-link"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+            <span>www.digitalconcepts.in</span>
+          </a>
+
+          <a
+            href="tel:+919830140672"
+            className="footer-pill-link"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.78 14.07c-.24.68-1.39 1.3-1.92 1.38-.49.08-1.12.11-3.62-.92-2.98-1.23-4.9-4.27-5.05-4.47-.15-.2-1.21-1.61-1.21-3.07 0-1.46.77-2.18 1.04-2.48.27-.29.6-.37.8-.37.2 0 .4 0 .58.01.19.01.44-.07.69.52.26.61.88 2.15.96 2.31.08.16.13.35.03.55-.1.2-.15.33-.3.51-.15.18-.32.4-.46.54-.15.15-.31.31-.13.62.18.31.8 1.32 1.72 2.14 1.18 1.05 2.18 1.38 2.49 1.53.31.15.49.13.67-.08.18-.21.77-.9 1.02-1.25.26-.35.51-.29.86-.16.35.13 2.22 1.05 2.6 1.24.38.19.64.29.73.45.09.16.09.93-.15 1.61z" />
+            </svg>
+            <span>91 98301 40672</span>
+          </a>
         </div>
       </div>
     </section>
   );
 }
-
