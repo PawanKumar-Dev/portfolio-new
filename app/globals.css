@@ -872,10 +872,47 @@
   justify-content: center;
 }
 
-/* Memo Card Styling */
+/* Memo Card Outer Wrapper (handles positioning, reveal, and rotation) */
+.cheatsheet-card-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(var(--card-dy, 0px)) rotate(var(--card-rot, 0deg)) translateZ(0) !important;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.cheatsheet-card-wrapper[data-reveal].is-visible {
+  transform: translateY(var(--card-dy, 0px)) rotate(var(--card-rot, 0deg)) translateZ(0) !important;
+}
+
+/* Floating animation container - gentle breathing oscillation */
+.cheatsheet-card-float {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  transform-origin: 50% 12px;
+}
+
+.cheatsheet-card-wrapper[data-reveal].is-visible .cheatsheet-card-float {
+  animation: cardRestingFloat var(--float-dur, 5s) ease-in-out var(--float-delay, 0s) infinite alternate;
+}
+
+@keyframes cardRestingFloat {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(0.4deg);
+  }
+  100% {
+    transform: translateY(-1.5px) rotate(-0.35deg);
+  }
+}
+
+/* Memo Card Surface (Card styling, shadows, and silk-smooth lift physics) */
 .cheatsheet-card {
   position: relative;
-  background: #ffffff;
   border-radius: 20px;
   padding: 26px 22px 24px;
   min-height: 220px;
@@ -883,52 +920,34 @@
   flex-direction: column;
   border: 1px solid rgba(226, 232, 240, 0.85);
   box-shadow:
-    0 16px 32px -10px rgba(100, 116, 139, 0.14),
-    0 6px 12px -4px rgba(100, 116, 139, 0.06);
-  transform: translateY(var(--card-dy, 0px)) rotate(var(--card-rot, 0deg)) !important;
+    0 12px 28px -8px rgba(100, 116, 139, 0.12),
+    0 4px 10px -3px rgba(100, 116, 139, 0.05);
   transition:
-    transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28),
-    box-shadow 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28),
-    border-color 0.3s ease;
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s ease;
+  will-change: transform, box-shadow;
   cursor: default;
-  transform-origin: 50% 12px; /* pivots naturally from the pushpin */
+  transform-origin: 50% 14px;
 }
 
-/* Natural resting floating animation when visible */
-.cheatsheet-card[data-reveal].is-visible {
-  animation: cardRestingFloat var(--float-dur, 5s) ease-in-out var(--float-delay, 0s) infinite alternate;
+/* Silk-smooth hover: un-tilts wrapper, elevates card, deepens drop shadow */
+.cheatsheet-card-wrapper:hover {
+  transform: translateY(calc(var(--card-dy, 0px) - 6px)) rotate(0deg) translateZ(0) !important;
+  z-index: 25;
 }
 
-@keyframes cardRestingFloat {
-  0% {
-    transform: translateY(var(--card-dy, 0px)) rotate(var(--card-rot, 0deg));
-    box-shadow:
-      0 16px 32px -10px rgba(100, 116, 139, 0.14),
-      0 6px 12px -4px rgba(100, 116, 139, 0.06);
-  }
-  50% {
-    transform: translateY(calc(var(--card-dy, 0px) - 4px)) rotate(calc(var(--card-rot, 0deg) + 0.6deg));
-    box-shadow:
-      0 22px 38px -12px rgba(100, 116, 139, 0.18),
-      0 8px 16px -5px rgba(100, 116, 139, 0.08);
-  }
-  100% {
-    transform: translateY(calc(var(--card-dy, 0px) - 2px)) rotate(calc(var(--card-rot, 0deg) - 0.5deg));
-    box-shadow:
-      0 19px 34px -11px rgba(100, 116, 139, 0.16),
-      0 7px 14px -4px rgba(100, 116, 139, 0.07);
-  }
-}
-
-/* Interactive hover: card lifts forward toward user, un-tilts cleanly, and pin subtly responds */
-.cheatsheet-card:hover {
+.cheatsheet-card-wrapper:hover .cheatsheet-card-float {
   animation-play-state: paused;
-  transform: translateY(calc(var(--card-dy, 0px) - 10px)) scale(1.03) rotate(0deg) !important;
+}
+
+.cheatsheet-card-wrapper:hover .cheatsheet-card {
+  transform: translateY(-6px) scale(1.025);
   box-shadow:
-    0 32px 58px -12px rgba(71, 85, 105, 0.25),
-    0 14px 24px -6px rgba(71, 85, 105, 0.12),
-    0 0 0 1px rgba(255, 255, 255, 0.9);
-  z-index: 20;
+    0 28px 52px -12px rgba(51, 65, 85, 0.22),
+    0 10px 20px -5px rgba(51, 65, 85, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.95);
+  border-color: rgba(203, 213, 225, 0.95);
 }
 
 /* Background curved dashed track animated marching dashes */

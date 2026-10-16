@@ -420,14 +420,14 @@ function PushPin({ color }: { color: CardColor }) {
 
 function MemoCard({ card, delay, index }: { card: SkillCard; delay: number; index: number }) {
   // Stagger idle floating speeds and offsets so the pinned cards breathe organically
-  const floatDur = 4.2 + (index % 3) * 0.9;
-  const floatDelay = (index * 0.6) % 3.6;
+  const floatDur = 4.8 + (index % 3) * 0.8;
+  const floatDelay = (index * 0.5) % 3.2;
 
   return (
     <Reveal
       as="div"
       delay={delay}
-      className={`cheatsheet-card card-color-${card.color}`}
+      className={`cheatsheet-card-wrapper card-color-${card.color}`}
       style={
         {
           "--card-rot": `${card.rot}deg`,
@@ -437,18 +437,22 @@ function MemoCard({ card, delay, index }: { card: SkillCard; delay: number; inde
         } as React.CSSProperties
       }
     >
-      <PushPin color={card.color} />
+      <div className="cheatsheet-card-float">
+        <div className="cheatsheet-card">
+          <PushPin color={card.color} />
 
-      <div className="cheatsheet-card-inner">
-        <div className="card-top-row">
-          <span className="card-num">{card.num}</span>
-          <div className="card-badge-wrap">
-            <ToolBadge type={card.badge} />
+          <div className="cheatsheet-card-inner">
+            <div className="card-top-row">
+              <span className="card-num">{card.num}</span>
+              <div className="card-badge-wrap">
+                <ToolBadge type={card.badge} />
+              </div>
+            </div>
+
+            <h3 className="card-title">{card.name}</h3>
+            <p className="card-desc">{card.desc}</p>
           </div>
         </div>
-
-        <h3 className="card-title">{card.name}</h3>
-        <p className="card-desc">{card.desc}</p>
       </div>
     </Reveal>
   );
