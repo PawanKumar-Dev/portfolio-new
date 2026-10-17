@@ -1175,6 +1175,129 @@
   }
 }
 
+/* ============================================================
+   SKILLS - Dark Mode Aesthetics
+   Transforms the light post-it memo board into a sleek, dark-canvas
+   luminescent pinboard matching the rest of the dark portfolio:
+   - Deep obsidian notebook grid background
+   - Illuminated heading with vivid lime glow
+   - Sleek frosted tinted-glass memo cards with luminous edges
+   - Crisp white/light-gray typography for maximum readability
+   - Glow halos around the 3D translucent pushpins
+   ============================================================ */
+[data-theme="dark"] .cheatsheet-section {
+  background-color: #0b0c16;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 38px,
+    rgba(255, 255, 255, 0.04) 38px,
+    rgba(255, 255, 255, 0.04) 40px
+  );
+  color: #f4f3ff;
+}
+
+[data-theme="dark"] .cheatsheet-main-title {
+  color: #f4f3ff;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .highlight-cheatsheet {
+  color: #4ade80;
+  text-shadow: 0 0 24px rgba(74, 222, 128, 0.45);
+}
+
+[data-theme="dark"] .cheatsheet-dashed-svg path {
+  stroke: rgba(255, 255, 255, 0.16);
+}
+
+/* Dark mode memo cards: Deep tinted frosted slabs */
+[data-theme="dark"] .cheatsheet-card {
+  box-shadow:
+    0 16px 36px -10px rgba(0, 0, 0, 0.65),
+    0 4px 12px -3px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .cheatsheet-card.is-tilted {
+  box-shadow:
+    0 32px 64px -14px rgba(0, 0, 0, 0.8),
+    0 14px 28px -6px rgba(0, 0, 0, 0.5);
+}
+
+/* Tinted Dark Mode Card Backgrounds with luminous subtle borders */
+[data-theme="dark"] .card-color-green {
+  background: linear-gradient(180deg, #122119 0%, #0d1a13 100%);
+  border-color: rgba(74, 222, 128, 0.28);
+}
+[data-theme="dark"] .card-color-coral {
+  background: linear-gradient(180deg, #251419 0%, #1a0d11 100%);
+  border-color: rgba(251, 113, 133, 0.28);
+}
+[data-theme="dark"] .card-color-cyan {
+  background: linear-gradient(180deg, #102224 0%, #0c181a 100%);
+  border-color: rgba(45, 212, 191, 0.28);
+}
+[data-theme="dark"] .card-color-teal {
+  background: linear-gradient(180deg, #0e202e 0%, #091722 100%);
+  border-color: rgba(56, 189, 248, 0.28);
+}
+[data-theme="dark"] .card-color-yellow {
+  background: linear-gradient(180deg, #241d10 0%, #18130a 100%);
+  border-color: rgba(250, 204, 21, 0.28);
+}
+[data-theme="dark"] .card-color-navy {
+  background: linear-gradient(180deg, #13192a 0%, #0d121e 100%);
+  border-color: rgba(96, 165, 250, 0.28);
+}
+[data-theme="dark"] .card-color-pink {
+  background: linear-gradient(180deg, #261327 0%, #1a0b1b 100%);
+  border-color: rgba(232, 121, 249, 0.28);
+}
+[data-theme="dark"] .card-color-lime {
+  background: linear-gradient(180deg, #192410 0%, #111a0a 100%);
+  border-color: rgba(163, 230, 53, 0.28);
+}
+
+/* Luminous numerals in dark mode */
+[data-theme="dark"] .card-color-green .card-num { color: #4ade80; text-shadow: 0 0 12px rgba(74, 222, 128, 0.35); }
+[data-theme="dark"] .card-color-coral .card-num { color: #fb7185; text-shadow: 0 0 12px rgba(251, 113, 133, 0.35); }
+[data-theme="dark"] .card-color-cyan .card-num { color: #2dd4bf; text-shadow: 0 0 12px rgba(45, 212, 191, 0.35); }
+[data-theme="dark"] .card-color-teal .card-num { color: #38bdf8; text-shadow: 0 0 12px rgba(56, 189, 248, 0.35); }
+[data-theme="dark"] .card-color-yellow .card-num { color: #facc15; text-shadow: 0 0 12px rgba(250, 204, 21, 0.35); }
+[data-theme="dark"] .card-color-navy .card-num { color: #60a5fa; text-shadow: 0 0 12px rgba(96, 165, 250, 0.35); }
+[data-theme="dark"] .card-color-pink .card-num { color: #f472b6; text-shadow: 0 0 12px rgba(244, 114, 182, 0.35); }
+[data-theme="dark"] .card-color-lime .card-num { color: #a3e635; text-shadow: 0 0 12px rgba(163, 230, 53, 0.35); }
+
+/* Typography contrast in dark mode */
+[data-theme="dark"] .card-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .card-desc {
+  color: #94a3b8;
+}
+
+/* Tool Badges in dark mode */
+[data-theme="dark"] .sheet-badge-black {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .pexels-text {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .sheet-badge-notion-cube svg path:first-child {
+  fill: #1e293b;
+  stroke: #94a3b8;
+}
+[data-theme="dark"] .sheet-badge-notion-cube svg path:nth-child(2) {
+  stroke: #94a3b8;
+}
+[data-theme="dark"] .sheet-badge-notion-cube svg path:last-child {
+  fill: #f1f5f9;
+}
+
 
 
 
